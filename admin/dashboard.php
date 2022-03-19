@@ -3,7 +3,22 @@ include("session.php");
 include("../config/config.php");
 
 ?>
-
+<?php 
+if (!$connection) {
+    # code...
+    echo "Problem in database connection! Contact administrator!" .
+        mysqli_error();
+} else {
+    $sql =
+        "SELECT upper(Region) as reg, COUNT(clientID) as pap FROM turnedonpap GROUP BY Region ORDER BY pap DESC";
+    $result = mysqli_query($connection, $sql);
+    $chart_data = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $Region[] = $row["reg"];
+        $Clients[] = $row["pap"];
+    }
+}
+?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -13,11 +28,10 @@ include("../config/config.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard</title>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+ 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -68,11 +82,15 @@ include("../config/config.php");
         #cellPaiChart{
             height: 160px;
         }
+        #a{
+            color:black; 
+            font-size: 20px;
+        }
 
     </style>
 </head>
 
-<body>
+<body style="background-color:#e1e1e1">
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -83,34 +101,34 @@ include("../config/config.php");
                     </li>
                     <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
                     <li>
-                        <a href="pap-daily-sales"> <i class="menu-icon ti-layout-grid3"></i>Signed </a>
+                        <a href="pap-daily-sales.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Signed </a>
                     </li>
                     <li>
-                        <a href="restituted.php"> <i class="menu-icon ti-layout-grid3"></i>Resitituted </a>
+                        <a href="restituted.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Resitituted </a>
                     </li>
                     <li>
-                        <a href="pending-installation-php"> <i class="menu-icon ti-layout-grid3"></i>Pending Installation </a>
+                        <a href="pending-installation.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Pending Installation </a>
                     </li>
                     <li>
-                        <a href="installed.php"> <i class="menu-icon ti-layout-grid3"></i>Installed </a>
+                        <a href="installed.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Installed </a>
                     </li>
                     <li>
-                        <a href="Turnedon.php"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
+                        <a href="turnedon.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
                     </li>
                     <li class="menu-title">ACCOUNTS</li><!-- /.menu-title -->
 
                     <li>
-                        <a href="add-tl.php"> <i class="menu-icon ti-themify-favicon-alt"></i>Add Teamleader </a>
+                        <a href="add-tl.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-themify-favicon-alt"></i>Add Teamleader </a>
                     </li>
                     <li>
-                        <a href="view-tl.php"> <i class="menu-icon ti-eye"></i>View Teamleader </a>
+                        <a href="view-tl.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-eye"></i>View Teamleader </a>
                     </li>
-                    <li class="menu-title">TOOLS</li><!-- /.menu-title -->
+                    <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
                     <li>
-                        <a href="gallery.php"> <i class="menu-icon ti-gallery"></i>Gallery </a>
+                        <a href="gallery.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-gallery"></i>Gallery </a>
                     </li>
                     <li>
-                        <a href="profile.php"> <i class="menu-icon ti-user"></i>Profile </a>
+                        <a href="profile.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-user"></i>Profile </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -138,67 +156,11 @@ include("../config/config.php");
                         </div>
 
                         <div class="dropdown for-notification">
-                           <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="count bg-danger">3</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-check"></i>
-                                    <p>Server #1 overloaded.</p>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-info"></i>
-                                    <p>Server #2 overloaded.</p>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-warning"></i>
-                                    <p>Server #3 overloaded.</p>
-                                </a>
-                            </div>-->
+
                         </div>
 
                         <div class="dropdown for-message">
-                           <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary">4</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/2.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jack Sanders</span>
-                                        <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/3.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Cheryl Wheeler</span>
-                                        <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                            </div>-->
+
                         </div>
                     </div>
 
@@ -344,7 +306,7 @@ include("../config/config.php");
                     <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="mb-3">Doughut Chart </h4>
+                                    <h4 class="mb-3">Clients Per Region</h4>
                                     <canvas id="doughutChart"></canvas>
                                 </div>
                             </div>
@@ -357,11 +319,11 @@ include("../config/config.php");
                     <div class="col-lg-12">
                     <div class="card">
                     <div class="card-body">
-                                    <div class="table-stats order-table ov-h">
-                                        <table class="table ">
+                                    
+                                        <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>Duration</th>
                                                     <th>Signed</th>
                                                     <th>Installed</th>
                                                     <th>Turned On</th>
@@ -370,20 +332,62 @@ include("../config/config.php");
                                             <tbody>
                                                 <tr>
                                                 <td class="serial">Past 7 Days</td>
-                                                <td class="serial">7</td>
-                                                <td class="serial">5</td>
-                                                <td class="serial">2</td>
+                                                <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as SignedPaP from papdailysales where DateSigned>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["SignedPaP"] . "<br><br>";
+         }
+         ?></td>
+                                                <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyinstalled from papinstalled where DateInstalled>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyinstalled"] . "<br><br>";
+         }
+         ?></td>
+                                                <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyturnedon from turnedonpap where DateTurnedOn>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyturnedon"] . "<br><br>";
+         }
+         ?></td>
                                                     </td>
                                                 </tr>
                                                 <tr><td class="serial">Past 30 Days</td>
-                                                    <td class="serial">56</td>
-                                                    <td class="serial">99</td>
-                                                    <td class="serial">6</td>
+                                                    <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as SignedPaP from papdailysales left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID where papdailysales.DateSigned >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) and papnotinstalled.ClientID is null";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["SignedPaP"] . "<br><br>";
+         }
+         ?></td>
+                                                    <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyinstalled from papinstalled where DateInstalled >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyinstalled"] . "<br><br>";
+         }
+         ?></td>
+                                                    <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyturnedon from turnedonpap where DateTurnedOn >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyturnedon"] . "<br><br>";
+         }
+         ?></td>
                                                 </tr>
                                                 
                                             </tbody>
                                         </table>
-                                    </div> <!-- /.table-stats -->
+                                
                                 </div>
     </div>
     </div></div>
@@ -430,25 +434,202 @@ include("../config/config.php");
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
-            labels: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul" ],
+            labels: ["<?php echo date("Y-m-d", strtotime("-6 days")); ?>","<?php echo date(
+    "Y-m-d",
+    strtotime("-5 days")
+); ?>","<?php echo date("Y-m-d", strtotime("-4 days")); ?>","<?php echo date(
+    "Y-m-d",
+    strtotime("-3 days")
+); ?>","<?php echo date("Y-m-d", strtotime("-2 days")); ?>","<?php echo date(
+    "Y-m-d",
+    strtotime("-1 days")
+); ?>","<?php echo date("Y-m-d"); ?>" ],
             datasets: [
                 {
                     label: "Signed",
-                    data: [ 65, 59, 80, 81, 56, 55, 45 ],
+                    data: [ <?php
+      $sql =
+          "SELECT COUNT(DateSigned) as sales FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 6 DAY)";
+      $result = mysqli_query($connection, $sql);
+      $chart_data = "";
+      while ($signed = mysqli_fetch_assoc($result)) {
+          echo $signed["sales"];
+      }
+      ?>,<?php
+$sql =
+    "SELECT COUNT(DateSigned) as sales FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 5 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["sales"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateSigned) as sales FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 4 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["sales"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateSigned) as sales FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 3 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["sales"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateSigned) as sales FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 2 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["sales"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateSigned) as sales FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["sales"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateSigned) as sales FROM papdailysales where DateSigned=CURDATE()";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["sales"];
+}
+?> ],
                     borderColor: "rgba(0, 194, 146, 0.9)",
                     borderWidth: "0",
                     backgroundColor: "#0cbeaf"
                             },
                 {
                     label: "Installed",
-                    data: [ 28, 48, 40, 19, 86, 27, 76 ],
+                    data: [<?php
+      $sql =
+          "SELECT COUNT(DateInstalled) as installed FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 6 DAY)";
+      $result = mysqli_query($connection, $sql);
+      $chart_data = "";
+      while ($signed = mysqli_fetch_assoc($result)) {
+          echo $signed["installed"];
+      }
+      ?>,<?php
+$sql =
+    "SELECT COUNT(DateInstalled) as installed FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 5 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["installed"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateInstalled) as installed FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 4 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["installed"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateInstalled) as installed FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 3 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["installed"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateInstalled) as installed FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 2 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["installed"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateInstalled) as installed FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["installed"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateInstalled) as installed FROM papinstalled where DateInstalled=CURDATE()";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["installed"];
+}
+?> ],
                     borderColor: "rgba(0,0,0,0.09)",
                     borderWidth: "0",
                     backgroundColor: "#ffb91f"
                             },
                             {
                     label: "Turned On",
-                    data: [ 28, 48, 40, 19, 86, 27, 76 ],
+                    data: [ <?php
+      $sql =
+          "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where DateTurnedOn=DATE_SUB(CURDATE(), INTERVAL 6 DAY)";
+      $result = mysqli_query($connection, $sql);
+      $chart_data = "";
+      while ($signed = mysqli_fetch_assoc($result)) {
+          echo $signed["turnedon"];
+      }
+      ?>,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where DateTurnedOn=DATE_SUB(CURDATE(), INTERVAL 5 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where DateTurnedOn=DATE_SUB(CURDATE(), INTERVAL 4 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where DateTurnedOn=DATE_SUB(CURDATE(), INTERVAL 3 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where DateTurnedOn=DATE_SUB(CURDATE(), INTERVAL 2 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where DateTurnedOn=DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?>,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where DateTurnedOn=CURDATE()";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?> ],
                     borderColor: "rgba(0,0,0,0.09)",
                     borderWidth: "0",
                     backgroundColor: "#fe2d38"
@@ -472,26 +653,32 @@ include("../config/config.php");
         type: 'doughnut',
         data: {
             datasets: [ {
-                data: [ 35, 40, 20, 5 ],
+                data: [ 35, 40, 20, 5, 7,27 ],
                 backgroundColor: [
                                     "#ee2c4e",
                                     "#ffb91f",
                                     "#0cbeaf",
-                                    "#3072f5"
+                                    "#3072f5",
+                                    "#000000",
+                                    "#85ce36"
                                 ],
                 hoverBackgroundColor: [
-                                    "rgba(0, 194, 146,0.9)",
-                                    "rgba(0, 194, 146,0.7)",
-                                    "rgba(0, 194, 146,0.5)",
-                                    "rgba(0,0,0,0.07)"
+                                    "#e1e1e1",
+                                    "#e1e1e1",
+                                    "#e1e1e1",
+                                    "#e1e1e1",
+                                    "#e1e1e1",
+                                    "#e1e1e1"
                                 ]
 
                             } ],
             labels: [
-                            "green",
-                            "green",
-                            "green",
-                            "green"
+                            "ZMM",
+                            "G44",
+                            "R&M",
+                            "G45S",
+                            "G45N",
+                            "KWT"
                         ]
         },
         options: {
