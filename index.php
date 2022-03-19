@@ -39,7 +39,7 @@ if (isset($_POST["submit"])) {
                     $_SESSION["ID"] = $data["ID"];
                     $_SESSION["Region"] = $data["REGION"];
                     $_SESSION["Region1"] = $data["ADDREGION"];
-                    header("Location: sales/dashboard.php");
+                    header("Location: champs/dashboard.php");
                 } else {
                     echo "<script>alert('Wrong Password.');</script>";
                     echo '<script>window.location.href="index.php";</script>';
