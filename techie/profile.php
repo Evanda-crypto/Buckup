@@ -6,9 +6,6 @@ include("../config/config.php");
 $id=$_SESSION['ID'];
 if (isset($_POST["submit"])) {
     $Password = trim($_POST["password"]);
-    $FirstName = trim($_POST['FName']);
-    $LastName = trim($_POST['LName']);
-    $Email = trim($_POST['email']);
     $newpass = trim($_POST['newpass']);
 
     $hashpass= password_hash($newpass,PASSWORD_DEFAULT);
@@ -18,14 +15,14 @@ if (isset($_POST["submit"])) {
         echo '<script>window.location.href="login.php";</script>';
     }
     else{
-        $stmt = $connection->prepare("SELECT * from employees where ID= ?");
+        $stmt = $connection->prepare("SELECT * from teams where ID= ?");
         $stmt->bind_param("s", $id);
         $stmt->execute();
         $stmt_result = $stmt->get_result();
         if ($stmt_result->num_rows > 0) {
             $data = $stmt_result->fetch_assoc();
-            if (password_verify($Password, $data["PASSWORD"])) {
-                $sql="update employees set FIRST_NAME='$FirstName',LAST_NAME='$LastName',EMAIL='$Email',PASSWORD='$hashpass' where ID=$id";
+            if (password_verify($Password, $data["Password"])) {
+                $sql="update teams set Password='$hashpass' where ID=$id";
                 $result=mysqli_query($connection,$sql);
                 if ($result) {
                   echo '<script>alert("Password reset Succesfull")</script>';
@@ -76,8 +73,6 @@ if (isset($_POST["submit"])) {
 </head>
 <body style="background-color:#e1e1e1">
     <!-- Left Panel -->
-
-
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -85,36 +80,19 @@ if (isset($_POST["submit"])) {
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="pap-daily-sales.php"> <i class="menu-icon ti-layout-grid3"></i>Signed </a>
+                    <li class="active">
+                        <a href="mytask.php"><i class="menu-icon fa fa-tasks"></i>My Task</a>
                     </li>
-                    <li>
-                        <a href="restituted.php"> <i class="menu-icon ti-layout-grid3"></i>Resitituted </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="installed.php">Installed Today</a></li>
+                            <li><i class="fa fa-table"></i><a href="not-turnedon.php">Not Turned On</a></li>
+                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="pending-installation.php"> <i class="menu-icon ti-layout-grid3"></i>Pending Installation </a>
-                    </li>
-                    <li>
-                        <a href="installed.php"> <i class="menu-icon ti-layout-grid3"></i>Installed </a>
-                    </li>
-                    <li>
-                        <a href="turnedon.php"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
-                    </li>
-                    <li class="menu-title">ACCOUNTS</li><!-- /.menu-title -->
-
-                    <li>
-                        <a href="add-tl.php"> <i class="menu-icon ti-themify-favicon-alt"></i>Add Teamleader </a>
-                    </li>
-                    <li>
-                        <a href="view-tl.php"> <i class="menu-icon ti-eye"></i>View Teamleader </a>
-                    </li>
-                    <li class="menu-title">TOOLS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="gallery.php"> <i class="menu-icon ti-gallery"></i>Gallery </a>
-                    </li>
-                    <li>
-                        <a href="profile.php"> <i class="menu-icon ti-user"></i>Profile </a>
+                    <li class="active">
+                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -133,6 +111,7 @@ if (isset($_POST["submit"])) {
             </div>
             <div class="top-right">
                 <div class="header-menu">
+                    
                     <div class="header-left">
                         
                         <div class="form-inline">
@@ -140,20 +119,69 @@ if (isset($_POST["submit"])) {
                                 
                             </form>
                         </div>
-
                         <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger"><?php
+                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['MyTask']."<br><br>";
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                               <hr> <p class="red">You have <?php
+                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['MyTask'];
+                                              }
+                                              ?> Tasks</p></hr>
+                                <a class="dropdown-item media" href="my-tasks.php">
+                                    <i class="fa fa-check"></i>
+                                    <p>Check Out</p>
+                                </a>
+                            </div>
                         </div>
-
                         <div class="dropdown for-message">
-                      
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <center><p class="red">Account Information</p></center>
+                                <a class="dropdown-item media" href="#">
+                                    <div class="message media-body">
+                                       <center> <span class="name"><?php echo $_SESSION['TeamID']?></span></center>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/images.jpg"></span>
+                                    <div class="message media-body">
+                                        <strong><span class="name float-left">Techie 1</span></strong>
+                                        <center> <span class="name float-left"><?php echo $_SESSION['Techie1']?></span> </center>
+                                        
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/images.jpg"></span>
+                                    <div class="message media-body">
+                                        <strong><span class="name float-left">Techie 2</span></strong>
+                                        <center><span class="name float-left"><?php echo $_SESSION['Techie2']?></span> </center>
+                                        
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="name float-left"><?php echo $_SESSION[
-                 "FName"
-             ]; ?> <?php echo $_SESSION["LName"]; ?></span>
+                 "TeamID"
+             ]; ?></span>
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -163,7 +191,7 @@ if (isset($_POST["submit"])) {
 
                 </div>
             </div>
-        </header><!-- /header -->
+        </header>
         <!-- Header-->
 
         <div class="content">
@@ -188,19 +216,19 @@ if (isset($_POST["submit"])) {
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" id="username" name="FName" value="<?php echo $_SESSION['FName']?>" placeholder="First Name" class="form-control">
+                                        <input type="text" id="username" name="FName" value="<?php echo $_SESSION['Techie1']?>" placeholder="Techie 1" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" id="username" name="LName" placeholder="Last Name" value="<?php echo $_SESSION['LName']?>" class="form-control">
+                                        <input type="text" id="username" name="LName" placeholder="Techie2" value="<?php echo $_SESSION['Techie2']?>" class="form-control" readonly>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['Admin']?>" class="form-control">
+                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['TeamID']?>" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">

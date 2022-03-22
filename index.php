@@ -61,7 +61,7 @@ if (isset($_POST["submit"])) {
                         $_SESSION["teamleader"] = $EMAIL;
                         $_SESSION["FName"] = $data["FIRST_NAME"];
                         $_SESSION["LName"] = $data["LAST_NAME"];
-                        $_SESSION["ID"] = $data["ID"];
+                        $_SESSION["ID"] = $info["ID"];
                         $_SESSION["Region"] = $info["REGION"];
                         header("Location: teamleaders/techie/dashboard.php");
                     } elseif (
@@ -74,7 +74,7 @@ if (isset($_POST["submit"])) {
                         $_SESSION["Sales"] = $EMAIL;
                         $_SESSION["ID"] = $data["ID"];
                         $_SESSION["Region"] = $info["REGION"];
-                        header("Location: teamleaders/sales/dashboard.php ");
+                        header("Location: teamleaders/champs/dashboard.php ");
                     } else {
                         echo "<script>alert('Wrong Password.');</script>";
                         echo '<script>window.location.href="index.php";</script>';

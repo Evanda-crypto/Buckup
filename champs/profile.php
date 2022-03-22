@@ -76,45 +76,35 @@ if (isset($_POST["submit"])) {
 </head>
 <body style="background-color:#e1e1e1">
     <!-- Left Panel -->
-
-
-    <aside id="left-panel" class="left-panel">
+   <!-- Left Panel -->
+   <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="pap-daily-sales.php"> <i class="menu-icon ti-layout-grid3"></i>Signed </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>REPORT</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="residential.php">Residential</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="business.php">Business</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="restituted.php"> <i class="menu-icon ti-layout-grid3"></i>Resitituted </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
+                            <li><i class="fa fa-table"></i><a href="to-restore.php">To Restore</a></li>
+                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
+                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="pending-installation.php"> <i class="menu-icon ti-layout-grid3"></i>Pending Installation </a>
+                    <li class="active">
+                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
                     </li>
-                    <li>
-                        <a href="installed.php"> <i class="menu-icon ti-layout-grid3"></i>Installed </a>
-                    </li>
-                    <li>
-                        <a href="turnedon.php"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
-                    </li>
-                    <li class="menu-title">ACCOUNTS</li><!-- /.menu-title -->
-
-                    <li>
-                        <a href="add-tl.php"> <i class="menu-icon ti-themify-favicon-alt"></i>Add Teamleader </a>
-                    </li>
-                    <li>
-                        <a href="view-tl.php"> <i class="menu-icon ti-eye"></i>View Teamleader </a>
-                    </li>
-                    <li class="menu-title">TOOLS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="gallery.php"> <i class="menu-icon ti-gallery"></i>Gallery </a>
-                    </li>
-                    <li>
-                        <a href="profile.php"> <i class="menu-icon ti-user"></i>Profile </a>
+                    <li class="active">
+                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -188,19 +178,19 @@ if (isset($_POST["submit"])) {
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" id="username" name="FName" value="<?php echo $_SESSION['FName']?>" placeholder="First Name" class="form-control">
+                                        <input type="text" id="username" name="FName" value="<?php echo $_SESSION['FName']?>" placeholder="First Name" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" id="username" name="LName" placeholder="Last Name" value="<?php echo $_SESSION['LName']?>" class="form-control">
+                                        <input type="text" id="username" name="LName" placeholder="Last Name" value="<?php echo $_SESSION['LName']?>" class="form-control" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['Admin']?>" class="form-control">
+                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['Sales']?>" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -208,7 +208,7 @@ else
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                        </div>
                                             <div class="form-group">
                                                 <label for="cc-payment" class="control-label mb-1">Email</label>
                                                 <input id="cc-pament" name="email"  type="email"  value="<?php echo $email; ?>" class="form-control" aria-required="true" aria-invalid="false" placeholder="Email">
@@ -221,7 +221,7 @@ else
                                             </select>
                                             </div>
                                             <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="Region" tabindex="1">
+                                            <select class="standardSelect form-control" name="Region" tabindex="1">
                                             <option value="<?php echo $reg?>" ><?php echo $reg?></option>
                                            <option value="G44">G44</option>
                                            <option value="ZMM">ZMM</option>

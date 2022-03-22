@@ -219,6 +219,7 @@ while($row=$result->fetch_array()){
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="../assets/js/main.js"></script>
 
+
 <script type="text/javascript">
 $( document ).ready(function() {
 $('#example').DataTable({

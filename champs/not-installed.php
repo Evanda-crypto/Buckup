@@ -11,7 +11,7 @@ include("../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>To | Restore</title>
+    <title>Not | Installed</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -132,11 +132,11 @@ include("../config/config.php");
                 <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                            <center><strong class="card-title">To Restore[<?php
-         $query="SELECT COUNT(*) as torestore FROM papnotinstalled WHERE ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
+                            <center><strong class="card-title">Not Installed[<?php
+         $query="SELECT COUNT(*) as notinstalled FROM papdailysales left join papinstalled on papinstalled.ClientID=papdailysales.ClientID left join techietask on techietask.ClientID=papdailysales.ClientID left join reminders on papdailysales.ClientID=reminders.ClientID WHERE reminders.ClientID is null and techietask.ClientID is null and papinstalled.ClientID is null and papdailysales.ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
-          echo $row['torestore'];
+          echo $row['notinstalled'];
     }
     ?> Records]</strong></center>
                             </div>
@@ -144,33 +144,32 @@ include("../config/config.php");
                                 <table class="table" id="example">
                                     <thead>
                                         <tr>
-                                        <th class="th-sm">Restore
+                                        <th class="th-sm">Remind
       </th>
-      <th class="th-sm">DateSigned
+    <th class="th-sm">Date Signed
       </th>
       <th class="th-sm">Client Name
       </th>
-      <th class="th-sm">Building Name
+      <th class="th-sm">Availability
       </th>
-      <th class="th-sm">Reason
+      <th class="th-sm">Building Name
       </th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                   <?php
-                        $query  = "SELECT ClientID,ClientName,BuildingName,BuildingCode,Region,Floor,DateSigned,Reason,Contact from papnotinstalled WHERE ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
+                        $query  = "SELECT papdailysales.ClientName,papdailysales.ClientContact,papdailysales.ClientID,papdailysales.Region,papdailysales.BuildingName,papdailysales.DateSigned,papdailysales.ClientAvailability from papdailysales left join papinstalled on papinstalled.ClientID=papdailysales.ClientID left join techietask on techietask.ClientID=papdailysales.ClientID left join reminders on papdailysales.ClientID=reminders.ClientID where reminders.ClientID is null and techietask.ClientID is null and papinstalled.ClientID is null and papdailysales.ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
                         $result  = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                                 <tr>
-                                <th>
-                                    <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> as pap client  again?')">Restore</a></button>
-                                    </th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['DateSigned']; ?></a></th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['Reason']; ?></a></th>
-
+                                <td>
+                                    <button class="btn btn-warning" id='remind' ><a href="remind.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to remind installation of pap to <?php  echo $row['ClientName']; ?> to <?php  echo $row['Region']; ?> TL?')">Remind</a></button>
+                                    </td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['DateSigned']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientAvailability']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
                                 </tr>
                         <?php
 
@@ -199,7 +198,7 @@ include("../config/config.php");
       
     </div>
 </div><!--End of modal-->
-                </div>
+                
 
 </div><!-- .content -->
 <div class="clearfix"></div>
@@ -223,16 +222,43 @@ $('.dataTables_length').addClass('bs-select');
 </script>
 <script>
 $(document).ready(function(){
-  $(document).on('click','.openPopup',function(){
-        var dataURL = $(this).attr('data-href');
+  $(document).on('click','.open',function(){
+      var dataURL = $(this).attr('data-href');
         $('.modal-body').load(dataURL,function(){
             $('#myModal').modal({show:true});
         });
     }); 
 });
-$('#example').DataTable( {
-    fixedColumn: true
-} );
+</script>
+<script>
+ $(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+</script>
+<script>
+$(document).ready(function(){
+  $(document).on('click','.openPopup',function(){
+        var dataURL = $(this).attr('data-href');
+        $('.modal-body').load(dataURL,function(){
+            $('#Modal').modal({show:true});
+        });
+    }); 
+});
+</script>
+<script>
+$(document).ready(function(){
+    $('.openPopup').on('click',function(){
+        var dataURL = $(this).attr('data-href');
+        $('.modal-body').load(dataURL,function(){
+            $('#Modal').modal({show:true});
+        });
+    }); 
+});
+
+function changeValue(value) {
+  document.getElementById('remind').innerHTML = value;
+}
 </script>
 </body>
 </html>

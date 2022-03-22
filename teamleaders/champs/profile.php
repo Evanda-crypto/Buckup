@@ -1,6 +1,6 @@
 <?php
 include("session.php");
-include("../config/config.php");
+include("../../config/config.php");
 ?>
 <?php
 $id=$_SESSION['ID'];
@@ -29,7 +29,7 @@ if (isset($_POST["submit"])) {
                 $result=mysqli_query($connection,$sql);
                 if ($result) {
                   echo '<script>alert("Password reset Succesfull")</script>';
-                    echo '<script>window.location.href="../config/logout.php";</script>';
+                    echo '<script>window.location.href="../../config/logout.php";</script>';
                 } else {
                   echo '<script>alert("An Error occured please retry again!")</script>';
                     echo '<script>window.location.href="profile.php";</script>';
@@ -66,8 +66,8 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -76,8 +76,6 @@ if (isset($_POST["submit"])) {
 </head>
 <body style="background-color:#e1e1e1">
     <!-- Left Panel -->
-
-
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -85,36 +83,21 @@ if (isset($_POST["submit"])) {
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="pap-daily-sales.php"> <i class="menu-icon ti-layout-grid3"></i>Signed </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
+                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
+                            <li><i class="fa fa-table"></i><a href="assigned.php">Assigned</a></li>
+                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
+                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="restituted.php"> <i class="menu-icon ti-layout-grid3"></i>Resitituted </a>
+                    <li class="active">
+                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
                     </li>
-                    <li>
-                        <a href="pending-installation.php"> <i class="menu-icon ti-layout-grid3"></i>Pending Installation </a>
-                    </li>
-                    <li>
-                        <a href="installed.php"> <i class="menu-icon ti-layout-grid3"></i>Installed </a>
-                    </li>
-                    <li>
-                        <a href="turnedon.php"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
-                    </li>
-                    <li class="menu-title">ACCOUNTS</li><!-- /.menu-title -->
-
-                    <li>
-                        <a href="add-tl.php"> <i class="menu-icon ti-themify-favicon-alt"></i>Add Teamleader </a>
-                    </li>
-                    <li>
-                        <a href="view-tl.php"> <i class="menu-icon ti-eye"></i>View Teamleader </a>
-                    </li>
-                    <li class="menu-title">TOOLS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="gallery.php"> <i class="menu-icon ti-gallery"></i>Gallery </a>
-                    </li>
-                    <li>
-                        <a href="profile.php"> <i class="menu-icon ti-user"></i>Profile </a>
+                    <li class="active">
+                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -127,7 +110,7 @@ if (isset($_POST["submit"])) {
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                <img src="../images/picture1.png" style="width: 120px; height: 70px;" class="logo-icon" alt="logo icon">
+                <img src="../../images/picture1.png" style="width: 120px; height: 70px;" class="logo-icon" alt="logo icon">
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -142,10 +125,11 @@ if (isset($_POST["submit"])) {
                         </div>
 
                         <div class="dropdown for-notification">
+
                         </div>
 
                         <div class="dropdown for-message">
-                      
+
                         </div>
                     </div>
 
@@ -157,14 +141,14 @@ if (isset($_POST["submit"])) {
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="../config/logout.php"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="../../config/logout.php"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </header><!-- /header -->
-        <!-- Header-->
+        </header>
+        <!-- /#header -->
 
         <div class="content">
             <div class="animated fadeIn">
@@ -175,7 +159,7 @@ if (isset($_POST["submit"])) {
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="round-img">
-                                                    <a href="#"><center><img class="rounded-circle" src="../images/avatar/profile.png" alt=""></center></a>
+                                                    <a href="#"><center><img class="rounded-circle" src="../../images/avatar/profile.png" alt=""></center></a>
                                                 </div>
                         <div class="card-body card-block">
                             <form action="" method="post" class="" autocomplete="off">
@@ -188,19 +172,19 @@ if (isset($_POST["submit"])) {
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" id="username" name="FName" value="<?php echo $_SESSION['FName']?>" placeholder="First Name" class="form-control">
+                                        <input type="text" id="username" name="FName" value="<?php echo $_SESSION['FName']?>" placeholder="First Name" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" id="username" name="LName" placeholder="Last Name" value="<?php echo $_SESSION['LName']?>" class="form-control">
+                                        <input type="text" id="username" name="LName" placeholder="Last Name" value="<?php echo $_SESSION['LName']?>" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['Admin']?>" class="form-control">
+                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['Sales']?>" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -238,7 +222,7 @@ if (isset($_POST["submit"])) {
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-<script src="../assets/js/main.js"></script>
+<script src="../../assets/js/main.js"></script>
 
 
 </body>

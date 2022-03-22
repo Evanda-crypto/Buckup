@@ -11,7 +11,7 @@ include("../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>To | Restore</title>
+    <title>Not Turned on</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -44,32 +44,24 @@ include("../config/config.php");
 
 </head>
 <body style="background-color:#e1e1e1">
-  <!-- Left Panel -->
-  <aside id="left-panel" class="left-panel">
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>REPORT</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="residential.php">Residential</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="business.php">Business</a></li>
-                        </ul>
+                    <li class="active">
+                        <a href="mytask.php"><i class="menu-icon fa fa-tasks"></i>My Task</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
-                            <li><i class="fa fa-table"></i><a href="to-restore.php">To Restore</a></li>
-                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
-                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
+                            <li><i class="fa fa-table"></i><a href="installed.php">Installed Today</a></li>
+                            <li><i class="fa fa-table"></i><a href="not-turnedon.php">Not Turned On</a></li>
+                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
                         </ul>
-                    </li>
-                    <li class="active">
-                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
                     </li>
                     <li class="active">
                         <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
@@ -91,6 +83,7 @@ include("../config/config.php");
             </div>
             <div class="top-right">
                 <div class="header-menu">
+                    
                     <div class="header-left">
                         
                         <div class="form-inline">
@@ -98,21 +91,69 @@ include("../config/config.php");
                                 
                             </form>
                         </div>
-
                         <div class="dropdown for-notification">
-
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger"><?php
+                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['MyTask']."<br><br>";
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                               <hr> <p class="red">You have <?php
+                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['MyTask'];
+                                              }
+                                              ?> Tasks</p></hr>
+                                <a class="dropdown-item media" href="mytask.php">
+                                    <i class="fa fa-check"></i>
+                                    <p>Check Out</p>
+                                </a>
+                            </div>
                         </div>
-
                         <div class="dropdown for-message">
-
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <center><p class="red">Account Information</p></center>
+                                <a class="dropdown-item media" href="#">
+                                    <div class="message media-body">
+                                       <center> <span class="name"><?php echo $_SESSION['TeamID']?></span></center>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/2.jpg"></span>
+                                    <div class="message media-body">
+                                        <strong><span class="name float-left">Techie 1</span></strong>
+                                        <center> <span class="name float-left"><?php echo $_SESSION['Techie1']?></span> </center>
+                                        
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/3.jpg"></span>
+                                    <div class="message media-body">
+                                        <strong><span class="name float-left">Techie 2</span></strong>
+                                        <center><span class="name float-left"><?php echo $_SESSION['Techie2']?></span> </center>
+                                        
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="name float-left"><?php echo $_SESSION[
-                 "FName"
-             ]; ?> <?php echo $_SESSION["LName"]; ?></span>
+                 "TeamID"
+             ]; ?></span>
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -132,11 +173,11 @@ include("../config/config.php");
                 <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                            <center><strong class="card-title">To Restore[<?php
-         $query="SELECT COUNT(*) as torestore FROM papnotinstalled WHERE ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
+                            <center><strong class="card-title">Not Turned On[<?php
+         $query="SELECT COUNT(*) as installed FROM papinstalled left join turnedonpap on turnedonpap.ClientID=papinstalled.ClientID WHERE turnedonpap.ClientID is Null and  papinstalled.Team_ID='".$_SESSION['TeamID']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
-          echo $row['torestore'];
+          echo $row['installed'];
     }
     ?> Records]</strong></center>
                             </div>
@@ -144,32 +185,31 @@ include("../config/config.php");
                                 <table class="table" id="example">
                                     <thead>
                                         <tr>
-                                        <th class="th-sm">Restore
+      <th class="th-sm">Building Name
       </th>
-      <th class="th-sm">DateSigned
+      <th class="th-sm">Building Code
       </th>
       <th class="th-sm">Client Name
       </th>
-      <th class="th-sm">Building Name
+      <th class="th-sm">Floor
       </th>
-      <th class="th-sm">Reason
+      <th class="th-sm">MacAddress
       </th>
+
                                       </tr>
                                   </thead>
                                   <tbody>
                                   <?php
-                        $query  = "SELECT ClientID,ClientName,BuildingName,BuildingCode,Region,Floor,DateSigned,Reason,Contact from papnotinstalled WHERE ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
+                        $query  = "SELECT papinstalled.ClientID,papdailysales.ClientName,papdailysales.BuildingName,papdailysales.BuildingCode,papinstalled.Floor,papinstalled.MacAddress from papinstalled left join papdailysales on papdailysales.ClientID=papinstalled.ClientID left join turnedonpap on turnedonpap.ClientID=papinstalled.ClientID WHERE turnedonpap.ClientID is null and papinstalled.Team_ID='".$_SESSION['TeamID']."'";
                         $result  = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                                 <tr>
-                                <th>
-                                    <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> as pap client  again?')">Restore</a></button>
-                                    </th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['DateSigned']; ?></a></th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></th>
-                                    <th><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['Reason']; ?></a></th>
+                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingCode']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['Floor']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['MacAddress']; ?></a></td>
 
                                 </tr>
                         <?php

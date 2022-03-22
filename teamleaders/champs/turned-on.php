@@ -1,6 +1,6 @@
 <?php
 include("session.php");
-include("../config/config.php");
+include("../../config/config.php");
 
 ?>
 <!doctype html>
@@ -11,7 +11,7 @@ include("../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Restituted</title>
+    <title>Turned | On</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,8 +23,8 @@ include("../config/config.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -48,45 +48,29 @@ include("../config/config.php");
 
 </head>
 <body style="background-color:#e1e1e1">
-    <!-- Left Panel -->
-
-    <aside id="left-panel" class="left-panel">
+      <!-- Left Panel -->
+      <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="pap-daily-sales.php"> <i class="menu-icon ti-layout-grid3"></i>Signed </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
+                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
+                            <li><i class="fa fa-table"></i><a href="assigned.php">Assigned</a></li>
+                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
+                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="restituted.php"> <i class="menu-icon ti-layout-grid3"></i>Resitituted </a>
+                    <li class="active">
+                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
                     </li>
-                    <li>
-                        <a href="pending-installation.php"> <i class="menu-icon ti-layout-grid3"></i>Pending Installation </a>
-                    </li>
-                    <li>
-                        <a href="installed.php"> <i class="menu-icon ti-layout-grid3"></i>Installed </a>
-                    </li>
-                    <li>
-                        <a href="turnedon.php"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
-                    </li>
-                    <li class="menu-title">ACCOUNTS</li><!-- /.menu-title -->
-
-                    <li>
-                        <a href="add-tl.php"> <i class="menu-icon ti-themify-favicon-alt"></i>Add Teamleader </a>
-                    </li>
-                    <li>
-                        <a href="view-tl.php"> <i class="menu-icon ti-eye"></i>View Teamleader </a>
-                    </li>
-                    <li class="menu-title">TOOLS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="gallery.php"> <i class="menu-icon ti-gallery"></i>Gallery </a>
-                    </li>
-                    <li>
-                        <a href="profile.php"> <i class="menu-icon ti-user"></i>Profile </a>
+                    <li class="active">
+                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -99,7 +83,7 @@ include("../config/config.php");
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                <img src="../images/picture1.png" style="width: 120px; height: 70px;" class="logo-icon" alt="logo icon">
+                <img src="../../images/picture1.png" style="width: 120px; height: 70px;" class="logo-icon" alt="logo icon">
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -114,11 +98,11 @@ include("../config/config.php");
                         </div>
 
                         <div class="dropdown for-notification">
-                           
+
                         </div>
 
                         <div class="dropdown for-message">
-                           
+
                         </div>
                     </div>
 
@@ -130,13 +114,14 @@ include("../config/config.php");
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="../config/logout.php"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="../../config/logout.php"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </header><!-- /header -->
+        </header>
+        <!-- /#header -->
         <!-- Header-->
 
         <div class="content">
@@ -145,43 +130,59 @@ include("../config/config.php");
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                           <center> <strong class="card-title">Restituted</strong></center>
+                           <center> <strong class="card-title">Turned On[<?php echo $_SESSION['Region']?>]</strong></center>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
-                                    <th>No</th>
-                     <th>Client Name</th>
-                     <th>Contact</th>
-                     <th>Building Name</th>
-                     <th>BuildingCode</th>
-                     <th>ChampName</th>
-                     <th>Region</th>
-                     <th>Techies</th>
-                    <th>Reason</th>
+                                    <th class="th-sm">PAP Code
+                  </th>
+                   <th class="th-sm">Building Name
+                   </th>
+                   <th class="th-sm">Building Code
+                   </th>
+                   <th class="th-sm">Region
+                  </th>
+                   <th class="th-sm">Champ Name
+                   </th>
+                   <th class="th-sm">Client Name
+                   </th>
+                   <th class="th-sm">Client Contact
+                   </th>
+                   <th class="th-sm">MAC Address
+                   </th>
+                   <th class="th-sm">Date Turned On
+                   </th>
+                   <th class="th-sm">More
+                   </th>  
                                     </tr>
                                 </thead>
                                 <tbody>
-                               
- <?php
- $query =
-     "SELECT ClientID,ClientName,BuildingName,BuildingCode,Region,Floor,DateSigned,Reason,Contact,ChampName,CONCAT(Techie1,'/',Techie2) as techies from papnotinstalled  order by DateSigned Desc";
- $result = mysqli_query($connection, $query);
- while ($row = mysqli_fetch_assoc($result)) { ?>
-                                <tr>
-                                    <td><?php echo $row["ClientID"]; ?></td>
-                                    <td><?php echo $row["ClientName"]; ?></td>
-                                    <td><?php echo $row["Contact"]; ?></td>
-                                    <td><?php echo $row["BuildingName"]; ?></td>
-                                    <td><?php echo $row["BuildingCode"]; ?></td>
-                                    <td><?php echo $row["ChampName"]; ?></td>
-                                    <td><?php echo $row["Region"]; ?></td>
-                                    <td><?php echo $row["techies"]; ?></td>
-                                    <td><?php echo $row["Reason"]; ?></td>
-                                </tr>
-                        <?php }
- ?>
+                                <?php
+    
+    $sql="SELECT turnedonpap.ClientID,papdailysales.BuildingName,upper(papdailysales.BuildingCode) as bcode,upper(papdailysales.Region) as reg,turnedonpap.ChampName,turnedonpap.ClientName,turnedonpap.ClientContact,Upper(turnedonpap.MacAddress) as Mac,turnedonpap.PapStatus,turnedonpap.DateTurnedOn, CASE WHEN LENGTH(papdailysales.BuildingCode)>11 THEN CONCAT(papdailysales.BuildingCode,'-',(row_number() over(partition by papdailysales.BuildingCode)),'P')
+    WHEN (row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)) <=9 THEN CONCAT(upper(papdailysales.BuildingCode),'-',papdailysales.Floor,'0',(row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)),'P')
+    WHEN (row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)) >9 THEN CONCAT(upper(papdailysales.BuildingCode),'-',papdailysales.Floor,(row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)),'P')
+    end as papcode from papdailysales LEFT JOIN turnedonpap ON turnedonpap.ClientID=papdailysales.ClientID WHERE papdailysales.Region='".$_SESSION['Region']."' and DateTurnedOn >= DATE_SUB(CURDATE(), INTERVAL 70 DAY) order by turnedonpap.DateTurnedOn Desc";
+$result=$connection->query($sql);
+while($row=$result->fetch_array()){
+  ?>
+  <tr>
+    <td><?php echo $row['papcode']?></td>
+    <td><?php echo $row['BuildingName']?></td>
+    <td><?php echo $row['bcode']?></td>
+    <td><?php echo $row['reg']?></td>
+    <td><?php echo $row['ChampName']?></td>
+    <td><?php echo $row['ClientName']?></td>
+    <td><?php echo $row['ClientContact']?></td>
+    <td><?php echo $row['Mac']?></td>
+    <td><?php echo $row['DateTurnedOn']?></td>
+    <td>
+    <button class="btn btn-warning" ><a href="edit-turnedon.php?clientid=<?php echo $row['ClientID']; ?>" class="text-bold">Edit</a></button>
+    </td>
+</tr>
+<?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -201,7 +202,8 @@ include("../config/config.php");
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-<script src="../assets/js/main.js"></script>
+<script src="../../assets/js/main.js"></script>
+
 
 <script type="text/javascript">
 $( document ).ready(function() {

@@ -71,6 +71,9 @@ include("../config/config.php");
                     <li class="active">
                         <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
                     </li>
+                    <li class="active">
+                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

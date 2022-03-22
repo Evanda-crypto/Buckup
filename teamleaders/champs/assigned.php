@@ -1,6 +1,6 @@
 <?php
 include("session.php");
-include("../config/config.php");
+include("../../config/config.php");
 
 ?>
 <!doctype html>
@@ -11,7 +11,7 @@ include("../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pap | Daily | Sales</title>
+    <title>Assigned</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,13 +24,8 @@ include("../config/config.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-
+    <link rel="stylesheet" href="../../assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
 
 <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -49,45 +44,29 @@ include("../config/config.php");
 
 </head>
 <body style="background-color:#e1e1e1">
-    <!-- Left Panel -->
-
-    <aside id="left-panel" class="left-panel">
+   <!-- Left Panel -->
+   <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="pap-daily-sales.php"> <i class="menu-icon ti-layout-grid3"></i>Signed </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
+                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
+                            <li><i class="fa fa-table"></i><a href="assigned.php">Assigned</a></li>
+                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
+                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="restituted.php"> <i class="menu-icon ti-layout-grid3"></i>Resitituted </a>
+                    <li class="active">
+                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
                     </li>
-                    <li>
-                        <a href="pending-installation.php"> <i class="menu-icon ti-layout-grid3"></i>Pending Installation </a>
-                    </li>
-                    <li>
-                        <a href="installed.php"> <i class="menu-icon ti-layout-grid3"></i>Installed </a>
-                    </li>
-                    <li>
-                        <a href="turnedon.php"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
-                    </li>
-                    <li class="menu-title">ACCOUNTS</li><!-- /.menu-title -->
-
-                    <li>
-                        <a href="add-tl.php"> <i class="menu-icon ti-themify-favicon-alt"></i>Add Teamleader </a>
-                    </li>
-                    <li>
-                        <a href="view-tl.php"> <i class="menu-icon ti-eye"></i>View Teamleader </a>
-                    </li>
-                    <li class="menu-title">TOOLS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="gallery.php"> <i class="menu-icon ti-gallery"></i>Gallery </a>
-                    </li>
-                    <li>
-                        <a href="profile.php"> <i class="menu-icon ti-user"></i>Profile </a>
+                    <li class="active">
+                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -100,7 +79,7 @@ include("../config/config.php");
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                <img src="../images/picture1.png" style="width: 120px; height: 70px;" class="logo-icon" alt="logo icon">
+                <img src="../../images/picture1.png" style="width: 120px; height: 70px;" class="logo-icon" alt="logo icon">
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -115,11 +94,11 @@ include("../config/config.php");
                         </div>
 
                         <div class="dropdown for-notification">
-                     
+
                         </div>
 
                         <div class="dropdown for-message">
-                         
+
                         </div>
                     </div>
 
@@ -131,73 +110,88 @@ include("../config/config.php");
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="../config/logout.php"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="../../config/logout.php"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </header><!-- /header -->
+        </header>
+        <!-- /#header -->
         <!-- Header-->
 
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                           <center> <strong class="card-title">Signed Pap</strong></center>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-striped" id="example">
-                                <thead>
-                                    <tr>
-                                    <th>ClientID</th>
-                     <th>Building Name</th>
-                     <th>Building Code</th>
-                     <th>Region</th>
-                     <th>ChampName</th>
-                     <th>Client Name</th>
-                     <th>Client Contact</th>
-                     <th>Date Signed</th>
-                     <th>Availability</th>
-                     <th>Champs Comment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                        $query  = "SELECT papdailysales.ClientID,papdailysales.BuildingName,papdailysales.BuildingCode,papdailysales.Region,papdailysales.ChampName,papdailysales.ClientName,papdailysales.ClientContact,papdailysales.ClientAvailability,papdailysales.AptLayout,papdailysales.DateSigned,papdailysales.Note from papdailysales LEFT JOIN papnotinstalled ON papnotinstalled.ClientID=papdailysales.ClientID WHERE papnotinstalled.ClientID is null and papdailysales.DateSigned >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) order by papdailysales.DateSigned Desc";
+                        <div class="card">
+                            <div class="card-header">
+                            <center><strong class="card-title">Assigned[Not Installed]</strong></center>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped" id="example">
+                                    <thead>
+                                        <tr>
+    <th class="th-sm">Building Name
+      </th>
+      <th class="th-sm">Building Code
+      </th>
+      <th class="th-sm">Client Name
+      </th>
+      <th class="th-sm">Contact
+      </th>
+      <th class="th-sm">Availability
+      </th>
+      <th class="th-sm">Techies
+      </th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  <?php
+                        $query  = "SELECT papdailysales.ChampName,techietask.ClientName,techietask.ClientID,techietask.ClientContact,techietask.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,teams.Team_ID,CONCAT(teams.Techie1,'/',teams.Techie2) as techies,
+                        papdailysales.BuildingCode,papdailysales.Floor,papdailysales.Apt from papdailysales LEFT JOIN 
+                        techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE techietask.ClientID is not null AND papinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
                         $result  = mysqli_query($connection, $query);
-
                             while ($row = mysqli_fetch_assoc($result)) {
-                            
                         ?>
                                 <tr>
-                                    <td><?php echo $row['ClientID']; ?></td>
-                                    <td><?php echo $row['BuildingName']; ?></td>
-                                    <td><?php echo $row['BuildingCode']; ?></td>
-                                    <td><?php echo $row['Region']; ?></td>
-                                    <td><?php echo $row['ChampName']; ?></td>
-                                    <td><?php echo $row['ClientName']; ?></td>
-                                    <td><?php echo $row['ClientContact']; ?></td>
-                                    <td><?php echo $row['DateSigned']; ?></td>
-                                    <td><?php echo $row['ClientAvailability']; ?></td>
-                                    <td><?php echo $row['Note']; ?></td>
-
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingCode']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientContact']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientAvailability']; ?></a></td>
+                                    <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['techies']; ?></a></td>
                                 </tr>
                         <?php
 
                             }
-                    
                         ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
+                    <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#3073f5;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="background-color:#3073f5;">
+
+            </div>
+            <div class="modal-footer" style="background-color:#3073f5;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      
+    </div>
+</div><!--End of modal-->
+                
 
 </div><!-- .content -->
-
 <div class="clearfix"></div>
 
 </div><!-- /#right-panel -->
@@ -209,24 +203,13 @@ include("../config/config.php");
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-<script src="../assets/js/main.js"></script>
+<script src="../../assets/js/main.js"></script>
 
-<script type="text/javascript">
-$( document ).ready(function() {
-$('#example').DataTable({
-		 "processing": true,
-		 "dom": 'lBfrtip',
-		 "buttons": [
-            {
-                extend: 'collection',
-                text: 'Export',
-                buttons: [
-                    'excel',
-                    'csv'
-                ]
-            }
-        ]
-        });
+
+<script>
+ $(document).ready(function () {
+$('#example').DataTable();
+$('.dataTables_length').addClass('bs-select');
 });
 </script>
 </body>
