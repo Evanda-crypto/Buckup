@@ -55,7 +55,7 @@ values(?,?,?,?,?,?,?,?,?,?,?)");
     );
     $stmt->execute();
     echo "<script>alert('Successfull');</script>";
-    echo '<script>window.location.href="pap-installed.php";</script>';
+    echo '<script>window.location.href="installed.php";</script>';
     $stmt->close();
 }
 ?>

@@ -96,29 +96,41 @@ if (!$connection) {
 </head>
 
 <body style="background-color:#e1e1e1">
-    <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
+<!-- Left Panel -->
+<aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
-                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
-                            <li><i class="fa fa-table"></i><a href="assigned.php">Assigned</a></li>
-                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
-                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
-                        </ul>
+                    <li class="menu-title">ACTIVITIES</li><!-- /.menu-title -->
+                    <li>
+                        <a href="create-team.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Create New Team </a>
                     </li>
-                    <li class="active">
-                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
+                    <li>
+                        <a href="assign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Assign Task </a>
                     </li>
-                    <li class="active">
-                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
+                    <li>
+                        <a href="reasign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reasign Task</a>
+                    </li>
+                    <li>
+                        <a href="reminders.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reminders</a>
+                    </li>
+                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
+
+                    <li>
+                        <a href="installed.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Installed</a>
+                    </li>
+                    <li>
+                        <a href="restituted.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Restituted </a>
+                    </li>
+                    <li>
+                        <a href="turned-on.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Turned On</a>
+                    </li>            
+                    <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
+                    <li>
+                        <a href="profile.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-user"></i>Profile </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -149,7 +161,7 @@ if (!$connection) {
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -158,7 +170,7 @@ if (!$connection) {
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have <?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -172,7 +184,30 @@ if (!$connection) {
                         </div>
 
                         <div class="dropdown for-message">
-
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="count bg-primary"><?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded']."<br><br>";
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have <?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded'];
+                                              }
+                                              ?> Pap to urgently assign</p>
+                                <a class="dropdown-item media" href="reminders.php">
+                                    <div class="message media-body">
+                                        <span class="name float-left">Check Out</span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -198,31 +233,7 @@ if (!$connection) {
             <div class="animated fadeIn">
                  <!-- Widgets  -->
                  <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon ">
-                                        <i class="pe-7s-check"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count"><?php
-                  $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"] . "<br><br>";
-                  }
-                  ?></span></div>
-                                            <div class="stat-heading">Signed[<?php echo $_SESSION['Region']?>]</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
@@ -234,13 +245,14 @@ if (!$connection) {
                                     <div class="stat-content">
                                         <div class="text-left dib">
                                             <div class="stat-text"><span class="count"><?php
-                                             $query="SELECT COUNT(papdailysales.ClientID) AS pending from papdailysales LEFT OUTER JOIN techietask on techietask.ClientID=papdailysales.ClientID left join  papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
-                                             WHERE techietask.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
-                                             $data=mysqli_query($connection,$query);
-                                             while($row=mysqli_fetch_assoc($data)){
-                                             echo $row['pending']."<br><br>";
-                                              }
-                                              ?></span></div>
+                  $query =
+                      "SELECT COUNT(*)as pending from papdailysales LEFT JOIN papinstalled on papinstalled.ClientID=papdailysales.ClientID left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
+                       WHERE papinstalled.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                  $data = mysqli_query($connection, $query);
+                  while ($row = mysqli_fetch_assoc($data)) {
+                      echo $row["pending"] . "<br><br>";
+                  }
+                  ?></span></div>
                                             <div class="stat-heading">Pending Istallation[<?php echo $_SESSION['Region']?>]</div>
                                         </div>
                                     </div>
@@ -248,7 +260,6 @@ if (!$connection) {
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
@@ -260,8 +271,7 @@ if (!$connection) {
                                         <div class="text-left dib">
                                             <div class="stat-text"><span class="count"><?php
                   $query =
-                      "SELECT COUNT(papinstalled.MacAddress) as pap FROM teams LEFT JOIN papinstalled on teams.Team_ID=papinstalled.Team_ID left join turnedonpap on papinstalled.ClientID=turnedonpap.ClientID 
-                      JOIN papdailysales on papdailysales.ClientID=papinstalled.ClientID WHERE papinstalled.ClientID is NOT null and turnedonpap.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT COUNT(papinstalled.MacAddress) as pap FROM teams LEFT JOIN papinstalled on teams.Team_ID=papinstalled.Team_ID left join turnedonpap on papinstalled.ClientID=turnedonpap.ClientID JOIN papdailysales on papdailysales.ClientID=papinstalled.ClientID WHERE papinstalled.ClientID is NOT null and turnedonpap.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
                       echo $row["pap"] . "<br><br>";
@@ -274,24 +284,48 @@ if (!$connection) {
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon ">
+                                        <i class="pe-7s-signal"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count"><?php
+                                             $query="SELECT COUNT(*) as turnedon from turnedonpap where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['turnedon']."<br><br>";
+                                              }
+                                              ?></span></div>
+                                            <div class="stat-heading">Turned On[<?php echo $_SESSION['Region']?>]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+           
 
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-4">
-                                        <i class="pe-7s-signal"></i>
+                                        <i class="pe-7s-refresh-2"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
                                             <div class="stat-text"><span class="count"><?php
-                  $query = "SELECT count(*) as turnedon from turnedonpap Where Region='".$_SESSION['Region']."'";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["turnedon"] . "<br><br>";
-                  }
-                  ?></span></div>
-                                            <div class="stat-heading">Turned On[<?php echo $_SESSION['Region']?>]</div>
+                                             $query="SELECT COUNT(*) AS restituted from papnotinstalled Where Reason='Already Installed' and Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['restituted']."<br><br>";
+                                              }
+                                              ?> </span></div>
+                                            <div class="stat-heading">Restituted[<?php echo $_SESSION['Region']?>]</div>
                                         </div>
                                     </div>
                                 </div>
@@ -331,98 +365,7 @@ if (!$connection) {
 
                     <div class="row">
                     <div class="col-lg-12">
-                    <div class="card">
-                    <div class="card-body">
-                                    
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Signed</th>
-                                                    <th>Assigned</th>
-                                                    <th>Restituted</th>
-                                                    <th>Installed</th>
-                                                    <th>Turned On</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                <td class="serial"><?php if (!$connection) {
-          echo "Problem in database connection! Contact administrator!" .
-              mysqli_error();
-      } else {
-          $sql =
-              "SELECT COUNT(papdailysales.ClientID) as signed FROM papdailysales left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID where papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
-          $result = mysqli_query($connection, $sql);
-          $chart_data = "";
-          while ($signed = mysqli_fetch_assoc($result)) {
-              echo $signed["signed"];
-          }
-      } ?></td>
-                                                <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        "SELECT COUNT(techietask.ClientID) as assigned FROM  techietask LEFT JOIN papinstalled ON papinstalled.ClientID=techietask.ClientID left join papdailysales on papdailysales.ClientID=techietask.ClientID WHERE papinstalled.ClientID is null and papdailysales.Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($notinstalled = mysqli_fetch_assoc($result)) {
-        echo $notinstalled["assigned"];
-    }
-} ?></td>
-                                                <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        "SELECT COUNT(ClientID) restituted FROM papnotinstalled  WHERE Reason<>'Already Installed' and Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($torestore = mysqli_fetch_assoc($result)) {
-        echo $torestore["restituted"];
-    }
-} ?></td>
-                                                    </td>
-                                         
-                                                    <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        " SELECT COUNT(papinstalled.ClientID) as installed FROM papinstalled LEFT JOIN turnedonpap ON turnedonpap.ClientID=papinstalled.ClientID LEFT JOIN papdailysales ON papdailysales.ClientID=papinstalled.ClientID WHERE turnedonpap.ClientID is null and papdailysales.Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($installed = mysqli_fetch_assoc($result)) {
-        echo $installed["installed"];
-    }
-} ?></td>
-                                                    <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        " SELECT COUNT(turnedonpap.ClientID) as turnedon FROM turnedonpap where Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($turnedon = mysqli_fetch_assoc($result)) {
-        echo $turnedon["turnedon"];
-    }
-} ?></td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
-                                
-                                </div>
-    </div>
+              
     </div></div>
             </div>
             <!-- .animated -->
@@ -482,52 +425,52 @@ if (!$connection) {
                     label: "All Regions",
                     data: [ <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 6 DAY)";
+                      "SELECT count(*) as installed from papinstalled Where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 6 DAY) and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
                   ?>, <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 5 DAY)";
+                      "SELECT count(*) as installed from papinstalled Where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 5 DAY) and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
+                  }
+                  ?>,  <?php
+                  $query =
+                      "SELECT count(*) as installed from papinstalled Where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 4 DAY) and Region='".$_SESSION['Region']."'";
+                  $data = mysqli_query($connection, $query);
+                  while ($row = mysqli_fetch_assoc($data)) {
+                      echo $row["installed"];
+                  }
+                  ?>,  <?php
+                  $query =
+                      "SELECT count(*) as installed from papinstalled Where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 3 DAY) and Region='".$_SESSION['Region']."'";
+                  $data = mysqli_query($connection, $query);
+                  while ($row = mysqli_fetch_assoc($data)) {
+                      echo $row["installed"];
+                  }
+                  ?>,  <?php
+                  $query =
+                      "SELECT count(*) as installed from papinstalled Where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 2 DAY) and Region='".$_SESSION['Region']."'";
+                  $data = mysqli_query($connection, $query);
+                  while ($row = mysqli_fetch_assoc($data)) {
+                      echo $row["installed"];
                   }
                   ?>, <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 4 DAY)";
+                      "SELECT count(*) as installed from papinstalled Where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 1 DAY) and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
-                  ?>, <?php
+                  ?>,  <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 3 DAY)";
+                      "SELECT count(*) as installed from papinstalled Where DateInstalled=CURDATE()and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
-                  }
-                  ?>, <?php
-                  $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 2 DAY)";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
-                  }
-                  ?>, <?php
-                  $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
-                  }
-                  ?>, <?php
-                  $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=CURDATE()";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
                   ?> ],
                     borderColor: "rgba(0, 194, 146, 0.9)",
@@ -539,9 +482,9 @@ if (!$connection) {
                     data: [ "<?php
           $sql =
               "SELECT (SELECT MAX(mycount)
-              FROM (SELECT Region,COUNT(DateSigned) AS mycount,DateSigned 
-              FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 6 DAY)
-              GROUP BY Region,DateSigned) as maxm) as bestreg";
+              FROM (SELECT Region,COUNT(DateInstalled) AS mycount,DateInstalled 
+              FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+              GROUP BY Region,DateInstalled) as maxm) as bestreg";
           $result = mysqli_query($connection, $sql);
           $chart_data = "";
           while ($signed = mysqli_fetch_assoc($result)) {
@@ -550,9 +493,9 @@ if (!$connection) {
       ?>", "<?php
       $sql =
           "SELECT (SELECT MAX(mycount)
-          FROM (SELECT Region,COUNT(DateSigned) AS mycount,DateSigned 
-          FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 5 DAY)
-          GROUP BY Region,DateSigned) as maxm) as bestreg";
+          FROM (SELECT Region,COUNT(DateInstalled) AS mycount,DateInstalled 
+          FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 5 DAY)
+          GROUP BY Region,DateInstalled) as maxm) as bestreg";
       $result = mysqli_query($connection, $sql);
       $chart_data = "";
       while ($signed = mysqli_fetch_assoc($result)) {
@@ -561,9 +504,9 @@ if (!$connection) {
   ?>", "<?php
   $sql =
       "SELECT (SELECT MAX(mycount)
-      FROM (SELECT Region,COUNT(DateSigned) AS mycount,DateSigned 
-      FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 4 DAY)
-      GROUP BY Region,DateSigned) as maxm) as bestreg";
+      FROM (SELECT Region,COUNT(DateInstalled) AS mycount,DateInstalled 
+      FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 4 DAY)
+      GROUP BY Region,DateInstalled) as maxm) as bestreg";
   $result = mysqli_query($connection, $sql);
   $chart_data = "";
   while ($signed = mysqli_fetch_assoc($result)) {
@@ -572,9 +515,9 @@ if (!$connection) {
 ?>", "<?php
 $sql =
     "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(DateSigned) AS mycount,DateSigned 
-    FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 3 DAY)
-    GROUP BY Region,DateSigned) as maxm) as bestreg";
+    FROM (SELECT Region,COUNT(DateInstalled) AS mycount,DateInstalled 
+    FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+    GROUP BY Region,DateInstalled) as maxm) as bestreg";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -583,9 +526,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
 ?>", "<?php
 $sql =
     "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(DateSigned) AS mycount,DateSigned 
-    FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 2 DAY)
-    GROUP BY Region,DateSigned) as maxm) as bestreg";
+    FROM (SELECT Region,COUNT(DateInstalled) AS mycount,DateInstalled 
+    FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+    GROUP BY Region,DateInstalled) as maxm) as bestreg";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -594,9 +537,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
 ?>","<?php
 $sql =
     "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(DateSigned) AS mycount,DateSigned 
-    FROM papdailysales where DateSigned=DATE_SUB(CURDATE(), INTERVAL 1 DAY)
-    GROUP BY Region,DateSigned) as maxm) as bestreg";
+    FROM (SELECT Region,COUNT(DateInstalled) AS mycount,DateInstalled 
+    FROM papinstalled where DateInstalled=DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+    GROUP BY Region,DateInstalled) as maxm) as bestreg";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -605,9 +548,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
 ?>", "<?php
 $sql =
     "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(DateSigned) AS mycount,DateSigned 
-    FROM papdailysales where DateSigned=CURDATE()
-    GROUP BY Region,DateSigned) as maxm) as bestreg";
+    FROM (SELECT Region,COUNT(DateInstalled) AS mycount,DateInstalled 
+    FROM papinstalled where DateInstalled=CURDATE()
+    GROUP BY Region,DateInstalled) as maxm) as bestreg";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -622,61 +565,61 @@ while ($signed = mysqli_fetch_assoc($result)) {
                     label: "My Region",
                     data: [<?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 6 DAY) 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT count(*) as installed from papinstalled where  DateInstalled=DATE_SUB(CURDATE(), INTERVAL 6 DAY) 
+                      and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
                   ?>, <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 5 DAY) 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT count(*) as installed from papinstalled where  DateInstalled=DATE_SUB(CURDATE(), INTERVAL 5 DAY) 
+                      and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
                   ?>, <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 4 DAY) 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT count(*) as installed from papinstalled where  DateInstalled=DATE_SUB(CURDATE(), INTERVAL 4 DAY) 
+                      and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
+                  }
+                  ?>,<?php
+                  $query =
+                      "SELECT count(*) as installed from papinstalled where  DateInstalled=DATE_SUB(CURDATE(), INTERVAL 3 DAY) 
+                      and Region='".$_SESSION['Region']."'";
+                  $data = mysqli_query($connection, $query);
+                  while ($row = mysqli_fetch_assoc($data)) {
+                      echo $row["installed"];
                   }
                   ?>, <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 3 DAY) 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT count(*) as installed from papinstalled where  DateInstalled=DATE_SUB(CURDATE(), INTERVAL 2 DAY) 
+                      and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
                   ?>, <?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 2 DAY) 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT count(*) as installed from papinstalled where  DateInstalled=DATE_SUB(CURDATE(), INTERVAL 1 DAY) 
+                      and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
-                  ?>, <?php
+                  ?>,<?php
                   $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=DATE_SUB(CURDATE(), INTERVAL 1 DAY) 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT count(*) as installed from papinstalled where  DateInstalled=CURDATE() 
+                      and Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
+                      echo $row["installed"];
                   }
-                  ?>, <?php
-                  $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null and papdailysales.DateSigned=CURDATE() 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
-                  }
-                  ?>  ],
+                  ?>],
                     borderColor: "rgba(0,0,0,0.09)",
                     borderWidth: "0",
                     backgroundColor: "#EE2C4E"
@@ -704,15 +647,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
         type: 'doughnut',
         data: {
             datasets: [ {
-                data: [ <?php
-                  $query =
-                      "SELECT count(*) as clients from papdailysales left join papnotinstalled on papdailysales.ClientID=papnotinstalled.ClientID where papnotinstalled.ClientID is null 
-                      and papdailysales.Region='".$_SESSION['Region']."'";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["clients"];
-                  }
-                  ?>, <?php if (!$connection) {
+                data: [<?php if (!$connection) {
                     echo "Problem in database connection! Contact administrator!" .
                         mysqli_error();
                 } else {
@@ -762,20 +697,19 @@ while ($signed = mysqli_fetch_assoc($result)) {
                                     "#EE2C4E",
                                     "#FFB91F",
                                     "#0CBEAF",
-                                    "#3072F5",
-                                    "#85CE36"
+                                    "#3072F5"
+                                   
                                 ],
                 hoverBackgroundColor: [
                                     "#EE2C4E",
                                     "#FFB91F",
-                                    "#0CBEF",
-                                    "#3072F5",
-                                    "#85CE36"
+                                    "#0CBEAF",
+                                    "#3072F5"
+                                    
                                 ]
 
                             } ],
             labels: [
-                            "Signed",
                             "Assigned",
                             "Restituted",
                             "Installed",

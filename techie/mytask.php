@@ -135,7 +135,7 @@ include "../config/config.php";
                                     </div>
                                 </a>
                                 <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/2.jpg"></span>
+                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/images.jpg"></span>
                                     <div class="message media-body">
                                         <strong><span class="name float-left">Techie 1</span></strong>
                                         <center> <span class="name float-left"><?php echo $_SESSION['Techie1']?></span> </center>
@@ -143,7 +143,7 @@ include "../config/config.php";
                                     </div>
                                 </a>
                                 <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/3.jpg"></span>
+                                    <span class="photo media-left"><img alt="avatar" src="../images/avatar/images.jpg"></span>
                                     <div class="message media-body">
                                         <strong><span class="name float-left">Techie 2</span></strong>
                                         <center><span class="name float-left"><?php echo $_SESSION['Techie2']?></span> </center>

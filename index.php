@@ -63,7 +63,7 @@ if (isset($_POST["submit"])) {
                         $_SESSION["LName"] = $data["LAST_NAME"];
                         $_SESSION["ID"] = $info["ID"];
                         $_SESSION["Region"] = $info["REGION"];
-                        header("Location: teamleaders/techie/dashboard.php");
+                        header("Location: teamleaders/techies/dashboard.php");
                     } elseif (
                         password_verify($Password, $data["PASSWORD"]) &&
                         $data["DEPARTMENT"] == "SalesTL"

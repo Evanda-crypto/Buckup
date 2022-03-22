@@ -83,21 +83,33 @@ if (isset($_POST["submit"])) {
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
-                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
-                            <li><i class="fa fa-table"></i><a href="assigned.php">Assigned</a></li>
-                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
-                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
-                        </ul>
+                    <li class="menu-title">ACTIVITIES</li><!-- /.menu-title -->
+                    <li>
+                        <a href="create-team.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Create New Team </a>
                     </li>
-                    <li class="active">
-                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
+                    <li>
+                        <a href="assign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Assign Task </a>
                     </li>
-                    <li class="active">
-                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
+                    <li>
+                        <a href="reasign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reasign Task</a>
+                    </li>
+                    <li>
+                        <a href="reminders.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reminders</a>
+                    </li>
+                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
+
+                    <li>
+                        <a href="installed.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Installed</a>
+                    </li>
+                    <li>
+                        <a href="restituted.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Restituted </a>
+                    </li>
+                    <li>
+                        <a href="turned-on.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Turned On</a>
+                    </li>            
+                    <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
+                    <li>
+                        <a href="profile.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-user"></i>Profile </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -128,7 +140,7 @@ if (isset($_POST["submit"])) {
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -137,7 +149,7 @@ if (isset($_POST["submit"])) {
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have <?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -151,7 +163,30 @@ if (isset($_POST["submit"])) {
                         </div>
 
                         <div class="dropdown for-message">
-
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="count bg-primary"><?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded']."<br><br>";
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have <?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded'];
+                                              }
+                                              ?> Pap to urgently assign</p>
+                                <a class="dropdown-item media" href="reminders.php">
+                                    <div class="message media-body">
+                                        <span class="name float-left">Check Out</span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -206,7 +241,7 @@ if (isset($_POST["submit"])) {
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['Sales']?>" class="form-control">
+                                        <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $_SESSION['teamleader']?>" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">

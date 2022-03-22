@@ -11,7 +11,7 @@ include("../../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Turned | On</title>
+    <title>Turned On</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -48,29 +48,42 @@ include("../../config/config.php");
 
 </head>
 <body style="background-color:#e1e1e1">
-      <!-- Left Panel -->
-      <aside id="left-panel" class="left-panel">
+    <!-- Left Panel -->
+     <!-- Left Panel -->
+<aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
-                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
-                            <li><i class="fa fa-table"></i><a href="assigned.php">Assigned</a></li>
-                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
-                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
-                        </ul>
+                    <li class="menu-title">ACTIVITIES</li><!-- /.menu-title -->
+                    <li>
+                        <a href="create-team.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Create New Team </a>
                     </li>
-                    <li class="active">
-                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
+                    <li>
+                        <a href="assign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Assign Task </a>
                     </li>
-                    <li class="active">
-                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
+                    <li>
+                        <a href="reasign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reasign Task</a>
+                    </li>
+                    <li>
+                        <a href="reminders.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reminders</a>
+                    </li>
+                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
+
+                    <li>
+                        <a href="installed.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Installed</a>
+                    </li>
+                    <li>
+                        <a href="restituted.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Restituted </a>
+                    </li>
+                    <li>
+                        <a href="turned-on.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Turned On</a>
+                    </li>            
+                    <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
+                    <li>
+                        <a href="profile.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-user"></i>Profile </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -101,7 +114,7 @@ include("../../config/config.php");
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -110,7 +123,7 @@ include("../../config/config.php");
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have <?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -124,7 +137,30 @@ include("../../config/config.php");
                         </div>
 
                         <div class="dropdown for-message">
-
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="count bg-primary"><?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded']."<br><br>";
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have <?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded'];
+                                              }
+                                              ?> Pap to urgently assign</p>
+                                <a class="dropdown-item media" href="reminders.php">
+                                    <div class="message media-body">
+                                        <span class="name float-left">Check Out</span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -152,59 +188,56 @@ include("../../config/config.php");
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                           <center> <strong class="card-title">Turned On[<?php echo $_SESSION['Region']?>]</strong></center>
+                           <center> <strong class="card-title">Turned On</strong></center>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
-                                    <th class="th-sm">PAP Code
-                  </th>
-                   <th class="th-sm">Building Name
-                   </th>
-                   <th class="th-sm">Building Code
-                   </th>
-                   <th class="th-sm">Region
-                  </th>
-                   <th class="th-sm">Champ Name
-                   </th>
-                   <th class="th-sm">Client Name
-                   </th>
-                   <th class="th-sm">Client Contact
-                   </th>
-                   <th class="th-sm">MAC Address
-                   </th>
-                   <th class="th-sm">Date Turned On
-                   </th>
-                   <th class="th-sm">More
-                   </th>  
+                                    <th class="th-sm">ClientID
+      </th>
+      <th class="th-sm">Client Name
+      </th>
+      <th class="th-sm">Contact
+      </th>
+      <th class="th-sm">Building Name
+      </th>
+      <th class="th-sm">Building Code
+      </th>
+      <th class="th-sm">Mac Address
+      </th>
+      <th class="th-sm">Techies
+      </th>
+      <th class="th-sm">Date Installed
+      </th>
+      <th class="th-sm">Date Turned On
+      </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-    
-    $sql="SELECT turnedonpap.ClientID,papdailysales.BuildingName,upper(papdailysales.BuildingCode) as bcode,upper(papdailysales.Region) as reg,turnedonpap.ChampName,turnedonpap.ClientName,turnedonpap.ClientContact,Upper(turnedonpap.MacAddress) as Mac,turnedonpap.PapStatus,turnedonpap.DateTurnedOn, CASE WHEN LENGTH(papdailysales.BuildingCode)>11 THEN CONCAT(papdailysales.BuildingCode,'-',(row_number() over(partition by papdailysales.BuildingCode)),'P')
-    WHEN (row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)) <=9 THEN CONCAT(upper(papdailysales.BuildingCode),'-',papdailysales.Floor,'0',(row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)),'P')
-    WHEN (row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)) >9 THEN CONCAT(upper(papdailysales.BuildingCode),'-',papdailysales.Floor,(row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)),'P')
-    end as papcode from papdailysales LEFT JOIN turnedonpap ON turnedonpap.ClientID=papdailysales.ClientID WHERE papdailysales.Region='".$_SESSION['Region']."' and DateTurnedOn >= DATE_SUB(CURDATE(), INTERVAL 70 DAY) order by turnedonpap.DateTurnedOn Desc";
-$result=$connection->query($sql);
-while($row=$result->fetch_array()){
-  ?>
-  <tr>
-    <td><?php echo $row['papcode']?></td>
-    <td><?php echo $row['BuildingName']?></td>
-    <td><?php echo $row['bcode']?></td>
-    <td><?php echo $row['reg']?></td>
-    <td><?php echo $row['ChampName']?></td>
-    <td><?php echo $row['ClientName']?></td>
-    <td><?php echo $row['ClientContact']?></td>
-    <td><?php echo $row['Mac']?></td>
-    <td><?php echo $row['DateTurnedOn']?></td>
-    <td>
-    <button class="btn btn-warning" ><a href="edit-turnedon.php?clientid=<?php echo $row['ClientID']; ?>" class="text-bold">Edit</a></button>
-    </td>
-</tr>
-<?php } ?>
+                        $query  = "SELECT turnedonpap.ClientID,turnedonpap.ClientName,turnedonpap.ChampName,turnedonpap.ClientContact,papdailysales.BuildingName,papdailysales.BuildingCode,upper(turnedonpap.MacAddress) as mac,CONCAT(teams.Techie1,'/',teams.Techie2) as techies,
+                        turnedonpap.DateTurnedOn,papdailysales.Region,papinstalled.DateInstalled FROM turnedonpap JOIN papdailysales ON papdailysales.ClientID=turnedonpap.ClientID left join papinstalled ON papinstalled.ClientID=papdailysales.ClientID left join teams on teams.Team_ID=papinstalled.Team_ID WHERE turnedonpap.ClientID IS NOT null and papdailysales.Region='".$_SESSION['Region']."'";
+                        $result  = mysqli_query($connection, $query);
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                
+                        ?>
+                                <tr>
+                                    <td><?php echo$row['ClientID']; ?></td>
+                                    <td><?php echo $row['ClientName']; ?></td>
+                                    <td><?php echo $row['ClientContact']; ?></td>
+                                    <td><?php echo $row['BuildingName']; ?></td>
+                                    <td><?php echo $row['BuildingCode']; ?></td>
+                                    <td><?php echo $row['mac']; ?></td>
+                                    <td><?php echo $row['techies']; ?></td>
+                                    <td><?php echo $row['DateInstalled']; ?></td>
+                                    <td><?php echo $row['DateTurnedOn']; ?></td>
+                                </tr>
+                        <?php
+
+                            }
+                        ?>
                                 </tbody>
                             </table>
                         </div>
@@ -225,7 +258,6 @@ while($row=$result->fetch_array()){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="../../assets/js/main.js"></script>
-
 
 <script type="text/javascript">
 $( document ).ready(function() {

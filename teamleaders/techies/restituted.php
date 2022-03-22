@@ -11,12 +11,11 @@ include("../../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Buildings | Ref</title>
+    <title>Restituted</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -26,6 +25,11 @@ include("../../config/config.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="../../assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
     <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
 
 <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -44,29 +48,42 @@ include("../../config/config.php");
 
 </head>
 <body style="background-color:#e1e1e1">
-  <!-- Left Panel -->
-  <aside id="left-panel" class="left-panel">
+    <!-- Left Panel -->
+     <!-- Left Panel -->
+<aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
-                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
-                            <li><i class="fa fa-table"></i><a href="assigned.php">Assigned</a></li>
-                            <li><i class="fa fa-table"></i><a href="restituted.php">Restituted</a></li>
-                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
-                        </ul>
+                    <li class="menu-title">ACTIVITIES</li><!-- /.menu-title -->
+                    <li>
+                        <a href="create-team.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Create New Team </a>
                     </li>
-                    <li class="active">
-                        <a href="buildings.php"><i class="menu-icon fa fa-home"></i>Buildings</a>
+                    <li>
+                        <a href="assign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Assign Task </a>
                     </li>
-                    <li class="active">
-                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
+                    <li>
+                        <a href="reasign-task.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reasign Task</a>
+                    </li>
+                    <li>
+                        <a href="reminders.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reminders</a>
+                    </li>
+                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
+
+                    <li>
+                        <a href="installed.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Installed</a>
+                    </li>
+                    <li>
+                        <a href="restituted.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Restituted </a>
+                    </li>
+                    <li>
+                        <a href="turned-on.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Turned On</a>
+                    </li>            
+                    <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
+                    <li>
+                        <a href="profile.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-user"></i>Profile </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -97,7 +114,7 @@ include("../../config/config.php");
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -106,7 +123,7 @@ include("../../config/config.php");
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have <?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -120,7 +137,30 @@ include("../../config/config.php");
                         </div>
 
                         <div class="dropdown for-message">
-
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="count bg-primary"><?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded']."<br><br>";
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have <?php
+                                             $query="SELECT COUNT(*) AS reminded from reminders Where Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['reminded'];
+                                              }
+                                              ?> Pap to urgently assign</p>
+                                <a class="dropdown-item media" href="reminders.php">
+                                    <div class="message media-body">
+                                        <span class="name float-left">Check Out</span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -140,43 +180,49 @@ include("../../config/config.php");
             </div>
         </header>
         <!-- /#header -->
+        <!-- Header-->
 
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
                 <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                            <center><strong class="card-title">Buildigs[<?php
-         $query="SELECT COUNT(*) as buildings FROM building WHERE BuildingStatus='6. IAP In Service'";
-          $data=mysqli_query($connection,$query);
-          while($row=mysqli_fetch_assoc($data)){
-          echo $row['buildings'];
-    }
-    ?> Records]</strong></center>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-striped" id="example">
-                                    <thead>
-                                        <tr>
-                                          <th scope="col">B Name</th>
-                                          <th scope="col">B Code</th>
-                                          <th scope="col">Region</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                  <?php
-    
-    $sql="SELECT * from building WHERE BuildingStatus='6. IAP In Service' order by DateTurnedOn Desc";
-    $result=$connection->query($sql);
-    while($row=$result->fetch_array()){
-      ?>
-      <tr>
-        <td><a href="javascript:void(0);" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['BuildingName']?></a></td>
-        <td><a href="javascript:void(0);" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['BuildingCode']?></a></td>
-        <td><a href="javascript:void(0);" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['Region']?></a></td>
-    </tr>
-    <?php } ?>
+                    <div class="card">
+                        <div class="card-header">
+                           <center> <strong class="card-title">Installed[Already Installed]</strong></center>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped" id="example">
+                                <thead>
+                                    <tr>
+                                    <th>Client Name</th>
+                     <th>Contact</th>
+                     <th>Building Name</th>
+                     <th>BuildingCode</th>
+                     <th>Techies</th>
+                    <th>Restore</th>
+                
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+ $query =
+     "SELECT ClientID,ClientName,BuildingName,BuildingCode,Region,DateSigned,Reason,Contact,CONCAT(Techie1,'/',Techie2) as techies from papnotinstalled where Reason='Already Installed' and Region='" .
+     $_SESSION["Region"] .
+     "' order by DateSigned Desc";
+ $result = mysqli_query($connection, $query);
+ while ($row = mysqli_fetch_assoc($result)) { ?>
+                                <tr>
+                                    <td><?php echo $row["ClientName"]; ?></dh>
+                                    <td><?php echo $row["Contact"]; ?></td>
+                                    <td><?php echo $row["BuildingName"]; ?></td>
+                                    <td><?php echo $row["BuildingCode"]; ?></td>
+                                    <td><?php echo $row["techies"]; ?></td>
+                                    <td>
+                                    <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> back to KOMP database?')"> <i class="zmdi zmdi-refresh-alt"></i>Restore</a></button>
+                                    </td>
+                                </tr>
+                        <?php }
+ ?>
                                 </tbody>
                             </table>
                         </div>
@@ -184,65 +230,37 @@ include("../../config/config.php");
                 </div>
 
 </div><!-- .content -->
-   <!-- Modal -->
-   <div class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog">
-    
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="background-color:#3073f5;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="background-color:#3073f5;">
 
-            </div>
-            <div class="modal-footer" style="background-color:#3073f5;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-      
-    </div>
-</div><!--End of modal-->
 <div class="clearfix"></div>
 
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
-<script>
-  $(document).ready(function(){
-    $(document).on('click','.openPopup',function(){
-        var dataURL = $(this).attr('data-href');
-        $('.modal-body').load(dataURL,function(){
-            $('#myModal').modal({show:true});
-        });
-    }); 
-});
-</script>
+
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="../../assets/js/main.js"></script>
-<script>
- $(document).ready(function () {
-$('#example').DataTable();
-$('.dataTables_length').addClass('bs-select');
-});
-</script>
-<script>
-$(document).ready(function(){
-  $(document).on('click','.openPopup',function(){
-        var dataURL = $(this).attr('data-href');
-        $('.modal-body').load(dataURL,function(){
-            $('#myModal').modal({show:true});
+
+<script type="text/javascript">
+$( document ).ready(function() {
+$('#example').DataTable({
+		 "processing": true,
+		 "dom": 'lBfrtip',
+		 "buttons": [
+            {
+                extend: 'collection',
+                text: 'Export',
+                buttons: [
+                    'excel',
+                    'csv'
+                ]
+            }
+        ]
         });
-    }); 
 });
-$('#example').DataTable( {
-    fixedColumn: true
-} );
 </script>
-    
 </body>
 </html>
