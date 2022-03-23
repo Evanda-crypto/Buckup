@@ -1,59 +1,35 @@
 <?php
-include("session.php");
+
 include("../config/config.php");
-$id=$_GET['clientid'];
+include("session.php");
+$id=$_GET['client-id'];
 
-$sql="select * from papdailysales where ClientID=$id";
-$result=mysqli_query($connection,$sql);
-$row=mysqli_fetch_assoc($result);
-$bname=$row['BuildingName'];
-$bcode=$row['BuildingCode'];
-$clid=$row['ClientID'];
-$reg=$row['Region'];
-$champ=$row['ChampName'];
-$cnt=$row['ClientContact'];
-$cname=$row['ClientName'];
+$query="SELECT * from papdailysales where ClientID=$id";
+$data=mysqli_query($connection,$query);
+while($row=mysqli_fetch_assoc($data)){
+    $clientid=$row['ClientID'];
+    $availability=$row['ClientAvailability'];
+    $cname=$row['ClientName'];
+    $Bname=$row['BuildingName'];
+    $cont=$row['ClientContact'];
 
+}
 
 if(isset($_POST['submit'])){
-    $bname=$row['BuildingName'];
-    $bcode=$row['BuildingCode'];
-    $clid=$row['ClientID'];
-    $reg=$row['Region'];
-    $message = $_POST['message'];
-    $avail = $_POST['availability'];
-    $champ=$row['ChampName'];
-    $cnt=$row['ClientContact'];
-    $cname=$row['ClientName'];
-//checking if connection is not created successfully
-if($connection->connect_error){
-    die('connection failed : '.$connection->connect_error);
-}
-else
-{
-    $stmt= $connection->prepare("select * from reminders where ClientID= ?");
-  $stmt->bind_param("s",$clid);
-  $stmt->execute();
-  $stmt_result= $stmt->get_result();
-  if($stmt_result->num_rows>0){
-    echo "<script>alert('Already Reminded');</script>";
-    echo '<script>window.location.href="not-installed.php";</script>';
-  }
-  else{
-  $sql="update papdailysales set ClientID=$id,ClientAvailability='$avail' where ClientID=$id";
-  $result=mysqli_query($connection,$sql);
-     $insert = $connection->query("INSERT into reminders (ClientID,ClientName,BuildingName,BuildingCode,Region,Message,ChampName,Contact,Availability) VALUES ('$clid','$cname','$bname','$bcode','$reg','$message','$champ','$cnt','$avail')"); 
-  $submit=mysqli_query($connection,$sql);
-  if ($result && $submit) {
-    echo '<script>alert("Successfull!")</script>';
-      echo '<script>window.location.href="not-installed.php";</script>';
-  } else {
-    echo '<script>alert("Not submitted try again!")</script>';
-      echo '<script>window.location.href="not-installed.php";</script>';
-  }
-   
-}
-}
+    $upd=$_POST['availability'];
+    $contact=$_POST['phone'];
+    $note=$_POST['note'];
+
+    $sql="update papdailysales set ClientID=$id,ClientAvailability='$upd',ClientContact='$contact',Note='$note' where ClientID=$id";
+    $result=mysqli_query($connection,$sql);
+    if($result){
+        echo "<script>alert('Updated');</script>";
+        echo '<script>window.location.href="turned-on.php";</script>';
+    }
+    else{
+        echo "<script>alert('An error occured while updating your request');</script>";
+    echo '<script>window.location.href="update-availability.php";</script>';
+    }
 }
 ?>
 <!doctype html>
@@ -64,7 +40,7 @@ else
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Reminder</title>
+    <title>Update Availability</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -78,16 +54,22 @@ else
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/lib/chosen/chosen.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-
+    <link href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" rel="stylesheet"/>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
 </head>
 <body style="background-color:#e1e1e1">
   <!-- Left Panel -->
- 
-<aside id="left-panel" class="left-panel">
+
+  <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -190,49 +172,41 @@ else
                                 <div id="pay-invoice">
                                     <div class="card-body">
                                         <div class="card-title">
-                                            <h3 class="text-center">Remind Installation</h3>
+                                            <h3 class="text-center">Update Availability</h3>
                                         </div>
                                         <hr>
-                                        <form  method="post" >
-                                        <div class="row">
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="cc-exp" class="control-label mb-1">Building Name</label>
-                                                        <input id="cc-exp" readonly name="cc-exp" type="text" class="form-control cc-exp" value="<?php echo $bname?>" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="Building Name">
-                                                        <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <label for="x_card_code" class="control-label mb-1">Building Code</label>
-                                                    <div class="input-group">
-                                                        <input id="x_card_code" name="x_card_code" readonly type="text" class="form-control cc-cvc" value="<?php echo $bcode?>" placeholder="Building Code" data-val="true" data-val-required="Please enter the security code" data-val-cc-cvc="Please enter a valid security code" autocomplete="off">
-                                                    </div>
-                                                </div>
+                                        <form  method="post" action="">
+                                        <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">Client ID</label>
+                                                <input id="datesigned" name="DateSigned" type="text" placeholder="ClientID" value="<?php echo $clientid?>"  readonly class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">Client Name</label>
+                                                <input id="" name="ChampName" type="text" class="form-control cc-name valid" value="<?php echo $cname?>" readonly data-val="true" placeholder="Client Name" readonly data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name"  data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label for="cc-payment" class="control-label mb-1">Client ID</label>
-                                                <input id="cc-payment" name="cc-payment" type="text" class="form-control" aria-required="true" value="<?php echo $clid?>" aria-invalid="false" readonly>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">Region</label>
-                                                <input id="cc-number" name="cc-number" readonly type="text" class="form-control cc-number identified visa" value="<?php echo $reg?>" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
-                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                                <label for="cc-payment" class="control-label mb-1">Building Name</label>
+                                                <input name="bname" placeholder="Building Name" type="text" class="form-control" value="<?php echo $Bname?>" readonly>
+                                             </div>
+                                                <div class="form-group">
+                                            <label for="cc-number" class="control-label mb-1">Phone Main</label>
+                                            <input id="cc-number"  class="form-control cc-number identified visa"  type="tel" pattern="[0-9]{10}" value="<?php echo $cont?>" name="phone" placeholder="Phone Main 07XXXXXXXX" required> 
                                             </div>
                                             <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1">Availability</label>
-                                                <input id="cc-name" name="availability" type="date" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name">
+                                                <input id="cc-name" name="availability" type="date" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
+
                                             <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">Message</label>
-                                                <input id="cc-number" name="message" type="text" class="form-control cc-number identified visa" maxlength="40" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number">
+                                                <label for="cc-number" class="control-label mb-1">Suggestions/Observations/Comments</label>
+                                                <input id="cc-number" name="note" type="text" class="form-control cc-number identified visa" maxlength="40"  required placeholder="Suggestions/Observations/Comments">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                             </div>
-       
-                                            <div>
                                                 <button id="payment-button" type="submit" name="submit" class="btn btn-warning">
-                                                    <span id="payment-button-amount">Remind</span>
+                                                    <span id="payment-button-amount">Submit</span>
                                                     <span id="payment-button-sending" style="display:none;">Sending…</span>
                                                 </button>
                                             </div>
@@ -262,7 +236,16 @@ else
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="../assets/js/main.js"></script>
-
+<script src="../assets/js/lib/chosen/chosen.jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+</script>
 <script>
  var todayDate= new Date();
  var month= todayDate.getMonth() + 1;
@@ -276,21 +259,6 @@ if(month<10){
 }
  mindate= year +"-" + month + "-" + todate;
  document.getElementById("cc-name").setAttribute("min",mindate);
- </script>
-</body>
-<script>
- var todayDate= new Date();
- var month= todayDate.getMonth() + 1;
- var year= todayDate.getFullYear();
- var todate=todayDate.getDate();
-if(todate<10){
-  todate= "0"+ todate;
-}
-if(month<10){
-  month= "0"+ month;
-}
-mindate= year +"-" + month + "-" + todate;
- document.getElementById("cc-name").setAttribute("min",maxdate);
  </script>
 </body>
 </html>

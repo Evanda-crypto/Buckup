@@ -209,6 +209,34 @@ if (!$connection) {
                                 </a>
                             </div>
                         </div>
+                        <div class="dropdown for-message">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-question"></i>
+                                <span class="count bg-primary"><?php
+                                             $query="SELECT COUNT(papdailysales.ClientID) AS pending from papdailysales LEFT OUTER JOIN techietask on techietask.ClientID=papdailysales.ClientID left join  papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
+                                             WHERE techietask.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['pending'];
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have <?php
+                                             $query="SELECT COUNT(papdailysales.ClientID) AS pending from papdailysales LEFT OUTER JOIN techietask on techietask.ClientID=papdailysales.ClientID left join  papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
+                                             WHERE techietask.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['pending'];
+                                              }
+                                              ?> pending installations</p>
+                                <a class="dropdown-item media" href="assign-task.php">
+                                    <div class="message media-body">
+                                        <span class="name float-left">Check Out</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="user-area dropdown float-right">
@@ -245,14 +273,13 @@ if (!$connection) {
                                     <div class="stat-content">
                                         <div class="text-left dib">
                                             <div class="stat-text"><span class="count"><?php
-                  $query =
-                      "SELECT COUNT(*)as pending from papdailysales LEFT JOIN papinstalled on papinstalled.ClientID=papdailysales.ClientID left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
-                       WHERE papinstalled.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
-                  $data = mysqli_query($connection, $query);
-                  while ($row = mysqli_fetch_assoc($data)) {
-                      echo $row["pending"] . "<br><br>";
-                  }
-                  ?></span></div>
+                                             $query="SELECT COUNT(papdailysales.ClientID) AS pending from papdailysales LEFT OUTER JOIN techietask on techietask.ClientID=papdailysales.ClientID left join  papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
+                                             WHERE techietask.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['pending'];
+                                              }
+                                              ?></span></div>
                                             <div class="stat-heading">Pending Istallation[<?php echo $_SESSION['Region']?>]</div>
                                         </div>
                                     </div>
@@ -365,7 +392,79 @@ if (!$connection) {
 
                     <div class="row">
                     <div class="col-lg-12">
-              
+                    <div class="card">
+                    <div class="card-body">
+                                    
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Duration</th>
+                                                    <th>Signed</th>
+                                                    <th>Installed</th>
+                                                    <th>Turned On</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                <td class="serial">Past 7 Days</td>
+                                                <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as SignedPaP from papdailysales where DateSigned>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["SignedPaP"] . "<br><br>";
+         }
+         ?></td>
+                                                <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyinstalled from papinstalled where DateInstalled>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyinstalled"] . "<br><br>";
+         }
+         ?></td>
+                                                <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyturnedon from turnedonpap where DateTurnedOn>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyturnedon"] . "<br><br>";
+         }
+         ?></td>
+                                                    </td>
+                                                </tr>
+                                                <tr><td class="serial">Past 30 Days</td>
+                                                    <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as SignedPaP from papdailysales left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID where papdailysales.DateSigned >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) and papnotinstalled.ClientID is null";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["SignedPaP"] . "<br><br>";
+         }
+         ?></td>
+                                                    <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyinstalled from papinstalled where DateInstalled >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyinstalled"] . "<br><br>";
+         }
+         ?></td>
+                                                    <td class="serial"><?php
+         $query =
+             "SELECT COUNT(*) as dailyturnedon from turnedonpap where DateTurnedOn >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+         $data = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($data)) {
+             echo $row["dailyturnedon"] . "<br><br>";
+         }
+         ?></td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                
+                                </div>
+    </div>
     </div></div>
             </div>
             <!-- .animated -->

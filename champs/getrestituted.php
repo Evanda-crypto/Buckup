@@ -1,5 +1,5 @@
 <?php
-include "../db/db.php";
+include "../config/config.php";
 if (!empty($_GET["id"])) {
     if ($connection->connect_error) {
         die("Unable to connect database: " . $db->connect_error);

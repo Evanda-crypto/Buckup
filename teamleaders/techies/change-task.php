@@ -1,7 +1,53 @@
 <?php
 include("session.php");
 include("../../config/config.php");
+$id=$_GET['client-id'];
 
+$sql="select * from papdailysales where ClientID=$id";
+$result=mysqli_query($connection,$sql);
+$row=mysqli_fetch_assoc($result);
+$id=$row['ClientID'];
+$cname=$row['ClientName'];
+$contact=$row['ClientContact'];
+$availD=$row['ClientAvailability'];
+$reg=$row['Region'];
+$bname=$row['BuildingName'];
+$bcode=$row['BuildingCode'];
+
+if(isset($_POST['submit'])){
+    $TeamID = $_POST['teamid'];
+    $ClientID = $_POST['ClientID'];
+    $Date = $_POST['date'];
+    $Region = $_POST['Region'];
+
+    if($connection->connect_error){
+        die('connection failed : '.$connection->connect_error);
+    }
+    else
+    {    
+      $stmt= $connection->prepare("select * from teams where Team_ID= ? and Region= ?");
+      $stmt->bind_param("ss",$TeamID,$Region);
+      $stmt->execute();
+      $stmt_result= $stmt->get_result();
+    if($stmt_result->num_rows>0){
+        $sql="update techietask set ClientID=$id,TeamID='$TeamID',Date='$Date' where ClientID=$id";
+  
+        $result=mysqli_query($connection,$sql);
+        if ($result) {
+          echo '<script>alert("Successfully reasigned!")</script>';
+            echo '<script>window.location.href="reasign-task.php";</script>';
+        } else {
+          echo '<script>alert("Not submitted try again!")</script>';
+            echo '<script>window.location.href="change-task.php";</script>';
+        }
+    
+    }
+    else{
+      echo "<script>alert('Team does not exist.');</script>";
+      echo '<script>window.location.href="reasign-task.php";</script>';
+    }
+    }
+}
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -11,11 +57,12 @@ include("../../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Restituted</title>
+    <title>Reasign Task</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -29,7 +76,7 @@ include("../../config/config.php");
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-
+    
     <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
 
 <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -49,7 +96,7 @@ include("../../config/config.php");
 </head>
 <body style="background-color:#e1e1e1">
     <!-- Left Panel -->
-     <!-- Left Panel -->
+<!-- Left Panel -->
 <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -212,54 +259,123 @@ include("../../config/config.php");
 
         <div class="content">
             <div class="animated fadeIn">
+
+
                 <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                           <center> <strong class="card-title">Installed[Already Installed]</strong></center>
+                <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header"></div>
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            <h3 class="text-center title-2">Reasign Task</h3>
+                                        </div>
+                                        <hr>
+                                        <form method="POST" action="">
+                                        <div class="row">
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="cc-exp" class="control-label mb-1">Team ID</label>
+                                                        <input id="cc-exp" name="teamid" type="tel" class="form-control cc-exp" value="<?php echo $_SESSION['Region']?>-"data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="Team ID">
+                                                        <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="x_card_code" class="control-label mb-1">Date of Work</label>
+                                                    <div class="input-group">
+                                                        <input id="work" name="date" type="date" class="form-control cc-cvc" value=""  autocomplete="off">
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-payment" class="control-label mb-1">Client ID</label>
+                                                <input id="cc-pament" name="ClientID"  type="text" value="<?php echo $id?>" readonly class="form-control" aria-required="true" aria-invalid="false" placeholder="Client ID">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-payment" class="control-label mb-1">Building Name</label>
+                                                <input id="cc-pament" name="bname"  type="text" value="<?php echo $bname?>" readonly class="form-control" aria-required="true" aria-invalid="false" placeholder="Team ID">
+                                            </div>
+                                            <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">Building Code</label>
+                                                <input id="cc-name" name="bcode" type="text" class="form-control cc-name valid"  data-val="true" placeholder="Building Code" value="<?php echo $bcode?>" readonly
+                                                    autocomplete="cc-name" radonly aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">Region</label>
+                                                <input id="cc-name" name="Region" type="text" class="form-control cc-name valid"  data-val="true" placeholder="Region"
+                                                    autocomplete="cc-name" readonly aria-required="true" aria-invalid="false" value="<?php echo $reg?>"aria-describedby="cc-name-error">
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">Client Name</label>
+                                                <input id="cc-name" name="cname" type="text" class="form-control cc-name valid" readonly  data-val="true" placeholder="Client Name"
+                                                    autocomplete="cc-name" radonly aria-required="true" aria-invalid="false" value="<?php echo $cname?>" aria-describedby="cc-name-error">
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">Contact </label>
+                                                <input id="cc-name" name="contact" type="text" class="form-control cc-name valid" readonly  data-val="true" value="<?php echo $contact?>" placeholder="Contact"
+                                                    autocomplete="cc-name" radonly aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="form-group has-success">
+                                                <label for="cc-name" class="control-label mb-1">Availability </label>
+                                                <input id="cc-name" name="availD" type="text" value="<?php echo $availD?>" class="form-control cc-name valid" readonly data-val="true" placeholder="Availability"
+                                                    autocomplete="cc-name" radonly aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                            </div>      
+                                            <div>
+                                                <button id="payment-button" type="submit" name="submit" class="btn btn-warning">
+                                                    <span id="payment-button-amount">Submit</span>
+                                                    <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div><!--/.col-->
+
+                   <div class="col-lg-8">
+              <div class="card"><div class="card-body">
+              <div class="card-header">
+                           <center> <strong class="card-title">Current Tasks</strong></center>
                         </div>
-                        <div class="card-body">
-                            <table class="table table-striped" id="example">
-                                <thead>
-                                    <tr>
-                                    <th>Client Name</th>
-                     <th>Contact</th>
-                     <th>Building Name</th>
-                     <th>BuildingCode</th>
-                     <th>Techies</th>
-                    <th>Restore</th>
-                
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
- $query =
-     "SELECT ClientID,ClientName,BuildingName,BuildingCode,Region,DateSigned,Reason,Contact,CONCAT(Techie1,'/',Techie2) as techies from papnotinstalled where Reason='Already Installed' and Region='" .
-     $_SESSION["Region"] .
-     "' order by DateSigned Desc";
- $result = mysqli_query($connection, $query);
- while ($row = mysqli_fetch_assoc($result)) { ?>
-                                <tr>
-                                    <td><?php echo $row["ClientName"]; ?></dh>
-                                    <td><?php echo $row["Contact"]; ?></td>
-                                    <td><?php echo $row["BuildingName"]; ?></td>
-                                    <td><?php echo $row["BuildingCode"]; ?></td>
-                                    <td><?php echo $row["techies"]; ?></td>
-                                    <td>
-                                    <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> back to KOMP database?')"> <i class="zmdi zmdi-refresh-alt"></i>Restore</a></button>
-                                    </td>
-                                </tr>
-                        <?php }
- ?>
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="table-responsive">
+                                    <table class="table table-borderless table-striped table-earning" id="example">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">Team ID</th>
+                                            <th scope="col">Techie 1</th>
+                                            <th scope="col">Techie 2</th>
+                                            <th scope="col">Pending Tasks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+    
+    $sql="SELECT techietask.TeamID, COUNT(techietask.TeamID) as tasks,teams.Techie1,teams.Techie2 FROM techietask left join papinstalled on papinstalled.ClientID=techietask.ClientID
+    left join teams on techietask.TeamID=teams.Team_ID WHERE papinstalled.ClientID is null and techietask.Region='".$_SESSION['Region']."' 
+    GROUP BY techietask.TeamID HAVING COUNT(techietask.TeamID)>1 OR COUNT(techietask.TeamID)=1";
+$result=$connection->query($sql);
+while($row=$result->fetch_array()){
+  ?>
+  <tr>
+    <td><?php echo $row['TeamID']?></td>
+    <td><?php echo $row['Techie1']?></td>
+    <td><?php echo $row['Techie2']?></td>
+   <td><?php echo $row['tasks']?></td>
+</tr>
+<?php } ?>
+                                    </tbody>
+                                    </table>
+                                </div>
+              </div></div>
                     </div>
-                </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
 
-</div><!-- .content -->
-
-<div class="clearfix"></div>
+    <div class="clearfix"></div>
 
 </div><!-- /#right-panel -->
 
@@ -289,6 +405,20 @@ $('#example').DataTable({
         ]
         });
 });
+</script>
+<script>
+ var todayDate= new Date();
+ var month= todayDate.getMonth() + 1;
+ var year= todayDate.getFullYear();
+ var todate=todayDate.getDate();
+if(todate<10){
+  todate= "0"+ todate;
+}
+if(month<10){
+  month= "0"+ month;
+}
+ mindate= year +"-" + month + "-" + todate;
+ document.getElementById("work").setAttribute("min",mindate);
 </script>
 </body>
 </html>

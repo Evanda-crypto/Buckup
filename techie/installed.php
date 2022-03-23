@@ -11,7 +11,7 @@ include("../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Installed Today</title>
+    <title>Installed | Today</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -44,8 +44,9 @@ include("../config/config.php");
 
 </head>
 <body style="background-color:#e1e1e1">
-    <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
+  <!-- Left Panel -->
+  <!-- Left Panel -->
+  <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -95,23 +96,29 @@ include("../config/config.php");
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
-                                             $data=mysqli_query($connection,$query);
-                                             while($row=mysqli_fetch_assoc($data)){
-                                             echo $row['MyTask']."<br><br>";
-                                              }
-                                              ?></span>
+                                $query =
+                                    "SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='" .
+                                    $_SESSION["TeamID"] .
+                                    "'";
+                                $data = mysqli_query($connection, $query);
+                                while ($row = mysqli_fetch_assoc($data)) {
+                                    echo $row["MyTask"] . "<br><br>";
+                                }
+                                ?></span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                <hr> <p class="red">You have <?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
-                                             $data=mysqli_query($connection,$query);
-                                             while($row=mysqli_fetch_assoc($data)){
-                                             echo $row['MyTask'];
-                                              }
-                                              ?> Tasks</p></hr>
+                               $query =
+                                   "SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='" .
+                                   $_SESSION["TeamID"] .
+                                   "'";
+                               $data = mysqli_query($connection, $query);
+                               while ($row = mysqli_fetch_assoc($data)) {
+                                   echo $row["MyTask"];
+                               }
+                               ?> Tasks</p></hr>
                                 <a class="dropdown-item media" href="mytask.php">
                                     <i class="fa fa-check"></i>
                                     <p>Check Out</p>
@@ -152,8 +159,8 @@ include("../config/config.php");
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="name float-left"><?php echo $_SESSION[
-                 "TeamID"
-             ]; ?></span>
+                            "TeamID"
+                        ]; ?></span>
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -165,6 +172,7 @@ include("../config/config.php");
             </div>
         </header>
         <!-- /#header -->
+        <!-- /#header -->
         <!-- Header-->
 
         <div class="content">
@@ -173,71 +181,61 @@ include("../config/config.php");
                 <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                            <center><strong class="card-title">Installed Today[<?php
-         $query="SELECT COUNT(*) as installed FROM papinstalled WHERE DateInstalled=CURDATE() and Team_ID='".$_SESSION['TeamID']."'";
-          $data=mysqli_query($connection,$query);
-          while($row=mysqli_fetch_assoc($data)){
-          echo $row['installed'];
-    }
-    ?> Records]</strong></center>
+                            <center><strong class="card-title">Installed Today</strong></center>
                             </div>
                             <div class="card-body">
                                 <table class="table" id="example">
                                     <thead>
                                         <tr>
-      <th class="th-sm">Building Name
-      </th>
-      <th class="th-sm">Building Code
-      </th>
-      <th class="th-sm">Client Name
-      </th>
-      <th class="th-sm">Floor
-      </th>
-      <th class="th-sm">MacAddress
-      </th>
-
+                          <th scope="th-sm">Building Name</th>
+                      <th scope="th-sm">Client Name</th>
+                      <th scope="th-sm">Mac Address</th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                   <?php
-                        $query  = "SELECT papinstalled.ClientID,papdailysales.ClientName,papdailysales.BuildingName,papdailysales.BuildingCode,papinstalled.Floor,papinstalled.MacAddress from papinstalled left join papdailysales on papdailysales.ClientID=papinstalled.ClientID WHERE DateInstalled=CURDATE() and Team_ID='".$_SESSION['TeamID']."'";
-                        $result  = mysqli_query($connection, $query);
-                            while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                                <tr>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingCode']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['Floor']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['MacAddress']; ?></a></td>
-
-                                </tr>
-                        <?php
-
-                            }
-                        ?>
+                                  $query = 
+                                      "SELECT papinstalled.ClientID,papdailysales.ClientName,papdailysales.BuildingName,papdailysales.BuildingCode,papinstalled.Floor,papinstalled.MacAddress from papinstalled left join papdailysales on papdailysales.ClientID=papinstalled.ClientID WHERE DateInstalled=CURDATE() and Team_ID='".$_SESSION['TeamID']."'";
+                                 $result  = mysqli_query($connection, $query);
+                                  while ($row = mysqli_fetch_assoc($result)) {
+                            
+                                    ?>
+                                            <tr>
+                                                <td><a data-toggle="modal" data-target="#mediumModal" data-href="getinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
+                                                <td><a data-toggle="modal" data-target="#mediumModal" data-href="getinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
+                                                <td><a data-toggle="modal" data-target="#mediumModal" data-href="getinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['MacAddress']; ?></a></td>
+                                               
+                                            </tr>
+                                    <?php
+            
+                                        }
+                                
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog">
-    
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="background-color:#3073f5;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="background-color:#3073f5;">
+<!-- Button trigger modal -->
 
-            </div>
-            <div class="modal-footer" style="background-color:#3073f5;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-      
-    </div>
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end of modal-->
 </div><!--End of modal-->
                 </div>
 

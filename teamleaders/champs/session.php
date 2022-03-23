@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION["Sales"]) && $_SESSION["Sales"] == true) {
     if (time() - $_SESSION["start"] > 86400) {
-        header("location: logout.php");
+        header("location: ../config/logout.php");
     } else {
         $_SESSION["start"] = time();
     }

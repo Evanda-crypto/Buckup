@@ -1,5 +1,6 @@
 <?php 
 include('../config/config.php');
+include("session.php");
 if(!empty($_GET['id'])){  
      
     if ($connection->connect_error) { 
@@ -7,18 +8,25 @@ if(!empty($_GET['id'])){
     } 
      
     // Get content from the database 
-    $query = $connection->query("SELECT turnedonpap.ChampName,turnedonpap.DateTurnedOn,turnedonpap.ClientName,turnedonpap.ClientContact,papdailysales.DateSigned,papdailysales.PhoneAlt,turnedonpap.ClientID,papdailysales.BuildingName,papdailysales.BuildingCode,papdailysales.ClientAvailability,papdailysales.Region,papdailysales.Floor,papdailysales.Apt,CONCAT(teams.Techie1,'/',teams.Techie2) AS techies FROM turnedonpap LEFT JOIN papdailysales ON papdailysales.ClientID=turnedonpap.ClientID LEFT JOIN teams ON teams.Team_ID=turnedonpap.Team_ID WHERE turnedonpap.ClientID = {$_GET['id']}"); 
+    $query = $connection->query("SELECT papdailysales.ChampName,techietask.ClientName,techietask.ClientID,techietask.ClientContact,techietask.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,teams.Team_ID,
+    papdailysales.BuildingCode,papdailysales.Floor,papdailysales.Apt from papdailysales LEFT JOIN 
+    techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE techietask.ClientID is not null AND papinstalled.ClientID is null and teams.Team_ID='" .
+                                          $_SESSION["TeamID"] .
+                                          "' and techietask.ClientID = {$_GET['id']}"); 
      
     if($query->num_rows > 0){ 
         $cmsData = $query->fetch_assoc(); 
         echo "<table class='table table-striped'>";
         echo "<tr>";
-        echo "<td>Date Turned On</td>";
-        echo "<td>".$cmsData['DateTurnedOn']."</td>";
+        echo "<td>Building Name</td>";
+        echo "<td>".$cmsData['BuildingName']."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>DateSigned</td>";
-        echo "<td>".$cmsData['DateSigned']."</td>";
+        echo "<td>Building Code</td>";
+        echo "<td>".$cmsData['BuildingCode']."</td>";
+        echo "</tr>";
+        echo "<td>Champ</td>";
+        echo "<td>".$cmsData['ChampName']."</td>";
         echo "</tr>";
         echo "<tr>";
         echo "<td>Client Name</td>";
@@ -29,35 +37,16 @@ if(!empty($_GET['id'])){
         echo "<td>".$cmsData['ClientAvailability']."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Phone Main</td>";
+        echo "<td>Contact</td>";
         echo "<td>".$cmsData['ClientContact']."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Phone Alt</td>";
-        echo "<td>".$cmsData['PhoneAlt']."</td>";
-        echo "</tr>";
-        echo "<td>Region</td>";
-        echo "<td>".$cmsData['Region']."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Building Name</td>";
-        echo "<td>".$cmsData['BuildingName']."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Building Code</td>";
-        echo "<td>".$cmsData['BuildingCode']."</td>";
         echo "</tr>";
         echo "<tr>";
         echo "<td>Floor</td>";
         echo "<td>".$cmsData['Floor']."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Apt</td>";
+        echo "<td>Door No</td>";
         echo "<td>".$cmsData['Apt']."</td>";
-        echo "</tr>";
-        echo"</tr>";
-        echo "<td>Techies</td>";
-        echo "<td>".$cmsData['techies']."</td>";
         echo "</tr>";
         echo"</tr>";
         echo "</table>";
@@ -94,8 +83,8 @@ if(isset($_POST['submit'])){
 </head>
 <body>
       <div class="modal-footer">
-    <button type="button" name="submit" class="col-lg-5 btn btn-warning"><a href='update-availability.php?client-id=<?php echo $cmsData['ClientID'];?>'>Change Availability</a></button>
-    <button type="button" class="col-lg-4 btn btn-danger" data-dismiss="modal">Close</button>
+    <button type="button" name="submit" class="col-lg-5 btn btn-warning"><a href='papdetails.php?clientid=<?php echo $cmsData['ClientID'];?>'>Installed</a></button>
+    <button type="button" name="submit" class="col-lg-5 btn btn-danger"><a href='pap-not-installed.php?clientid=<?php echo $cmsData['ClientID'];?>'>To Restitutes</a></button>
 </div>
 </body>
 </html>

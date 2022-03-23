@@ -1,6 +1,7 @@
 <?php
-include "session.php";
-include "../config/config.php";
+include("session.php");
+include("../config/config.php");
+
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -43,8 +44,9 @@ include "../config/config.php";
 
 </head>
 <body style="background-color:#e1e1e1">
-    <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
+  <!-- Left Panel -->
+  <!-- Left Panel -->
+  <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -170,11 +172,12 @@ include "../config/config.php";
             </div>
         </header>
         <!-- /#header -->
+        <!-- /#header -->
         <!-- Header-->
 
         <div class="content">
             <div class="animated fadeIn">
-            <div class="row">
+                <div class="row">
                 <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
@@ -191,86 +194,65 @@ include "../config/config.php";
                             ?> Records]</strong></center>
                             </div>
                             <div class="card-body">
-                                <table class="table table-striped" id="example">
+                                <table class="table" id="example">
                                     <thead>
                                         <tr>
-                                        <th scope="th-sm">Client ID</th>
-                      <th scope="th-sm">Building Name</th>
-                      <th scope="th-sm">Building Code</th>
-                     <th scope="th-sm">Champ Name</th>
+                                        <th scope="th-sm">Building Name</th>
                       <th scope="th-sm">Client Name</th>
                       <th scope="th-sm">Client Contact</th>
-                      <th scope="th-sm">Floor</th>
-                      <th scope="th-sm">Door No</th>
-                      <th scope="th-sm">Installed</th>
-                     <th scope="th-sm">Not Installed</th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                   <?php
-                                  $query = mysqli_query(
-                                      $connection,
+                                  $query = 
                                       "SELECT papdailysales.ChampName,techietask.ClientName,techietask.ClientID,techietask.ClientContact,techietask.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,teams.Team_ID,
     papdailysales.BuildingCode,papdailysales.Floor,papdailysales.Apt from papdailysales LEFT JOIN 
     techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE techietask.ClientID is not null AND papinstalled.ClientID is null and teams.Team_ID='" .
                                           $_SESSION["TeamID"] .
-                                          "'"
-                                  );
-                                  while ($row = mysqli_fetch_assoc($query)) {
-                                      $id = $row["ClientID"];
-                                      $bname = $row["BuildingName"];
-                                      $champ = $row["ChampName"];
-                                      $bcode = $row["BuildingCode"];
-                                      $cname = $row["ClientName"];
-                                      $cont = $row["ClientContact"];
-                                      $floor = $row["Floor"];
-                                      $apt = $row["Apt"];
-
-                                      echo ' <tr>
-      <th scope="row">' .
-                                          $id .
-                                          '</th>
-      <td>' .
-                                          $bname .
-                                          '</td>
-      <td>' .
-                                          $bcode .
-                                          '</td>
-      <td>' .
-                                          $champ .
-                                          '</td>
-      <td>' .
-                                          $cname .
-                                          '</td>
-      <td>' .
-                                          $cont .
-                                          '</td>
-      <td>' .
-                                          $floor .
-                                          '</td>
-      <td>' .
-                                          $apt .
-                                          '</td>
-      <td>
-      <button class="btn btn-warning" ><a href="papdetails.php?clientid=' .
-                                          $id .
-                                          '" class="text-bold">Installed Pap</a></button>
-     </td>
-     <td>
-   <button class="btn btn-danger" ><a href="pap-not-installed.php?clientid=' .
-                                          $id .
-                                          '" class="text-bold">Pap Not Installed</a></button>
-   </td>
-      </tr>';
-                                  }
-                                  ?>
+                                          "'";
+                                 $result  = mysqli_query($connection, $query);
+                                  while ($row = mysqli_fetch_assoc($result)) {
+                            
+                                    ?>
+                                            <tr>
+                                                <td><a data-toggle="modal" data-target="#mediumModal" data-href="get.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
+                                                <td><a data-toggle="modal" data-target="#mediumModal" data-href="get.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
+                                                <td><a data-toggle="modal" data-target="#mediumModal" data-href="get.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientContact']; ?></a></td>
+                                               
+                                            </tr>
+                                    <?php
+            
+                                        }
+                                
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <!-- Modal -->
+<!-- Button trigger modal -->
+
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
                     </div>
-</div>
-  </div>
+                </div>
+            </div><!--end of modal-->
+</div><!--End of modal-->
+                </div>
+
 </div><!-- .content -->
 <div class="clearfix"></div>
 

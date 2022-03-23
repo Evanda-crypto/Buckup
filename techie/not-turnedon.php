@@ -187,11 +187,7 @@ include("../config/config.php");
                                         <tr>
       <th class="th-sm">Building Name
       </th>
-      <th class="th-sm">Building Code
-      </th>
       <th class="th-sm">Client Name
-      </th>
-      <th class="th-sm">Floor
       </th>
       <th class="th-sm">MacAddress
       </th>
@@ -205,11 +201,9 @@ include("../config/config.php");
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                                 <tr>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingCode']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['Floor']; ?></a></td>
-                                    <td><a href="javascript:void(0);" data-href="getrestituted-info.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['MacAddress']; ?></a></td>
+                                    <td><a data-toggle="modal" data-target="#mediumModal" data-href="getnotturnedon.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
+                                    <td><a data-toggle="modal" data-target="#mediumModal" data-href="getnotturnedon.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
+                                    <td><a data-toggle="modal" data-target="#mediumModal" data-href="getnotturnedon.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['MacAddress']; ?></a></td>
 
                                 </tr>
                         <?php
@@ -220,25 +214,27 @@ include("../config/config.php");
                             </table>
                         </div>
                     </div>
-                    <!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog">
-    
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="background-color:#3073f5;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="background-color:#3073f5;">
+                   <!-- Modal -->
+<!-- Button trigger modal -->
 
-            </div>
-            <div class="modal-footer" style="background-color:#3073f5;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-      
-    </div>
-</div><!--End of modal-->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end of modal-->
                 </div>
 
 </div><!-- .content -->

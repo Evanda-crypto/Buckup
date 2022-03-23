@@ -202,7 +202,7 @@ include("../config/config.php");
             <div class="animated fadeIn">
                 <!-- Widgets  -->
                 <div class="row">
-                    <div class="col-lg-3 col-md-6"><a href="my-tasks.php">
+                    <div class="col-lg-3 col-md-6"><a href="mytask.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">

@@ -97,7 +97,7 @@ if (!$connection) {
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
                     <li>
@@ -186,7 +186,7 @@ if (!$connection) {
             <div class="animated fadeIn">
                 <!-- Widgets  -->
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6"><a href="pap-daily-sales.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -208,10 +208,10 @@ if (!$connection) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6"><a href="pending-installation.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -233,10 +233,10 @@ if (!$connection) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6"><a href="installed.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -258,10 +258,10 @@ if (!$connection) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6"><a href="turnedon.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -282,7 +282,7 @@ if (!$connection) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
                 </div>
                 <!-- /Widgets -->
@@ -653,14 +653,71 @@ while ($signed = mysqli_fetch_assoc($result)) {
         type: 'doughnut',
         data: {
             datasets: [ {
-                data: [ 35, 40, 20, 5, 7,27 ],
+                data: [ <?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where Region='ZMM'";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?> ,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where Region='R&M'";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?> ,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where Region='G44'";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?> ,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where Region='G45S'";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?> ,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where Region='G45N'";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?> ,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where Region='KWT'";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?> ,<?php
+$sql =
+    "SELECT COUNT(DateTurnedOn) as turnedon FROM turnedonpap where Region='LSM'";
+$result = mysqli_query($connection, $sql);
+$chart_data = "";
+while ($signed = mysqli_fetch_assoc($result)) {
+    echo $signed["turnedon"];
+}
+?>  ],
                 backgroundColor: [
                                     "#ee2c4e",
                                     "#ffb91f",
                                     "#0cbeaf",
                                     "#3072f5",
                                     "#000000",
-                                    "#85ce36"
+                                    "#85ce36",
+                                    "#800080"
                                 ],
                 hoverBackgroundColor: [
                                     "#ee2c4e",
@@ -668,17 +725,19 @@ while ($signed = mysqli_fetch_assoc($result)) {
                                     "#0cbeaf",
                                     "#3072f5",
                                     "#000000",
-                                    "#85ce36"
+                                    "#85ce36",
+                                    "#800080"
                                 ]
 
                             } ],
             labels: [
-                            "ZMM",
-                            "G44",
-                            "R&M",
-                            "G45S",
-                            "G45N",
-                            "KWT"
+                                   "ZMM",
+                                    "R&M",
+                                    "G44",
+                                    "G45S",
+                                    "G45N",
+                                    "KWT",
+                                    "LSM"
                         ]
         },
         options: {

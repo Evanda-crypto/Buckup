@@ -126,10 +126,10 @@ if (isset($_POST["submit"])) {
 <div class="container my-5" >
     <div class="row my-5">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5" style="background-color:#;">
+            <div class="card card-signin my-5" style="background-color:#; corner-radius:20px;">
                 <div class="card-body my-5">
                 <div class="text-center">
-		 		     <img src="images/logo1.png" alt="logo icon" style="height:40%; width: 80%; corner-radius:2px;">
+		 		     <img src="images/logo1.png" alt="logo icon" style="height:40%; width: 80%; ">
 		 	         </div>
                     <form action="" method="post">
  
