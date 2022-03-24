@@ -2,22 +2,6 @@
 
 include("../config/config.php");
 include("session.php");
-$id=$_GET['clientid'];
-
-$sql="SELECT techietask.ClientName,techietask.Region,papdailysales.AptLayout,papdailysales.Floor,papdailysales.ClientID,techietask.ClientContact,papdailysales.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,teams.Team_ID,teams.Techie1,teams.Techie2,
-papdailysales.BuildingCode,papdailysales.Floor from papdailysales LEFT JOIN 
-techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID WHERE techietask.ClientID is not null AND techietask.ClientID=$id AND teams.Team_ID='".$_SESSION['TeamID']."'";
-$result=mysqli_query($connection,$sql);
-$row=mysqli_fetch_assoc($result);
-$clientid=$row['ClientID'];
-$teamid=$row['Team_ID'];
-$date=$row['Date'];
-$reg=$row['Region'];
-$t1=$row['Techie1'];
-$t2=$row['Techie2'];
-$floor=$row['Floor'];
-$layout=$row['AptLayout'];
-
 
 if(isset($_POST['submit']) && !empty($_FILES["image"]["name"])) {
 $Team_ID=$_POST['teamid'];
@@ -90,7 +74,7 @@ echo '<script>window.location.href="mytask.php";</script>';
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Panel Ap Report</title>
+    <title>New Meter Report</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -256,66 +240,54 @@ echo '<script>window.location.href="mytask.php";</script>';
                                 <div id="pay-invoice">
                                     <div class="card-body">
                                         <div class="card-title">
-                                            <h3 class="text-center">Panel Ap Report</h3>
+                                            <h3 class="text-center">New Meter Report</h3>
                                         </div>
                                         <hr>
                                         <form  method="post" enctype="multipart/form-data" autocomplete="off">
                                         <div class="form-group">
-                                        <label for="x_card_code" class="control-label mb-1">Client ID</label>
-                                        <div class="input-group">
-                                        <input id="bname" name="ClientID" type="text" class="form-control cc-cvc" value="<?php echo $clientid?>"   placeholder="Client ID" readonly>
-                                        </div>
-                                        <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Team ID</label>
                                         <div class="input-group">
-                                        <input id="bname" name="teamid" type="text" class="form-control cc-cvc" value="<?php echo $teamid?>"   placeholder="Team ID" readonly>
+                                        <input id="bname" name="teamid" type="text" class="form-control cc-cvc" value="<?php echo $_SESSION['TeamID']?>"   placeholder="Team ID" readonly><br></br>
                                         </div>
                                         <div class="form-group">
-                                        <label for="x_card_code" class="control-label mb-1">Region</label>
-                                        <div class="input-group">
-                                        <input id="bname" name="region" type="text" class="form-control cc-cvc" value="<?php echo $reg?>"  placeholder="Region" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">Floor</label>
-                                                <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="floor" tabindex="1">
-                                            <option value="<?php echo $floor?>"><?php echo $floor?></option>
-                                            <option value="-1">-1</option> 
-                                            <option value="0">0</option>  
-                                            <option value="1">1</option>  
-                                            <option value="2">2</option>  
-                                            <option value="3">3</option>  
-                                            <option value="4">4</option>  
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>  
-                                            <option value="7">7</option>  
-                                            <option value="8">8</option> 
-                                              </select>
+                                            <label for="cc-number" class="control-label mb-1">Meter No</label>
+                                            <input id="cc-number" pattern="[0-9]{11}" name="mtrno" type="number" class="form-control cc-number identified visa"  data-val="true" required placeholder="Meter Number" > 
                                             </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">APT Layout</label>
-                                                <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="layout" tabindex="1">
-                                            <option value="<?php echo $layout?>"><?php echo $layout?></option>
-                                            <option value="Single">Single</option>
-                                            <option value="Double">Double</option>
-                                            <option value="Bedsitter">Bedsitter</option>
-                                            <option value="1 BR">1 BR</option>
-                                             <option value="2 BR">2 BR</option>
-                                            <option value="3 BR">3 BR</option>
-                                            <option value="4 BR and above">4 BR and above</option> 
-                                              </select>
-                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <label for="x_card_code" class="control-label mb-1">Building Name</label>
+                                                    <div class="input-group">
+                                                        <input id="bname" name="Buildingname" type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <label for="cc-exp" class="control-label mb-1">Building Code</label>
+                                                        <input id="bcode" placeholder="Building Code" name="BuildingCode" type="text" class="form-control cc-exp"  required>
+                                                        <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         <div class="form-group">
-                                            <label for="cc-number" class="control-label mb-1">MAC Address</label>
-                                            <input id="cc-number" pattern="[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}"
-                                             name="macaddress" style="text-transform: uppercase" type="text" class="form-control cc-number identified visa"  data-val="true" required placeholder="Format AB-CD-EF-GH-IJ-KL" > 
+                                                <label for="cc-number" class="control-label mb-1">Region</label>
+                                                <div class="form-group has-success">
+                                            <select data-placeholder="Choose a Region..." class="standardSelect form-control" name="region" tabindex="1">
+                                            <option ></option>
+                                            <option disabled selected>Select Region</option>
+                                             <option value="G44">G44</option>
+                                            <option value="ZMM">ZMM</option>
+                                           <option value="G45S">G45S</option>
+                                             <option value="G45N">G45N</option>
+                                            <option value="R&M">R&M</option>
+                                            <option value="LSM">LSM</option>
+                                           <option value="JAR">JAR</option>
+                                            <option value="KWT">KWT</option>  
+                                              </select>
+                                            </div>
                                             </div>
                                             <div class="form-group has-success">
-                                                <label for="cc-name" class="control-label mb-1">Date Installed</label>
-                                                <input id="dateinstalled" name="dateinstalled" type="date" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
+                                                <label for="cc-name" class="control-label mb-1">Termination Date</label>
+                                                <input id="termination" name="dateinstalled" type="date" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
@@ -368,20 +340,6 @@ echo '<script>window.location.href="mytask.php";</script>';
         });
     });
 </script>
-<script>
- var todayDate= new Date();
- var month= todayDate.getMonth() + 1;
- var year= todayDate.getFullYear();
- var todate=todayDate.getDate();
-if(todate<10){
-  todate= "0"+ todate;
-}
-if(month<10){
-  month= "0"+ month;
-}
- mindate= year +"-" + month + "-" + todate;
- document.getElementById("cc-name").setAttribute("min",mindate);
- </script>
 </body>
 <script>
  var todayDate= new Date();
@@ -395,22 +353,7 @@ if(month<10){
   month= "0"+ month;
 }
 maxdate= year +"-" + month + "-" + todate;
- document.getElementById("dateinstalled").setAttribute("max",maxdate);
- </script>
-
-<script>
- var todayDate= new Date();
- var month= todayDate.getMonth() + 1;
- var year= todayDate.getFullYear();
- var todate=todayDate.getDate();
-if(todate<10){
-  todate= "0"+ todate;
-}
-if(month<10){
-  month= "0"+ month;
-}
-maxdate= year +"-" + month + "-" + todate;
- document.getElementById("min").setAttribute("max",maxdate);
+ document.getElementById("termination").setAttribute("max",maxdate);
  </script>
 </body>
 </html>

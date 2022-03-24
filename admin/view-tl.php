@@ -82,6 +82,9 @@ include("../config/config.php");
                     </li>
                     <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
                     <li>
+                        <a href="charts.php" style="color:black; font-size: 15px;"> <i class="menu-icon fa fa-bar-chart"></i>Graphs & Charts </a>
+                    </li>
+                    <li>
                         <a href="gallery.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-gallery"></i>Gallery </a>
                     </li>
                     <li>
@@ -175,7 +178,7 @@ include("../config/config.php");
                                     <td><?php echo $row["FIRST_NAME"]; ?></td>
                                     <td><?php echo $row["LAST_NAME"]; ?></td>
                                     <td><?php echo $row["EMAIL"]; ?></td>
-                                    <th><?php echo $row["DEPARTMENT"]; ?></td>
+                                    <td><?php echo $row["DEPARTMENT"]; ?></td>
                                     <td><?php echo $row["REGION"]; ?></td>
                                     <td>
                                     <button class="btn btn-warning" ><a href="edit-tl.php?id=<?php echo $row['ID']; ?> "> <i class="zmdi zmdi-refresh-alt"></i>Edit</a></button>

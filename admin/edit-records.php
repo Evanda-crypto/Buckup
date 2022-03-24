@@ -147,6 +147,9 @@ if ($result && $query) {
                     </li>
                     <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
                     <li>
+                        <a href="charts.php" style="color:black; font-size: 15px;"> <i class="menu-icon fa fa-bar-chart"></i>Graphs & Charts </a>
+                    </li>
+                    <li>
                         <a href="gallery.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-gallery"></i>Gallery </a>
                     </li>
                     <li>

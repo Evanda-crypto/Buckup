@@ -55,6 +55,9 @@ include("../config/config.php");
                     <li class="active">
                         <a href="mytask.php"><i class="menu-icon fa fa-tasks"></i>My Task</a>
                     </li>
+                    <li class="active">
+                        <a href="new-meter-form.php"><i class="menu-icon fa fa-lightbulb-o"></i>New Meter</a>
+                    </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
                         <ul class="sub-menu children dropdown-menu">

@@ -139,6 +139,9 @@ values(?,?,?,?,?,?,?,?,?,?,?)");
                     </li>
                     <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
                     <li>
+                        <a href="charts.php" style="color:black; font-size: 15px;"> <i class="menu-icon fa fa-bar-chart"></i>Graphs & Charts </a>
+                    </li>
+                    <li>
                         <a href="gallery.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-gallery"></i>Gallery </a>
                     </li>
                     <li>
@@ -239,7 +242,7 @@ values(?,?,?,?,?,?,?,?,?,?,?)");
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Date Turned On</label>
-                                                <input id="cc-number" name="date" type="date" class="form-control " value="" data-val="true"
+                                                <input id="turnon" name="date" type="date" class="form-control " value="" data-val="true"
                                                     data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number"
                                                     autocomplete="cc-number">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
@@ -334,5 +337,19 @@ $('#example').DataTable({
         });
 });
 </script>
+<script>
+ var todayDate= new Date();
+ var month= todayDate.getMonth() + 1;
+ var year= todayDate.getFullYear();
+ var todate=todayDate.getDate();
+if(todate<10){
+  todate= "0"+ todate;
+}
+if(month<10){
+  month= "0"+ month;
+}
+maxdate= year +"-" + month + "-" + todate;
+ document.getElementById("turnon").setAttribute("max",maxdate);
+ </script>
 </body>
 </html>
