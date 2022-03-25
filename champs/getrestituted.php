@@ -7,7 +7,7 @@ if (!empty($_GET["id"])) {
 $id=$_GET["id"];
     // Get content from the database
     $query = $connection->query(
-        "SELECT papnotinstalled.ClientID,papnotinstalled.ClientName,papnotinstalled.Contact,papnotinstalled.ChampName,papnotinstalled.Region,papnotinstalled.DateAssigned,papdailysales.PhoneAlt,
+        "SELECT papnotinstalled.ClientID,papnotinstalled.ClientName,papnotinstalled.Contact,papnotinstalled.ChampName,papnotinstalled.Region,papnotinstalled.Availability,papdailysales.PhoneAlt,
         papnotinstalled.Reason,papdailysales.Apt,papdailysales.DateSigned,papdailysales.ClientAvailability,papdailysales.Floor,papnotinstalled.BuildingName,papnotinstalled.BuildingCode
         from papnotinstalled LEFT JOIN papdailysales on papdailysales.ClientID=papnotinstalled.ClientID   WHERE papnotinstalled.ClientID =$id"
     );
@@ -29,7 +29,7 @@ $id=$_GET["id"];
         echo "</tr>";
         echo "<tr>";
         echo "<td>Availability</td>";
-        echo "<td>" . $cmsData["DateAssigned"] . "</td>";
+        echo "<td>" . $cmsData["Availability"] . "</td>";
         echo "</tr>";
         echo "<tr>";
         echo "<td>Phone Main</td>";

@@ -3,82 +3,6 @@
 include("../config/config.php");
 include("session.php");
 
-if (isset($_POST["submit"]) && !empty($_FILES["image"]["name"])) {
-    $DateSigned = trim($_POST["DateSigned"]);
-    $ChampName = $_POST["ChampName"];
-    $BuildingName = trim($_POST["Buildingname"]);
-    $BuildingCode = trim($_POST["BuildingCode"]);
-    $Region = trim($_POST["Region"]);
-    $Venue = trim($_POST["venue"]);
-    $Bizlayout = trim($_POST["bizlayout"]);
-    $Floor = trim($_POST["floor"]);
-    $ClientName = trim($_POST["ClientName"]);
-    $FamilyName = trim($_POST["FamilyName"]);
-    $ClientAvailability = trim($_POST["Day"]);
-    $ClientContact = trim($_POST["ClientContact"]);
-    $ClientWhatsApp = trim($_POST["WhatsApp"]);
-    $ClientGender = trim($_POST["gender"]);
-    $ClientAge = trim($_POST["age"]);
-    $Birthday = trim($_POST["Birthday"]);
-    $BizName = trim($_POST["bizname"]);
-    $BizCat = trim($_POST["bizcat"]);
-    $BizDec = trim($_POST["bizdec"]);
-    $Note = trim($_POST["Note"]);
-    $PhoneAlt = trim($_POST["phonealt"]);
-    $Email = trim($_POST["email"]);
-    $Role = trim($_POST["role"]);
-    $package = trim($_POST["package"]);
-    $Status = "Signed";
-
-    ini_set('upload_max_filesize', '60M');
-    ini_set('post_max_size', '70M');
-    ini_set('max_input_time', 300);
-    ini_set('max_execution_time', 300);
-
-    $fileName = basename($_FILES["image"]["name"]); 
-          $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-           
-          // Allow certain file formats 
-          $allowTypes = array('jpg','png','jpeg','gif'); 
-          if(in_array($fileType, $allowTypes)){ 
-              $image = $_FILES['image']['tmp_name']; 
-              $imgContent = addslashes(file_get_contents($image)); 
-
-    if ($connection->connect_error) {
-        die("connection failed : " . $connection->connect_error);
-    } else {
-        $stmt = $connection->prepare(
-            "select * from papdailysales where ClientContact= ?"
-        );
-        $stmt->bind_param("s", $ClientContact);
-        $stmt->execute();
-        $stmt_result = $stmt->get_result();
-        if ($stmt_result->num_rows > 0) {
-            echo '<script>alert("Client Already exists!")</script>';
-        } else {
-            if (
-                strlen(trim($BuildingCode)) < 10 ||
-                strlen(trim($BuildingCode)) > 10
-            ) {
-                echo "<script>alert('Incorrect Building Code format');</script>";
-                echo "<script>document.getElementById(bcode.id).select();</script>";
-            } else {
-                $insert = $connection->query("INSERT into papdailysales (DateSigned,ChampName,BuildingName,BuildingCode,Region,Venue,BizLayout,Floor,ClientName,ClientAvailability,ClientContact,
-        ClientWhatsApp,ClientGender,ClientAge,Birthday,BizName,BizCat,BizDec,Note,FamilyName,PhoneAlt,Email,Role,CurrentPackage,Image,PapStatus) VALUES ('$DateSigned','$ChampName','$BuildingName','$BuildingCode','$Region','$Venue','$Bizlayout','$Floor','$ClientName','$ClientAvailability','$ClientContact',
-      '$ClientWhatsApp','$ClientGender','$ClientAge','$Birthday','$BizName','$BizCat','$BizDec','$Note','$FamilyName','$PhoneAlt','$Email','$Role','$package','$imgContent','$Status')");
-
-                if ($insert) {
-                    echo '<script>alert("Submitted!")</script>';
-                    echo '<script>window.location.href="business.php";</script>';
-                } else {
-                    echo '<script>alert("An error occured!")</script>';
-                }
-    
-            }
-        }
-    }
-}
-}
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -223,7 +147,7 @@ if (isset($_POST["submit"]) && !empty($_FILES["image"]["name"])) {
                                             <h3 class="text-center">Business Report</h3>
                                         </div>
                                         <hr>
-                                        <form  method="post" enctype="multipart/form-data">
+                                        <form  method="post" enctype="multipart/form-data" action="bizzdetails.php">
                                         <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1">DateSigned</label>
                                                 <input id="datesigned" name="DateSigned" type="date" class="form-control cc-name valid" data-val="true" value="<?php date('Y-m-d');?>" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >

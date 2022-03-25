@@ -97,6 +97,7 @@ if (isset($_POST["submit"])) {
                     $_SESSION["Techie2"] = $row["Techie2"];
                     $_SESSION["TeamID"] = $row["Team_ID"];
                     $_SESSION["ID"] = $row["ID"];
+                    $_SESSION["Region"] = $row["Region"];
                     header("Location: techie/dashboard.php");
                 } else {
                     echo "<script>alert('Wrong Password.');</script>";

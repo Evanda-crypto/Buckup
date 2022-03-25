@@ -55,7 +55,7 @@ if (isset($_POST["submit"])) {
         $query = "DELETE FROM  techietask  WHERE ClientID= '$id'";
         $result = mysqli_query($connection, $query);
         $insert = $connection->query(
-            "INSERT into papnotinstalled (ClientID,ClientName,BuildingName,BuildingCode,Region,Floor,DateSigned,Reason,ChampName,TeamID,Techie1,Techie2,DateAssigned,Contact,RestitutedDate,Note) VALUES ('$ClientID','$ClientName','$BuildingName','$BuildingCode','$Region','$Floor','$DateSigned','$note','$ChampName','$Team_ID','$Techie1','$Techie2','$avail','$contact','$daterestituted','$msg')"
+            "INSERT into papnotinstalled (ClientID,ClientName,BuildingName,BuildingCode,Region,Floor,DateSigned,Reason,ChampName,TeamID,Techie1,Techie2,Availability,Contact,RestitutedDate,Note) VALUES ('$ClientID','$ClientName','$BuildingName','$BuildingCode','$Region','$Floor','$DateSigned','$note','$ChampName','$Team_ID','$Techie1','$Techie2','$avail','$contact','$daterestituted','$msg')"
         );
 
         if ($insert && $result && $upd) {

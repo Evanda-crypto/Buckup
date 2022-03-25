@@ -1,70 +1,8 @@
 <?php
-
 include("../config/config.php");
 include("session.php");
-
-if(isset($_POST['submit']) && !empty($_FILES["image"]["name"])) {
-$Team_ID=$_POST['teamid'];
-$MacAddress = $_POST['macaddress'];
-$SerialNumber = "N/A";
-$DateInstalled = $_POST['dateinstalled'];
-$ClientID = $_POST['ClientID'];
-$Region = $_POST['region'];
-$techie1 = $row['Techie1'];
-$techie2 = $row['Techie2'];
-$Floor = $_POST['floor'];
-$Note = $_POST['note'];
-$layout = $_POST['layout'];
-$status = "Installed";
-
-ini_set('upload_max_filesize', '60M');
-ini_set('post_max_size', '70M');
-ini_set('max_input_time', 300);
-ini_set('max_execution_time', 300);
-
-$fileName = basename($_FILES["image"]["name"]); 
-          $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-           
-          // Allow certain file formats 
-          $allowTypes = array('jpg','png','jpeg','gif'); 
-          if(in_array($fileType, $allowTypes)){ 
-              $image = $_FILES['image']['tmp_name']; 
-              $imgContent = addslashes(file_get_contents($image)); 
-
-//checking connection
-if($connection->connect_error){
-    die('connection failed : '.$connection->connect_error);
-}
-else
-{
-  $stmt= $connection->prepare("select * from papinstalled where MacAddress= ?");
-  $stmt->bind_param("s",$MacAddress);
-  $stmt->execute();
-  $stmt_result= $stmt->get_result();
-  if($stmt_result->num_rows>0){
-    echo "<script>alert('The Macaddress Already Exists');</script>";
-    echo '<script>window.location.href="mytask.php";</script>';
-  }
-  else{
-     // Insert records into database 
-     $sql="update papdailysales set ClientID=$id,Floor='$Floor',AptLayout='$layout',PapStatus='$status' where ClientID=$id";
-     $result=mysqli_query($connection,$sql);
-     $insert = $connection->query("INSERT into papinstalled (Team_ID,ClientID,MacAddress,SerialNumber,DateInstalled,Region,Image,Note,Floor,AptLayout) VALUES ('$Team_ID','$ClientID','$MacAddress','$SerialNumber','$DateInstalled','$Region','$imgContent','$Note','$Floor','$layout')"); 
-    
-     if($insert && $result){ 
-     echo '<script>alert("Submitted!")</script>';
-      echo '<script>window.location.href="mytask.php";</script>';
-  }else{ 
-    echo "<script>alert('UnSuccessfull.');</script>"; 
-echo '<script>window.location.href="mytask.php";</script>';
-  }  
-  
-  }
-
-}
-}
-}
 ?>
+
 
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -243,31 +181,31 @@ echo '<script>window.location.href="mytask.php";</script>';
                                             <h3 class="text-center">New Meter Report</h3>
                                         </div>
                                         <hr>
-                                        <form  method="post" enctype="multipart/form-data" autocomplete="off">
+                                        <form  method="post" enctype="multipart/form-data" action="mtr.php" autocomplete="off">
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Team ID</label>
                                         <div class="input-group">
                                         <input id="bname" name="teamid" type="text" class="form-control cc-cvc" value="<?php echo $_SESSION['TeamID']?>"   placeholder="Team ID" readonly><br></br>
                                         </div>
                                         <div class="form-group">
+                                        <label for="x_card_code" class="control-label mb-1">Contact Person</label>
+                                        <div class="input-group">
+                                        <input id="bname" name="person" type="text" class="form-control cc-cvc"   placeholder="Contact Person" ><br></br>
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="x_card_code" class="control-label mb-1">Phone Number</label>
+                                        <div class="input-group">
+                                        <input id="bname" name="contact" type="text" class="form-control cc-cvc"    placeholder="Phone Number 07XXXXXXXX" ><br></br>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="cc-number" class="control-label mb-1">Meter No</label>
                                             <input id="cc-number" pattern="[0-9]{11}" name="mtrno" type="number" class="form-control cc-number identified visa"  data-val="true" required placeholder="Meter Number" > 
                                             </div>
-                                            <div class="row">
-                                                <div class="col-6">
                                                     <label for="x_card_code" class="control-label mb-1">Building Name</label>
                                                     <div class="input-group">
-                                                        <input id="bname" name="Buildingname" type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
+                                                        <input id="bname" name="bname" type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
                                                     </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="form-group">
-                                                        <label for="cc-exp" class="control-label mb-1">Building Code</label>
-                                                        <input id="bcode" placeholder="Building Code" name="BuildingCode" type="text" class="form-control cc-exp"  required>
-                                                        <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                               
                                         <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Region</label>
                                                 <div class="form-group has-success">

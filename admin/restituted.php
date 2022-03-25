@@ -168,7 +168,7 @@ include("../config/config.php");
                                
  <?php
  $query =
-     "SELECT ClientID,ClientName,BuildingName,BuildingCode,Region,Floor,DateSigned,Reason,Contact,ChampName,CONCAT(Techie1,'/',Techie2) as techies from papnotinstalled  order by DateSigned Desc";
+     "SELECT papnotinstalled.ClientID,papnotinstalled.ClientName,papnotinstalled.BuildingName,papnotinstalled.BuildingCode,papnotinstalled.Region,papnotinstalled.Floor,papnotinstalled.DateSigned,papnotinstalled.Reason,papnotinstalled.Contact,papnotinstalled.ChampName,CONCAT(papnotinstalled.Techie1,'/',papnotinstalled.Techie2) as techies from papnotinstalled left join trash on trash.ClientID=papnotinstalled.ClientID where trash.ClientID is null  order by DateSigned Desc";
  $result = mysqli_query($connection, $query);
  while ($row = mysqli_fetch_assoc($result)) { ?>
                                 <tr>

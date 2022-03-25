@@ -18,68 +18,6 @@ $t2=$row['Techie2'];
 $floor=$row['Floor'];
 $layout=$row['AptLayout'];
 
-
-if(isset($_POST['submit']) && !empty($_FILES["image"]["name"])) {
-$Team_ID=$_POST['teamid'];
-$MacAddress = $_POST['macaddress'];
-$SerialNumber = "N/A";
-$DateInstalled = $_POST['dateinstalled'];
-$ClientID = $_POST['ClientID'];
-$Region = $_POST['region'];
-$techie1 = $row['Techie1'];
-$techie2 = $row['Techie2'];
-$Floor = $_POST['floor'];
-$Note = $_POST['note'];
-$layout = $_POST['layout'];
-$status = "Installed";
-
-ini_set('upload_max_filesize', '60M');
-ini_set('post_max_size', '70M');
-ini_set('max_input_time', 300);
-ini_set('max_execution_time', 300);
-
-$fileName = basename($_FILES["image"]["name"]); 
-          $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-           
-          // Allow certain file formats 
-          $allowTypes = array('jpg','png','jpeg','gif'); 
-          if(in_array($fileType, $allowTypes)){ 
-              $image = $_FILES['image']['tmp_name']; 
-              $imgContent = addslashes(file_get_contents($image)); 
-
-//checking connection
-if($connection->connect_error){
-    die('connection failed : '.$connection->connect_error);
-}
-else
-{
-  $stmt= $connection->prepare("select * from papinstalled where MacAddress= ?");
-  $stmt->bind_param("s",$MacAddress);
-  $stmt->execute();
-  $stmt_result= $stmt->get_result();
-  if($stmt_result->num_rows>0){
-    echo "<script>alert('The Macaddress Already Exists');</script>";
-    echo '<script>window.location.href="mytask.php";</script>';
-  }
-  else{
-     // Insert records into database 
-     $sql="update papdailysales set ClientID=$id,Floor='$Floor',AptLayout='$layout',PapStatus='$status' where ClientID=$id";
-     $result=mysqli_query($connection,$sql);
-     $insert = $connection->query("INSERT into papinstalled (Team_ID,ClientID,MacAddress,SerialNumber,DateInstalled,Region,Image,Note,Floor,AptLayout) VALUES ('$Team_ID','$ClientID','$MacAddress','$SerialNumber','$DateInstalled','$Region','$imgContent','$Note','$Floor','$layout')"); 
-    
-     if($insert && $result){ 
-     echo '<script>alert("Submitted!")</script>';
-      echo '<script>window.location.href="mytask.php";</script>';
-  }else{ 
-    echo "<script>alert('UnSuccessfull.');</script>"; 
-echo '<script>window.location.href="mytask.php";</script>';
-  }  
-  
-  }
-
-}
-}
-}
 ?>
 
 <!doctype html>
@@ -259,7 +197,7 @@ echo '<script>window.location.href="mytask.php";</script>';
                                             <h3 class="text-center">Panel Ap Report</h3>
                                         </div>
                                         <hr>
-                                        <form  method="post" enctype="multipart/form-data" autocomplete="off">
+                                        <form  method="post" enctype="multipart/form-data" autocomplete="off" action="submitpap.php">
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Client ID</label>
                                         <div class="input-group">

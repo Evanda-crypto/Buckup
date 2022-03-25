@@ -140,7 +140,7 @@ if (isset($_POST["submit"])) {
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled left join trash on trash.ClientID=papnotinstalled.ClientID WHERE trash.ClientID is null and papnotinstalled.Reason<>'Already installed' and papnotinstalled.Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -149,7 +149,7 @@ if (isset($_POST["submit"])) {
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have <?php
-         $query="SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason<>'Already installed' and Region='".$_SESSION['Region']."'";
+         $query="SELECT COUNT(*) as restituted FROM papnotinstalled left join trash on trash.ClientID=papnotinstalled.ClientID WHERE trash.ClientID is null and papnotinstalled.Reason<>'Already installed' and papnotinstalled.Region='".$_SESSION['Region']."'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['restituted'];
@@ -161,7 +161,6 @@ if (isset($_POST["submit"])) {
                                 </a>
                             </div>
                         </div>
-
                         <div class="dropdown for-message">
 
                         </div>

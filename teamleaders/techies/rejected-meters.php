@@ -11,11 +11,12 @@ include("../../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Turned On</title>
+    <title>Rejected Meters</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -25,11 +26,6 @@ include("../../config/config.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="../../assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-
     <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
 
 <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -48,8 +44,7 @@ include("../../config/config.php");
 
 </head>
 <body style="background-color:#e1e1e1">
-    <!-- Left Panel -->
-     <!-- Left Panel -->
+ <!-- Left Panel -->
 <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -69,9 +64,6 @@ include("../../config/config.php");
                     </li>
                     <li>
                         <a href="reminders.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reminders</a>
-                    </li>
-                    <li>
-                        <a href="rejected-meters.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Rejected Meters</a>
                     </li>
                     <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
 
@@ -190,6 +182,34 @@ include("../../config/config.php");
                                 </a>
                             </div>
                         </div>
+                        <div class="dropdown for-message">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-question"></i>
+                                <span class="count bg-primary"><?php
+                                             $query="SELECT COUNT(papdailysales.ClientID) AS pending from papdailysales LEFT OUTER JOIN techietask on techietask.ClientID=papdailysales.ClientID left join  papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
+                                             WHERE techietask.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['pending'];
+                                              }
+                                              ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have <?php
+                                             $query="SELECT COUNT(papdailysales.ClientID) AS pending from papdailysales LEFT OUTER JOIN techietask on techietask.ClientID=papdailysales.ClientID left join  papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID
+                                             WHERE techietask.ClientID is null and papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                                             $data=mysqli_query($connection,$query);
+                                             while($row=mysqli_fetch_assoc($data)){
+                                             echo $row['pending'];
+                                              }
+                                              ?> pending installations</p>
+                                <a class="dropdown-item media" href="assign-task.php">
+                                    <div class="message media-body">
+                                        <span class="name float-left">Check Out</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="user-area dropdown float-right">
@@ -214,66 +234,69 @@ include("../../config/config.php");
             <div class="animated fadeIn">
                 <div class="row">
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                           <center> <strong class="card-title">Turned On</strong></center>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-striped" id="example">
-                                <thead>
-                                    <tr>
-                                    <th class="th-sm">ClientID
-      </th>
-      <th class="th-sm">Client Name
-      </th>
-      <th class="th-sm">Contact
-      </th>
-      <th class="th-sm">Building Name
-      </th>
-      <th class="th-sm">Building Code
-      </th>
-      <th class="th-sm">Mac Address
-      </th>
-      <th class="th-sm">Techies
-      </th>
-      <th class="th-sm">Date Installed
-      </th>
-      <th class="th-sm">Date Turned On
-      </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                        $query  = "SELECT turnedonpap.ClientID,turnedonpap.ClientName,turnedonpap.ChampName,turnedonpap.ClientContact,papdailysales.BuildingName,papdailysales.BuildingCode,upper(turnedonpap.MacAddress) as mac,CONCAT(teams.Techie1,'/',teams.Techie2) as techies,
-                        turnedonpap.DateTurnedOn,papdailysales.Region,papinstalled.DateInstalled FROM turnedonpap JOIN papdailysales ON papdailysales.ClientID=turnedonpap.ClientID left join papinstalled ON papinstalled.ClientID=papdailysales.ClientID left join teams on teams.Team_ID=papinstalled.Team_ID WHERE turnedonpap.ClientID IS NOT null and papdailysales.Region='".$_SESSION['Region']."'";
-                        $result  = mysqli_query($connection, $query);
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                
-                        ?>
-                                <tr>
-                                    <td><?php echo$row['ClientID']; ?></td>
-                                    <td><?php echo $row['ClientName']; ?></td>
-                                    <td><?php echo $row['ClientContact']; ?></td>
-                                    <td><?php echo $row['BuildingName']; ?></td>
-                                    <td><?php echo $row['BuildingCode']; ?></td>
-                                    <td><?php echo $row['mac']; ?></td>
-                                    <td><?php echo $row['techies']; ?></td>
-                                    <td><?php echo $row['DateInstalled']; ?></td>
-                                    <td><?php echo $row['DateTurnedOn']; ?></td>
-                                </tr>
-                        <?php
-
-                            }
-                        ?>
+                        <div class="card">
+                            <div class="card-header">
+                            <center><strong class="card-title">Rejected Meters</strong></center>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped" id="example">
+                                    <thead>
+                                        <tr>
+                     <th>Building Name</th>
+                     <th>Meter Number</th>
+                     <th>Team ID</th>
+                    <th>Contact Person</th>
+                     <th>Contact_Number</th>
+                     <th>Date Installed</th>
+                     <th>Reason</th>
+                     <th>More</th>
+                                         </tr>
+                                  </thead>
+                                  <tbody>
+                                  <?php
+    $sql="SELECT id,Building_name,Meter_Number,Techie_team,Contact_Person,Contact_number,Date(date_Installed) as installed,Comments_rejected from token_meter where Status='Rejected' and Region='".$_SESSION['Region']."'";
+    $result=$connection->query($sql);
+    while($row=$result->fetch_array()){
+      ?>
+      <tr>
+        <td><?php echo $row['Building_name']?></td>
+        <td><?php echo $row['Meter_Number']?></td>
+        <td><?php echo $row['Techie_team']?></td>
+        <td><?php echo $row['Contact_Person']?></td>
+        <td><?php echo $row['Contact_number']?></td>
+        <td><?php echo $row['installed']?></td>
+        <td><?php echo $row['Comments_rejected']?></td>
+        <td>
+        <button class="btn btn-warning" ><a href="changemtrstatus.php?id=<?php echo $row['id']; ?> " onClick="return confirm('Sure to remove Meter No.  <?php  echo $row['Meter_Number']; ?> from rejected Meters ?')">Change Status</a></button>
+        </td>
+    </tr>
+    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
+                    <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#3073f5;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="background-color:#3073f5;">
+
+            </div>
+            <div class="modal-footer" style="background-color:#3073f5;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      
+    </div>
+</div><!--End of modal-->
+                
 
 </div><!-- .content -->
-
 <div class="clearfix"></div>
 
 </div><!-- /#right-panel -->
@@ -287,22 +310,11 @@ include("../../config/config.php");
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="../../assets/js/main.js"></script>
 
-<script type="text/javascript">
-$( document ).ready(function() {
-$('#example').DataTable({
-		 "processing": true,
-		 "dom": 'lBfrtip',
-		 "buttons": [
-            {
-                extend: 'collection',
-                text: 'Export',
-                buttons: [
-                    'excel',
-                    'csv'
-                ]
-            }
-        ]
-        });
+
+<script>
+ $(document).ready(function () {
+$('#example').DataTable();
+$('.dataTables_length').addClass('bs-select');
 });
 </script>
 </body>

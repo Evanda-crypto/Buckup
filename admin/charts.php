@@ -167,7 +167,7 @@ include("../config/config.php");
                     <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="mb-3">Restitution </h4>
+                                    <h4 class="mb-3">Restituted </h4>
                                     <canvas id="restituted"></canvas>
                                 </div>
                             </div>

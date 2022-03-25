@@ -65,6 +65,9 @@ include("../../config/config.php");
                     <li>
                         <a href="reminders.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reminders</a>
                     </li>
+                    <li>
+                        <a href="rejected-meters.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Rejected Meters</a>
+                    </li>
                     <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
 
                     <li>
@@ -124,6 +127,31 @@ include("../../config/config.php");
           echo $row['restituted'];
     }
     ?> Restitute(s)</p>
+                                <a class="dropdown-item media" href="restituted.php">
+                                    <i class="fa fa-check"></i>
+                                    <p>Check Out.</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-tachometer"></i>
+                                <span class="count bg-danger"><?php
+         $query="SELECT COUNT(*) as rejected FROM token_meter WHERE Status='Rejected' and Region='".$_SESSION['Region']."'";
+          $data=mysqli_query($connection,$query);
+          while($row=mysqli_fetch_assoc($data)){
+          echo $row['rejected'];
+    }
+    ?></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                                <p class="red">You have <?php
+         $query="SELECT COUNT(*) as rejected FROM token_meter WHERE Status='Rejected' and Region='".$_SESSION['Region']."'";
+          $data=mysqli_query($connection,$query);
+          while($row=mysqli_fetch_assoc($data)){
+          echo $row['rejected'];
+    }
+    ?> Rejected Meter(s)</p>
                                 <a class="dropdown-item media" href="restituted.php">
                                     <i class="fa fa-check"></i>
                                     <p>Check Out.</p>
