@@ -7,7 +7,7 @@ if(!empty($_GET['id'])){
     } 
      
     // Get content from the database 
-    $query = $connection->query("SELECT turnedonpap.ChampName,turnedonpap.DateTurnedOn,turnedonpap.ClientName,turnedonpap.ClientContact,papdailysales.DateSigned,papdailysales.PhoneAlt,turnedonpap.ClientID,papdailysales.BuildingName,papdailysales.BuildingCode,papdailysales.ClientAvailability,papdailysales.Region,papdailysales.Floor,papdailysales.Apt,CONCAT(teams.Techie1,'/',teams.Techie2) AS techies FROM turnedonpap LEFT JOIN papdailysales ON papdailysales.ClientID=turnedonpap.ClientID LEFT JOIN teams ON teams.Team_ID=turnedonpap.Team_ID WHERE turnedonpap.ClientID = {$_GET['id']}"); 
+    $query = $connection->query("SELECT turnedonpap.ChampName,turnedonpap.DateTurnedOn,turnedonpap.ClientName,turnedonpap.ClientContact,papdailysales.DateSigned,papdailysales.PhoneAlt,turnedonpap.ClientID,papdailysales.BuildingName,papdailysales.BuildingCode,papdailysales.ClientAvailability,papdailysales.Region,papdailysales.Floor,papdailysales.Apt,CONCAT(token_teams.Techie1,'/',token_teams.Techie2) AS techies FROM turnedonpap LEFT JOIN papdailysales ON papdailysales.ClientID=turnedonpap.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=turnedonpap.Team_ID WHERE turnedonpap.ClientID = {$_GET['id']}"); 
      
     if($query->num_rows > 0){ 
         $cmsData = $query->fetch_assoc(); 

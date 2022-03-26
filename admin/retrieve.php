@@ -4,7 +4,7 @@
 $bcode = $_REQUEST['bcode'];
 
 // Database connection
-include("../../config/config.php");
+include("../config/config.php");
 
 if ($bcode !== "") {
 	

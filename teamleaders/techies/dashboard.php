@@ -326,7 +326,7 @@ if (!$connection) {
                                         <div class="text-left dib">
                                             <div class="stat-text"><span class="count"><?php
                   $query =
-                      "SELECT COUNT(papinstalled.MacAddress) as pap FROM teams LEFT JOIN papinstalled on teams.Team_ID=papinstalled.Team_ID left join turnedonpap on papinstalled.ClientID=turnedonpap.ClientID JOIN papdailysales on papdailysales.ClientID=papinstalled.ClientID WHERE papinstalled.ClientID is NOT null and turnedonpap.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                      "SELECT COUNT(papinstalled.MacAddress) as pap FROM token_teams LEFT JOIN papinstalled on token_teams.Team_ID=papinstalled.Team_ID left join turnedonpap on papinstalled.ClientID=turnedonpap.ClientID JOIN papdailysales on papdailysales.ClientID=papinstalled.ClientID WHERE papinstalled.ClientID is NOT null and turnedonpap.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
                   $data = mysqli_query($connection, $query);
                   while ($row = mysqli_fetch_assoc($data)) {
                       echo $row["pap"] . "<br><br>";
@@ -419,81 +419,7 @@ if (!$connection) {
                 <div class="clearfix"></div>
 
                     <div class="row">
-                    <div class="col-lg-12">
-                    <div class="card">
-                    <div class="card-body">
-                                    
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Duration</th>
-                                                    <th>Signed</th>
-                                                    <th>Installed</th>
-                                                    <th>Turned On</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                <td class="serial">Past 7 Days</td>
-                                                <td class="serial"><?php
-         $query =
-             "SELECT COUNT(*) as SignedPaP from papdailysales where DateSigned>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
-         $data = mysqli_query($connection, $query);
-         while ($row = mysqli_fetch_assoc($data)) {
-             echo $row["SignedPaP"] . "<br><br>";
-         }
-         ?></td>
-                                                <td class="serial"><?php
-         $query =
-             "SELECT COUNT(*) as dailyinstalled from papinstalled where DateInstalled>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
-         $data = mysqli_query($connection, $query);
-         while ($row = mysqli_fetch_assoc($data)) {
-             echo $row["dailyinstalled"] . "<br><br>";
-         }
-         ?></td>
-                                                <td class="serial"><?php
-         $query =
-             "SELECT COUNT(*) as dailyturnedon from turnedonpap where DateTurnedOn>=DATE_ADD(CURDATE(), INTERVAL -6 DAY)";
-         $data = mysqli_query($connection, $query);
-         while ($row = mysqli_fetch_assoc($data)) {
-             echo $row["dailyturnedon"] . "<br><br>";
-         }
-         ?></td>
-                                                    </td>
-                                                </tr>
-                                                <tr><td class="serial">Past 30 Days</td>
-                                                    <td class="serial"><?php
-         $query =
-             "SELECT COUNT(*) as SignedPaP from papdailysales left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID where papdailysales.DateSigned >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) and papnotinstalled.ClientID is null";
-         $data = mysqli_query($connection, $query);
-         while ($row = mysqli_fetch_assoc($data)) {
-             echo $row["SignedPaP"] . "<br><br>";
-         }
-         ?></td>
-                                                    <td class="serial"><?php
-         $query =
-             "SELECT COUNT(*) as dailyinstalled from papinstalled where DateInstalled >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
-         $data = mysqli_query($connection, $query);
-         while ($row = mysqli_fetch_assoc($data)) {
-             echo $row["dailyinstalled"] . "<br><br>";
-         }
-         ?></td>
-                                                    <td class="serial"><?php
-         $query =
-             "SELECT COUNT(*) as dailyturnedon from turnedonpap where DateTurnedOn >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
-         $data = mysqli_query($connection, $query);
-         while ($row = mysqli_fetch_assoc($data)) {
-             echo $row["dailyturnedon"] . "<br><br>";
-         }
-         ?></td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
-                                
-                                </div>
-    </div>
-    </div></div>
+               </div>
             </div>
             <!-- .animated -->
         </div>

@@ -8,9 +8,9 @@ if(!empty($_GET['id'])){
     } 
      
     // Get content from the database 
-    $query = $connection->query("SELECT papdailysales.ChampName,techietask.ClientName,techietask.ClientID,techietask.ClientContact,techietask.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,teams.Team_ID,
+    $query = $connection->query("SELECT papdailysales.ChampName,techietask.ClientName,techietask.ClientID,techietask.ClientContact,techietask.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,token_teams.Team_ID,
     papdailysales.BuildingCode,papdailysales.Floor,papdailysales.Apt from papdailysales LEFT JOIN 
-    techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE techietask.ClientID is not null AND papinstalled.ClientID is null and teams.Team_ID='" .
+    techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE techietask.ClientID is not null AND papinstalled.ClientID is null and token_teams.Team_ID='" .
                                           $_SESSION["TeamID"] .
                                           "' and techietask.ClientID = {$_GET['id']}"); 
      

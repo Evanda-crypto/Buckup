@@ -362,8 +362,8 @@ else
                                         </thead>
                                         <tbody>
                                         <?php
-                        $query  = "SELECT papinstalled.ClientID,teams.Team_ID,CONCAT(teams.Techie1,'/',teams.Techie2) as techies,Upper(papinstalled.MacAddress) as Mac,papinstalled.DateInstalled,papinstalled.ClientID 
-                        FROM teams LEFT JOIN papinstalled on teams.Team_ID=papinstalled.Team_ID left join turnedonpap on papinstalled.ClientID=turnedonpap.ClientID WHERE papinstalled.ClientID is NOT null and turnedonpap.ClientID is null and papinstalled.Region='".$_SESSION['Region']."' ORDER BY papinstalled.DateInstalled ASC";
+                        $query  = "SELECT papinstalled.ClientID,token_teams.Team_ID,CONCAT(token_teams.Techie1,'/',token_teams.Techie2) as techies,Upper(papinstalled.MacAddress) as Mac,papinstalled.DateInstalled,papinstalled.ClientID 
+                        FROM token_teams LEFT JOIN papinstalled on token_teams.Team_ID=papinstalled.Team_ID left join turnedonpap on papinstalled.ClientID=turnedonpap.ClientID WHERE papinstalled.ClientID is NOT null and turnedonpap.ClientID is null and papinstalled.Region='".$_SESSION['Region']."' ORDER BY papinstalled.DateInstalled ASC";
                         $result  = mysqli_query($connection, $query);
 
                         $num_rows  = mysqli_num_rows($result);

@@ -182,9 +182,9 @@ include("../../config/config.php");
                                   </thead>
                                   <tbody>
                                   <?php
-                        $query  = "SELECT papdailysales.ChampName,techietask.ClientName,techietask.ClientID,techietask.ClientContact,techietask.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,teams.Team_ID,CONCAT(teams.Techie1,'/',teams.Techie2) as techies,
+                        $query  = "SELECT papdailysales.ChampName,techietask.ClientName,techietask.ClientID,techietask.ClientContact,techietask.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,token_teams.Team_ID,CONCAT(token_teams.Techie1,'/',token_teams.Techie2) as techies,
                         papdailysales.BuildingCode,papdailysales.Floor,papdailysales.Apt from papdailysales LEFT JOIN 
-                        techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE techietask.ClientID is not null AND papinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                        techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE techietask.ClientID is not null AND papinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
                         $result  = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>

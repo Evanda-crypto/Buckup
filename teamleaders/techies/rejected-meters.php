@@ -65,6 +65,9 @@ include("../../config/config.php");
                     <li>
                         <a href="reminders.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Reminders</a>
                     </li>
+                    <li>
+                        <a href="rejected-meters.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Rejected Meters</a>
+                    </li>
                     <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
 
                     <li>

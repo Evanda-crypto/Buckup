@@ -7,7 +7,7 @@ if (isset($_POST["submit"])) {
 
     if (!$connection) {
         echo "<script>alert('There is no connection at this time.Please try again later.');</script>";
-        echo '<script>window.location.href="login.php";</script>';
+        echo '<script>window.location.href="index.php";</script>';
     } else {
         $stmt = $connection->prepare("select * from employees where EMAIL= ?");
         $stmt->bind_param("s", $EMAIL);
@@ -83,7 +83,7 @@ if (isset($_POST["submit"])) {
             }
         } else {
             $query = $connection->prepare(
-                "SELECT * from teams Where Team_ID= ?"
+                "SELECT * from token_teams Where Team_ID= ?"
             );
             $query->bind_param("s", $EMAIL);
             $query->execute();
@@ -144,7 +144,10 @@ if (isset($_POST["submit"])) {
                         </div> <br/>
                         <div class="form-label-group">
                         </div> <br/>
-                        <button type="submit" name="submit" class="btn btn-primary btn-block" style="background-color:#FF0000;">Login</button>
+                        <button type="submit" name="submit" class="btn btn-primary btn-block" style="background-color:#FF0000;">Login</button><br></br>
+                        <div class="register-link m-t-10 text-center">
+                            <p> <a href="forgot-pass/">Forgot Password</a></p>
+                        </div>
                     </form>
                 </div>
             </div>

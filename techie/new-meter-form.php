@@ -93,8 +93,8 @@ include("session.php");
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                            $query="SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='".$_SESSION['TeamID']."'";
                                              $data=mysqli_query($connection,$query);
                                              while($row=mysqli_fetch_assoc($data)){
                                              echo $row['MyTask']."<br><br>";
@@ -103,8 +103,8 @@ include("session.php");
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                <hr> <p class="red">You have <?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                            $query="SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='".$_SESSION['TeamID']."'";
                                              $data=mysqli_query($connection,$query);
                                              while($row=mysqli_fetch_assoc($data)){
                                              echo $row['MyTask'];
@@ -188,28 +188,28 @@ include("session.php");
                                         <input id="bname" name="teamid" type="text" class="form-control cc-cvc" value="<?php echo $_SESSION['TeamID']?>"   placeholder="Team ID" readonly><br></br>
                                         </div>
                                         <div class="form-group">
-                                        <label for="x_card_code" class="control-label mb-1">Contact Person</label>
+                                        <label for="x_card_code" class="control-label mb-1">Contact Person<span style="color: #FF0000" >*</span></label>
                                         <div class="input-group">
-                                        <input id="bname" name="person" type="text" class="form-control cc-cvc"   placeholder="Contact Person" ><br></br>
+                                        <input id="bname" name="person" required type="text" class="form-control cc-cvc"   placeholder="Contact Person" ><br></br>
                                         </div>
                                         <div class="form-group">
-                                        <label for="x_card_code" class="control-label mb-1">Phone Number</label>
+                                        <label for="x_card_code" class="control-label mb-1">Phone Number<span style="color: #FF0000" >*</span></label>
                                         <div class="input-group">
-                                        <input id="bname" name="contact" type="text" class="form-control cc-cvc"    placeholder="Phone Number 07XXXXXXXX" ><br></br>
+                                        <input id="bname" name="contact" type="text" class="form-control cc-cvc" required   placeholder="Phone Number 07XXXXXXXX" ><br></br>
                                         </div>
                                         <div class="form-group">
-                                            <label for="cc-number" class="control-label mb-1">Meter No</label>
+                                            <label for="cc-number" class="control-label mb-1">Meter No<span style="color: #FF0000" >*</span></label>
                                             <input id="cc-number" pattern="[0-9]{11}" name="mtrno" type="number" class="form-control cc-number identified visa"  data-val="true" required placeholder="Meter Number" > 
                                             </div>
-                                                    <label for="x_card_code" class="control-label mb-1">Building Name</label>
+                                                    <label for="x_card_code" class="control-label mb-1">Building Name<span style="color: #FF0000" >*</span></label>
                                                     <div class="input-group">
                                                         <input id="bname" name="bname" type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
                                                     </div>
                                                
                                         <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">Region</label>
+                                                <label for="cc-number" class="control-label mb-1">Region<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Region..." class="standardSelect form-control" name="region" tabindex="1">
+                                            <select data-placeholder="Choose a Region..." class="standardSelect form-control" name="region" tabindex="1" required>
                                             <option ></option>
                                             <option disabled selected>Select Region</option>
                                              <option value="G44">G44</option>
@@ -224,12 +224,12 @@ include("session.php");
                                             </div>
                                             </div>
                                             <div class="form-group has-success">
-                                                <label for="cc-name" class="control-label mb-1">Termination Date</label>
-                                                <input id="termination" name="dateinstalled" type="date" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
+                                                <label for="cc-name" class="control-label mb-1">Termination Date<span style="color: #FF0000" >*</span></label>
+                                                <input id="termination" name="dateinstalled" type="date" class="form-control cc-name valid" data-val="true" required autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
-                                            <label for="cc-number" class="control-label mb-1">Image</label>
+                                            <label for="cc-number" class="control-label mb-1">Image<span style="color: #FF0000" >*</span></label>
                                             <input id="cc-number" name="image" type="file" class="form-control cc-number identified visa" required> 
                                             </div>
                                             <div class="form-group">

@@ -164,7 +164,7 @@ include("../config/config.php");
                                 <tbody>
                                 <?php
 
-$records = mysqli_query($connection,"SELECT  papinstalled.Image,papinstalled.ClientID,papinstalled.Team_ID,teams.Techie1,teams.Techie2,Upper(papinstalled.MacAddress) as Mac,papinstalled.DateInstalled from papinstalled join teams on papinstalled.Team_ID=teams.Team_ID where papinstalled.DateInstalled=CURDATE() order by DateInstalled asc"); // fetch data from database
+$records = mysqli_query($connection,"SELECT  papinstalled.Image,papinstalled.ClientID,papinstalled.Team_ID,token_teams.Techie1,token_teams.Techie2,Upper(papinstalled.MacAddress) as Mac,papinstalled.DateInstalled from papinstalled join token_teams on papinstalled.Team_ID=token_teams.Team_ID where papinstalled.DateInstalled=CURDATE() order by DateInstalled asc"); // fetch data from database
 
 while($data = mysqli_fetch_array($records))
 {
@@ -176,7 +176,7 @@ while($data = mysqli_fetch_array($records))
     <td><?php echo $data['Techie2']; ?></td>
     <td><?php echo $data['Mac']; ?></td>
     <td><?php echo $data['DateInstalled']; ?></td>
-    <td><a target="_self" href="image-view.php?clientid=<?php echo $data['ClientID']; ?>"><img id="myImg" alt="<?php echo $data['Mac']?>" src="data:Image/jpg;charset=utf8;base64,<?php echo base64_encode($data['Image']); ?>"  width="200" height="100" /></a></td>
+    <td><a target="_self" href="image-view.php?clientid=<?php echo $data['ClientID']; ?>"><img id="myImg" alt="<?php echo $data['Mac']?>" src="../images/papimages/png;charset=utf8;base64,<?php echo base64_encode($data['Image']); ?>"  width="200" height="100" /></a></td>
 <?php
 }
 ?>

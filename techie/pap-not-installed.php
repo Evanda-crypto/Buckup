@@ -5,9 +5,9 @@ include("session.php");
 $id = $_GET["clientid"];
 
 $sql =
-    "SELECT techietask.ClientName,techietask.Region,papdailysales.DateSigned,papdailysales.Floor,papdailysales.ChampName,papdailysales.ClientID,papdailysales.ClientContact,papdailysales.ClientAvailability,papdailysales.BuildingName,techietask.Region,techietask.Date,teams.Team_ID,teams.Techie1,teams.Techie2,
+    "SELECT techietask.ClientName,techietask.Region,papdailysales.DateSigned,papdailysales.Floor,papdailysales.ChampName,papdailysales.ClientID,papdailysales.ClientContact,papdailysales.ClientAvailability,papdailysales.BuildingName,techietask.Region,techietask.Date,token_teams.Team_ID,token_teams.Techie1,token_teams.Techie2,
 papdailysales.BuildingCode,papdailysales.Floor from papdailysales LEFT JOIN 
-techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID WHERE techietask.ClientID is not null AND techietask.ClientID=$id AND teams.Team_ID='" .
+techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID WHERE techietask.ClientID is not null AND techietask.ClientID=$id AND token_teams.Team_ID='" .
     $_SESSION["TeamID"] .
     "'";
 $result = mysqli_query($connection, $sql);
@@ -157,8 +157,8 @@ if (isset($_POST["submit"])) {
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                            $query="SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='".$_SESSION['TeamID']."'";
                                              $data=mysqli_query($connection,$query);
                                              while($row=mysqli_fetch_assoc($data)){
                                              echo $row['MyTask']."<br><br>";
@@ -167,8 +167,8 @@ if (isset($_POST["submit"])) {
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                <hr> <p class="red">You have <?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                            $query="SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='".$_SESSION['TeamID']."'";
                                              $data=mysqli_query($connection,$query);
                                              while($row=mysqli_fetch_assoc($data)){
                                              echo $row['MyTask'];
@@ -272,14 +272,14 @@ if (isset($_POST["submit"])) {
                                         <input id="bname" name="region" type="text" class="form-control cc-cvc" value="<?php echo $reg?>"  placeholder="Region" readonly>
                                         </div>
                                             <div class="form-group has-success">
-                                                <label for="cc-name" class="control-label mb-1">Availability</label>
+                                                <label for="cc-name" class="control-label mb-1">Availability<span style="color: #FF0000" >*</span></label>
                                                 <input id="avail" name="Date" type="date" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">Reason</label>
+                                                <label for="cc-number" class="control-label mb-1">Reason<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="note" tabindex="1">
+                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="note" tabindex="1" required>
                                             <option value="" disabled selected>Select Reason</option>
                                             <option value="Already Installed">Already Installed</option>
                                            <option value="To communicate">To communicate</option>

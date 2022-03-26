@@ -17,7 +17,7 @@ if(isset($_POST['submit'])){
     }
     else
     {
-      $stmt= $connection->prepare("select * from teams where Team_ID= ?");
+      $stmt= $connection->prepare("select * from token_teams where Team_ID= ?");
       $stmt->bind_param("s",$Team_ID);
       $stmt->execute();
      $stmt_result= $stmt->get_result();
@@ -31,7 +31,7 @@ if(isset($_POST['submit'])){
      }
      else{
          //Insert query
-        $stmt= $connection->prepare("insert into teams (Team_ID,Techie1,Techie2,Region,Password)
+        $stmt= $connection->prepare("insert into token_teams (Team_ID,Techie1,Techie2,Region,Password)
         values(?,?,?,?,?)");
            //values from the fields
         $stmt->bind_param("sssss",$Team_ID,$Techie1,$Techie2,$Region,$hassh);
@@ -344,34 +344,37 @@ if(isset($_POST['submit'])){
                                     <table class="table table-striped table-earning" id="example">
                                         <thead>
                                             <tr>
+                                            <th scope="col">No</th>
                                             <th scope="col">Team ID</th>
                                             <th scope="col">Techie 1</th>
                                             <th scope="col">Techie 2</th>
-                    
+                                            <th scope="col">Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+
                                         <?php
+                    $query = "select * from token_teams where Region='".$_SESSION['Region']."' order by Team_ID ASC";
+                    $result = mysqli_query($connection, $query);
 
-                          $sql="select * from teams where Region='".$_SESSION['Region']."' order by Team_ID ASC";
-                          $result=mysqli_query($connection,$sql);
-                          if($result){
-                          while($row=mysqli_fetch_assoc($result)){
-                          $tid=$row['Team_ID'];
-                          $tname1=$row['Techie1'];
-                          $tname2=$row['Techie2'];
-                          
+                    $num_rows = mysqli_num_rows($result);
 
-                          echo ' <tr>
-                          <td>'.$tid.'</td>
-                          <td>'.$tname1.'</td>
-                          <td>'.$tname2.'</td>
-                          
-                          </tr>';
-
-                       }
-                         }
-                       ?>
+                    $num = 0;
+                    if ($num_rows > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $num++; ?>
+                                <tr>
+                                    <td><?php echo $num; ?></td>
+                                    <td><?php echo $row["Team_ID"]; ?></td>
+                                    <td><?php echo $row["Techie1"]; ?></td>
+                                    <td><?php echo $row["Techie2"]; ?></td>
+                                    <td>
+                                    <button class="btn btn-danger" ><a href="delteam.php?id=<?php echo $row['ID']; ?> " onClick="return confirm('Sure to delete <?php  echo $row['Team_ID']; ?> from teams?')">Delete</a></button>
+                                    </td>
+                        <?php
+                        }
+                    }
+                    ?>
                                     </tbody>
                                     </table>
                                 </div>

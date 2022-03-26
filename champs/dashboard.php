@@ -764,7 +764,7 @@ if (!$connection) {
     function Last7days(){
         //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 100;
+    ctx.height = 200;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {

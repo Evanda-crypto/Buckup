@@ -4,9 +4,9 @@ include("../config/config.php");
 include("session.php");
 $id=$_GET['clientid'];
 
-$sql="SELECT techietask.ClientName,techietask.Region,papdailysales.AptLayout,papdailysales.Floor,papdailysales.ClientID,techietask.ClientContact,papdailysales.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,teams.Team_ID,teams.Techie1,teams.Techie2,
+$sql="SELECT techietask.ClientName,techietask.Region,papdailysales.AptLayout,papdailysales.Floor,papdailysales.ClientID,techietask.ClientContact,papdailysales.ClientAvailability,papdailysales.BuildingName,papdailysales.Region,techietask.Date,token_teams.Team_ID,token_teams.Techie1,token_teams.Techie2,
 papdailysales.BuildingCode,papdailysales.Floor from papdailysales LEFT JOIN 
-techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID WHERE techietask.ClientID is not null AND techietask.ClientID=$id AND teams.Team_ID='".$_SESSION['TeamID']."'";
+techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID WHERE techietask.ClientID is not null AND techietask.ClientID=$id AND token_teams.Team_ID='".$_SESSION['TeamID']."'";
 $result=mysqli_query($connection,$sql);
 $row=mysqli_fetch_assoc($result);
 $clientid=$row['ClientID'];
@@ -109,8 +109,8 @@ $layout=$row['AptLayout'];
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                            $query="SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='".$_SESSION['TeamID']."'";
                                              $data=mysqli_query($connection,$query);
                                              while($row=mysqli_fetch_assoc($data)){
                                              echo $row['MyTask']."<br><br>";
@@ -119,8 +119,8 @@ $layout=$row['AptLayout'];
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                <hr> <p class="red">You have <?php
-                                            $query="SELECT  COUNT(teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN teams ON teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND teams.Team_ID='".$_SESSION['TeamID']."'";
+                                            $query="SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='".$_SESSION['TeamID']."'";
                                              $data=mysqli_query($connection,$query);
                                              while($row=mysqli_fetch_assoc($data)){
                                              echo $row['MyTask'];
@@ -247,21 +247,21 @@ $layout=$row['AptLayout'];
                                             </div>
                                             </div>
                                         <div class="form-group">
-                                            <label for="cc-number" class="control-label mb-1">MAC Address</label>
+                                            <label for="cc-number" class="control-label mb-1">MAC Address<span style="color: #FF0000" >*</span></label>
                                             <input id="cc-number" pattern="[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}-[0-9A-Fa-f]{1}[0-9A-Fa-f]{1}"
                                              name="macaddress" style="text-transform: uppercase" type="text" class="form-control cc-number identified visa"  data-val="true" required placeholder="Format AB-CD-EF-GH-IJ-KL" > 
                                             </div>
                                             <div class="form-group has-success">
-                                                <label for="cc-name" class="control-label mb-1">Date Installed</label>
+                                                <label for="cc-name" class="control-label mb-1">Date Installed<span style="color: #FF0000" >*</span></label>
                                                 <input id="dateinstalled" name="dateinstalled" type="date" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
                                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                             </div>
                                             <div class="form-group">
-                                            <label for="cc-number" class="control-label mb-1">Image</label>
+                                            <label for="cc-number" class="control-label mb-1">Image<span style="color: #FF0000" >*</span></label>
                                             <input id="cc-number" name="image" type="file" class="form-control cc-number identified visa" required> 
                                             </div>
                                             <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">Suggestions/Observations/Comments</label>
+                                                <label for="cc-number" class="control-label mb-1">Suggestions/Observations/Comments<span style="color: #FF0000" >*</span></label>
                                                 <input id="cc-number" name="note" type="text" class="form-control cc-number identified visa" maxlength="40"  required placeholder="Suggestions/Observations/Comments">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                             </div>
