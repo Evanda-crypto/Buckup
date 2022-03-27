@@ -172,8 +172,6 @@ include("../../config/config.php");
                                 <table class="table table-striped" id="example">
                                     <thead>
                                         <tr>
-                                        <th class="th-sm">Remind
-      </th>
     <th class="th-sm">Building Name
       </th>
       <th class="th-sm">Building Code
@@ -194,9 +192,6 @@ include("../../config/config.php");
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                                 <tr>
-                                <td>
-                                    <button class="btn btn-warning" id='remind' ><a href="remind.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to remind installation of pap to <?php  echo $row['ClientName']; ?> to <?php  echo $row['Region']; ?> TL?')">Remind</a></button>
-                                    </td>
                                     <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
                                     <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingCode']; ?></a></td>
                                     <td><a href="javascript:void(0);" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>

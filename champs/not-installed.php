@@ -156,13 +156,9 @@ include("../config/config.php");
                                         <tr>
                                         <th class="th-sm">Remind
       </th>
-    <th class="th-sm">Date Signed
-      </th>
       <th class="th-sm">Client Name
       </th>
       <th class="th-sm">Availability
-      </th>
-      <th class="th-sm">Building Name
       </th>
                                       </tr>
                                   </thead>
@@ -176,10 +172,8 @@ include("../config/config.php");
                                 <td>
                                     <button class="btn btn-warning" id='remind' ><a href="remind.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to remind installation of pap to <?php  echo $row['ClientName']; ?> to <?php  echo $row['Region']; ?> TL?')">Remind</a></button>
                                     </td>
-                                    <td><a data-toggle="modal" data-target="#mediumModal" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['DateSigned']; ?></a></td>
                                     <td><a data-toggle="modal" data-target="#mediumModal" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
                                     <td><a data-toggle="modal" data-target="#mediumModal" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientAvailability']; ?></a></td>
-                                    <td><a data-toggle="modal" data-target="#mediumModal" data-href="getnotinstalled.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
                                 </tr>
                         <?php
 
@@ -204,7 +198,7 @@ include("../config/config.php");
                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">close</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>

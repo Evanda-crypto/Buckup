@@ -146,7 +146,7 @@ if (isset($_POST["submit"])) {
                         </div> <br/>
                         <button type="submit" name="submit" class="btn btn-primary btn-block" style="background-color:#FF0000;">Login</button><br></br>
                         <div class="register-link m-t-10 text-center">
-                            <p> <a href="forgot-pass/">Forgot Password</a></p>
+                            <p> <a href="forgot-pass/index.php">Forgot Password</a></p>
                         </div>
                     </form>
                 </div>

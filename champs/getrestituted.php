@@ -9,7 +9,7 @@ $id=$_GET["id"];
     $query = $connection->query(
         "SELECT papnotinstalled.ClientID,papnotinstalled.ClientName,papnotinstalled.Contact,papnotinstalled.ChampName,papnotinstalled.Region,papnotinstalled.Availability,papdailysales.PhoneAlt,
         papnotinstalled.Reason,papdailysales.Apt,papdailysales.DateSigned,papdailysales.ClientAvailability,papdailysales.Floor,papnotinstalled.BuildingName,papnotinstalled.BuildingCode
-        from papnotinstalled LEFT JOIN papdailysales on papdailysales.ClientID=papnotinstalled.ClientID   WHERE papnotinstalled.ClientID =$id"
+        from papnotinstalled LEFT JOIN papdailysales on papdailysales.ClientID=papnotinstalled.ClientID WHERE papnotinstalled.ClientID =$id"
     );
 
     if ($query->num_rows > 0) {
@@ -59,9 +59,9 @@ $id=$_GET["id"];
         echo "</tr>";
         echo "</table>";
     } else {
-        echo "Content not found....1";
+        echo "Content not found....";
     }
 } else {
-    echo "Content not found....2";
+    echo "Content not found....";
 }
 ?>

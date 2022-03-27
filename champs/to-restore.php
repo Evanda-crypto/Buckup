@@ -138,19 +138,16 @@ include("../config/config.php");
     ?> Records]</strong></center>
                             </div>
                             <div class="card-body">
-                                <table class="table" id="example">
+                                 <table class="table" id="example">
                                     <thead>
                                         <tr>
                                         <th class="th-sm">Restore
-      </th>
-      <th class="th-sm">DateSigned
       </th>
       <th class="th-sm">Client Name
       </th>
       <th class="th-sm">Building Name
       </th>
-      <th class="th-sm">Reason
-      </th>
+    
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -163,11 +160,10 @@ include("../config/config.php");
                                 <td>
                                     <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> as pap client  again?')">Restore</a></button>
                                     </td>
-                                    <td><a data-toggle="modal" data-target="#mediumModal" data-href="getrestituted.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['DateSigned']; ?></a></td>
+                                    
                                     <td><a data-toggle="modal" data-target="#mediumModal" data-href="getrestituted.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']; ?></a></td>
                                     <td><a data-toggle="modal" data-target="#mediumModal" data-href="getrestituted.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']; ?></a></td>
-                                    <td><a data-toggle="modal" data-target="#mediumModal" data-href="getrestituted.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['Reason']; ?></a></td>
-
+                                   
                                 </tr>
                         <?php
 

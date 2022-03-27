@@ -28,10 +28,10 @@ if (!$connection) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard</title>
-    
-
+     <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
- 
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -47,6 +47,7 @@ if (!$connection) {
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
 
    <style>
     #weatherWidget .currentDesc {
@@ -347,7 +348,7 @@ if (!$connection) {
                 <!--  /Traffic -->
                 <div class="clearfix"></div>
 
-                    <div class="row">
+               <!--     <div class="row">
                     <div class="col-lg-12">
                     <div class="card">
                     <div class="card-body">
@@ -453,7 +454,7 @@ if (!$connection) {
                                 
                                 </div>
     </div>
-    </div></div>
+    </div></div>-->
             </div>
             <!-- .animated -->
         </div>
@@ -464,7 +465,7 @@ if (!$connection) {
     <!-- /#right-panel -->
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
@@ -487,13 +488,11 @@ if (!$connection) {
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="../assets/js/init/fullcalendar-init.js"></script>
-
-    <!--Local Stuff-->
     <script>
 
   //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 100;
+    ctx.height = 190;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
@@ -764,7 +763,7 @@ if (!$connection) {
     function Last7days(){
         //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 200;
+    ctx.height = 190;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
@@ -1037,7 +1036,7 @@ if (!$connection) {
     function last14days() {
         //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 400;
+    ctx.height = 1900;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
@@ -1515,44 +1514,10 @@ while ($signed = mysqli_fetch_assoc($result)) {
 
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
               //doughut chart
     var ctx = document.getElementById( "doughutChart" );
-    ctx.height = 250;
+    ctx.height = 200;
     var myChart = new Chart( ctx, {
         type: 'doughnut',
         data: {
