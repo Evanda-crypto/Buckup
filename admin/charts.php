@@ -127,7 +127,7 @@ include("../config/config.php");
                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="mb-3">Overrall Pap Progress</h4>
+                                <h4 class="mb-3">Overall Pap Progress</h4>
                                 <canvas id="overall"></canvas>
                             </div>
                         </div>
