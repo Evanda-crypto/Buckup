@@ -11,7 +11,7 @@ include("../config/config.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Buildings | Ref</title>
+    <title>Building</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -138,10 +138,10 @@ include("../config/config.php");
     ?> Records]</strong></center>
                             </div>
                             <div class="card-body">
-                                <table class="table" id="example">
+                                 <table class="table table-striped" id="example">
                                     <thead>
                                         <tr>
-                                          <th scope="col">B Name</th>
+                                        <th scope="col">B Name</th>
                                           <th scope="col">B Code</th>
                                           <th scope="col">Region</th>
                                       </tr>
@@ -162,18 +162,10 @@ include("../config/config.php");
                                 </tbody>
                             </table>
                         </div>
-                          
                     </div>
-                </div>
+                    <!-- Modal -->
 
-</div><!-- .content -->
- 
-<div class="clearfix"></div>
-
-</div><!-- /#right-panel -->
-<!-- Button trigger modal -->
-
-<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -190,7 +182,14 @@ include("../config/config.php");
                         </div>
                     </div>
                 </div>
-            </div><!--end of modal-->
+            </div><!--end of modal--><!--End of modal-->
+                </div>
+
+</div><!-- .content -->
+<div class="clearfix"></div>
+
+</div><!-- /#right-panel -->
+
 <!-- Right Panel -->
 
 <!-- Scripts -->
@@ -209,22 +208,24 @@ include("../config/config.php");
     <script src="../assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="../assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="../assets/js/init/datatables-init.js"></script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-          $('#example').DataTable();
-      } );
-  </script>
 <script>
-  $(document).ready(function(){
-    $(document).on('click','.openPopup',function(){
+ $(document).ready(function () {
+$('#example').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+</script>
+<script>
+$(document).ready(function(){
+  $(document).on('click','.openPopup',function(){
         var dataURL = $(this).attr('data-href');
         $('.modal-body').load(dataURL,function(){
             $('#myModal').modal({show:true});
         });
     }); 
 });
+$('#example').DataTable( {
+    fixedColumn: true
+} );
 </script>
 </body>
 </html>

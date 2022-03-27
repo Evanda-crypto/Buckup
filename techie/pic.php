@@ -3,12 +3,8 @@ include("../config/config.php");
 include("session.php");
 
 
-$targetDir = "../images/";
-$fileName = basename($_FILES["image"]["name"]);
-$targetFilePath = $targetDir . $fileName;
-$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
-if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
+if(isset($_POST["submit"])){
     $Team_ID=$_POST['teamid'];
     $MacAddress = $_POST['macaddress'];
     $SerialNumber = "N/A";
@@ -19,10 +15,8 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
     $Note = $_POST['note'];
     $layout = $_POST['layout'];
     $status = "Installed";
-    $allowTypes = array('jpg','png','jpeg','gif','pdf');
-        if(in_array($fileType, $allowTypes)){
-                // Upload file to server
-                if(move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)){
+   
+       
                     // Insert image file name into database
                     $stmt= $connection->prepare("select * from papinstalled where MacAddress= ?");
                     $stmt->bind_param("s",$MacAddress);
@@ -35,7 +29,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
                     else{
                     $sql="update papdailysales set ClientID=$ClientID,Floor='$Floor',AptLayout='$layout',PapStatus='$status' where ClientID=$ClientID";
                     $result=mysqli_query($connection,$sql);
-                    $insert = $connection->query("INSERT into papinstalled (Team_ID,ClientID,MacAddress,SerialNumber,DateInstalled,Region,Note,Floor,AptLayout,Image) VALUES ('$Team_ID','$ClientID','$MacAddress','$SerialNumber','$DateInstalled','$Region','$Note','$Floor','$layout','".$fileName."')"); 
+                    $insert = $connection->query("INSERT into papinstalled (Team_ID,ClientID,MacAddress,SerialNumber,DateInstalled,Region,Note,Floor,AptLayout) VALUES ('$Team_ID','$ClientID','$MacAddress','$SerialNumber','$DateInstalled','$Region','$Note','$Floor','$layout')"); 
 
                     if($insert && $result){
                         echo '<script>alert("Submitted!")</script>';
@@ -44,14 +38,8 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
                         echo '<script>alert("Error submitting the image")</script>';
                         echo '<script>window.location.href="mytask.php";</script>';
                     }} 
-                }else{
-                    echo '<script>alert("No path found")</script>';
-                        echo '<script>window.location.href="mytask.php";</script>';
-                }
-        }else{
-            echo '<script>alert("File type error")</script>';
-                        echo '<script>window.location.href="mytask.php";</script>';
-        }
+               
+       
 
 }
 ?>
