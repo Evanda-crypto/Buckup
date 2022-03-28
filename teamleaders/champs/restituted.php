@@ -177,6 +177,7 @@ include("../../config/config.php");
                      <th>ChampName</th>
                      <th>Region</th>
                      <th>Techies</th>
+                     <th>Restituted Date</th>
                     <th>Reason</th>
                     <th>Restore</th>
                     <th>Delete</th>
@@ -186,7 +187,7 @@ include("../../config/config.php");
                                
  <?php
  $query =
-     "SELECT papnotinstalled.ClientID,papnotinstalled.ClientName,papnotinstalled.BuildingName,papnotinstalled.BuildingCode,papnotinstalled.Region,papnotinstalled.Floor,papnotinstalled.DateSigned,papnotinstalled.Reason,papnotinstalled.Contact,papnotinstalled.ChampName,CONCAT(papnotinstalled.Techie1,'/',papnotinstalled.Techie2) as techies from papnotinstalled left join trash on trash.ClientID=papnotinstalled.ClientID where trash.ClientID is null and papnotinstalled.Reason<>'Already Installed' and papnotinstalled.Region='".$_SESSION['Region']."' order by DateSigned Desc";
+     "SELECT papnotinstalled.ClientID,papnotinstalled.ClientName,papnotinstalled.BuildingName,papnotinstalled.BuildingCode,papnotinstalled.Region,papnotinstalled.Floor,papnotinstalled.DateSigned,papnotinstalled.Reason,papnotinstalled.Contact,papnotinstalled.ChampName,papnotinstalled.RestitutedDate,CONCAT(papnotinstalled.Techie1,'/',papnotinstalled.Techie2) as techies from papnotinstalled left join trash on trash.ClientID=papnotinstalled.ClientID where trash.ClientID is null and papnotinstalled.Reason<>'Already Installed' and papnotinstalled.Region='".$_SESSION['Region']."' order by DateSigned Desc";
  $result = mysqli_query($connection, $query);
  while ($row = mysqli_fetch_assoc($result)) { ?>
                                 <tr>
@@ -198,6 +199,7 @@ include("../../config/config.php");
                                     <td><?php echo $row["ChampName"]; ?></td>
                                     <td><?php echo $row["Region"]; ?></td>
                                     <td><?php echo $row["techies"]; ?></td>
+                                   <td><?php echo $row["RestitutedDate"]; ?></td>
                                     <td><?php echo $row["Reason"]; ?></td>
                                     <td>
                                     <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> back to KOMP database?')"> <i class="zmdi zmdi-refresh-alt"></i>Restore</a></button>

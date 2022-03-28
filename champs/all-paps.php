@@ -141,8 +141,6 @@ include("../config/config.php");
                                  <table class="table table-striped" id="example">
                                     <thead>
                                         <tr>
-                                        <th class="th-sm">DateSigned
-                                        </th>
                                         <th class="th-sm">Client
                                         </th>
                                      <th class="th-sm">Building Name
@@ -157,7 +155,6 @@ include("../config/config.php");
     while($row=$result->fetch_array()){
       ?>
       <tr>
-        <td><a data-toggle="modal" data-target="#mediumModal" data-href="getallpap.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['DateSigned']?></a></td>
         <td><a data-toggle="modal" data-target="#mediumModal" data-href="getallpap.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['ClientName']?></a></td>
         <td><a data-toggle="modal" data-target="#mediumModal" data-href="getallpap.php?id=<?php echo $row['ClientID']; ?>" class="openPopup"><?php echo $row['BuildingName']?></a></td>
     </tr>
