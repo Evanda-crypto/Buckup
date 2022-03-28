@@ -237,7 +237,7 @@ if ($insert) {
                                                 <label for="cc-number" class="control-label mb-1">Floor</label>
                                                 <div class="form-group has-success">
                                             <select data-placeholder="Choose a Country..." class="standardSelect form-control" readonly name="floor" tabindex="1">
-                                            <option value="<?php echo $Floor?>"><?php echo $Floors?></option>
+                                            <option value="<?php echo $Floors?>"><?php echo $Floors?></option>
                                             <option value="-1">-1</option> 
                                             <option value="0">0</option>  
                                             <option value="1">1</option>  

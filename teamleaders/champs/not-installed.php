@@ -189,7 +189,7 @@ include("../../config/config.php");
                                   <tbody>
                                   <?php
                         $query  = "SELECT papdailysales.ClientName,papdailysales.ClientContact,papdailysales.ClientID,papdailysales.BuildingCode,papdailysales.BuildingName,papdailysales.ChampName,papdailysales.ClientAvailability from papdailysales left join papinstalled on papinstalled.ClientID=papdailysales.ClientID left join techietask on techietask.ClientID=papdailysales.ClientID
-                         left join reminders on papdailysales.ClientID=reminders.ClientID where reminders.ClientID is null and techietask.ClientID is null and papinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
+                        left join reminders on papdailysales.ClientID=reminders.ClientID left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID where papnotinstalled.ClientID IS null and reminders.ClientID is null and techietask.ClientID is null and papinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
                         $result  = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>

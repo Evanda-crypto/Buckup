@@ -187,8 +187,6 @@ include("../../config/config.php");
                    <th class="th-sm">MAC Address
                    </th>
                    <th class="th-sm">Date Turned On
-                   </th>
-                   <th class="th-sm">More
                    </th>  
                                     </tr>
                                 </thead>
@@ -212,9 +210,6 @@ while($row=$result->fetch_array()){
     <td><?php echo $row['ClientContact']?></td>
     <td><?php echo $row['Mac']?></td>
     <td><?php echo $row['DateTurnedOn']?></td>
-    <td>
-    <button class="btn btn-warning" ><a href="edit-turnedon.php?clientid=<?php echo $row['ClientID']; ?>" class="text-bold">Edit</a></button>
-    </td>
 </tr>
 <?php } ?>
                                 </tbody>
