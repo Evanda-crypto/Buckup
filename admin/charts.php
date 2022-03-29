@@ -1058,10 +1058,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
                     label: "Highest Region",
                     data: [ "<?php
 $sql =
-    "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 6 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as highestreg";
+    "SELECT Region,Count(*) as highestreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 6 DAY) group by Region order by highestreg Desc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1069,10 +1066,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 5 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as highestreg";
+    "SELECT Region,Count(*) as highestreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 5 DAY) group by Region order by highestreg Desc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1080,10 +1074,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 4 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as highestreg";
+    "SELECT Region,Count(*) as highestreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 4 DAY) group by Region order by highestreg Desc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1091,10 +1082,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 3 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as highestreg";
+    "SELECT Region,Count(*) as highestreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 3 DAY) group by Region order by highestreg Desc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1102,10 +1090,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 2 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as highestreg";
+    "SELECT Region,Count(*) as highestreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 2 DAY) group by Region order by highestreg Desc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1113,10 +1098,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 1 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as highestreg";
+    "SELECT Region,Count(*) as highestreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 1 DAY) group by Region order by highestreg Desc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1124,10 +1106,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MAX(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=CURDATE()
-    GROUP BY Region,RestitutedDate) as maxm) as highestreg";
+    "SELECT Region,Count(*) as highestreg from papnotinstalled where Date(RestitutedDate) =CURDATE() group by Region order by highestreg Desc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1142,10 +1121,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
                     label: "Least Region",
                     data: [ "<?php
 $sql =
-    "SELECT (SELECT MIN(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 6 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as minreg";
+    "SELECT Region,Count(*) as minreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 6 DAY) group by Region order by minreg asc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1153,10 +1129,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MIN(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 5 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as minreg";
+    "SELECT Region,Count(*) as minreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 5 DAY) group by Region order by minreg asc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1164,10 +1137,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MIN(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 4 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as minreg";
+    "SELECT Region,Count(*) as minreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 4 DAY) group by Region order by minreg asc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1175,10 +1145,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MIN(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 3 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as minreg";
+    "SELECT Region,Count(*) as minreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 3 DAY) group by Region order by minreg asc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1186,10 +1153,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MIN(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 2 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as minreg";
+    "SELECT Region,Count(*) as minreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 2 DAY) group by Region order by minreg asc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1197,10 +1161,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MIN(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=DATE_SUB(CURDATE(), INTERVAL 1 DAY)
-    GROUP BY Region,RestitutedDate) as maxm) as minreg";
+    "SELECT Region,Count(*) as minreg from papnotinstalled where Date(RestitutedDate) =DATE_SUB(CURDATE(), INTERVAL 1 DAY) group by Region order by minreg asc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
@@ -1208,10 +1169,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 }
 ?>", "<?php
 $sql =
-    "SELECT (SELECT MIN(mycount)
-    FROM (SELECT Region,COUNT(ClientID) AS mycount,RestitutedDate 
-    FROM papnotinstalled where Date(RestitutedDate)=CURDATE()
-    GROUP BY Region,RestitutedDate) as maxm) as minreg";
+    "SELECT Region,Count(*) as minreg from papnotinstalled where Date(RestitutedDate) =CURDATE() group by Region order by minreg asc limit 1";
 $result = mysqli_query($connection, $sql);
 $chart_data = "";
 while ($signed = mysqli_fetch_assoc($result)) {
