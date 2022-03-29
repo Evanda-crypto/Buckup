@@ -718,9 +718,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
                         mysqli_error();
                 } else {
                     $sql =
-                        "SELECT COUNT(ClientID) restituted FROM papnotinstalled  WHERE Region='" .
-                        $_SESSION["Region"] .
-                        "'";
+                        "SELECT COUNT(*) as restituted FROM papnotinstalled WHERE Reason='Already installed' and Region='".$_SESSION['Region']."'";
                     $result = mysqli_query($connection, $sql);
                     $chart_data = "";
                     while ($torestore = mysqli_fetch_assoc($result)) {
