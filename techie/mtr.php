@@ -32,11 +32,11 @@ $Contperson = $_POST['person'];
                         echo '<script>window.location.href="new-meter-form.php";</script>';
                     } 
                 }else{
-                    echo '<script>alert("Error1")</script>';
+                    echo '<script>alert("No path found")</script>';
                         echo '<script>window.location.href="new-meter-form.php";</script>';
                 }
         }else{
-            echo '<script>alert("Error2")</script>';
+            echo '<script>alert("Invalid file type")</script>';
                         echo '<script>window.location.href="new-meter-form.php";</script>';
         }
 

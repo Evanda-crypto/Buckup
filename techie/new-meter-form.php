@@ -195,7 +195,7 @@ include("session.php");
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Phone Number<span style="color: #FF0000" >*</span></label>
                                         <div class="input-group">
-                                        <input id="bname" name="contact" type="text" class="form-control cc-cvc" required   placeholder="Phone Number 07XXXXXXXX" ><br></br>
+                                        <input  name="contact" type="tel" pattern="[0-9]{10}" class="form-control cc-cvc" required   placeholder="Phone Number 07XXXXXXXX" ><br></br>
                                         </div>
                                         <div class="form-group">
                                             <label for="cc-number" class="control-label mb-1">Meter No<span style="color: #FF0000" >*</span></label>

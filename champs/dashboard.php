@@ -759,7 +759,7 @@ if (!$connection) {
     } );
 </script>
 <script>
-    document.getElementByID("00").AddEventListener("click", Last7days);
+    document.getElementById("00").AddEventListener("click", Last7days);
     function Last7days(){
         //bar chart
     var ctx = document.getElementById( "barChart" );
