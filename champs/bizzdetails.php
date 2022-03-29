@@ -3,7 +3,7 @@ include("../config/config.php");
 include("session.php");
 
 
-$targetDir = "../images/bizzimages/";
+$targetDir = "/var/www/html/konn/images/bizzimages/";
 $fileName = basename($_FILES["image"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);

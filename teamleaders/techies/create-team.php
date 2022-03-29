@@ -348,7 +348,6 @@ if(isset($_POST['submit'])){
                                             <th scope="col">Team ID</th>
                                             <th scope="col">Techie 1</th>
                                             <th scope="col">Techie 2</th>
-                                            <th scope="col">Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -368,9 +367,6 @@ if(isset($_POST['submit'])){
                                     <td><?php echo $row["Team_ID"]; ?></td>
                                     <td><?php echo $row["Techie1"]; ?></td>
                                     <td><?php echo $row["Techie2"]; ?></td>
-                                    <td>
-                                    <button class="btn btn-danger" ><a href="delteam.php?id=<?php echo $row['ID']; ?> " onClick="return confirm('Sure to delete <?php  echo $row['Team_ID']; ?> from teams?')">Delete</a></button>
-                                    </td>
                         <?php
                         }
                     }
