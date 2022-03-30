@@ -181,7 +181,28 @@ include("session.php");
                                             <h3 class="text-center">New Meter Report</h3>
                                         </div>
                                         <hr>
-                                        <form  method="post" enctype="multipart/form-data" action="mtr.php" autocomplete="off">
+                                        <?php
+            if(isset($_SESSION['status'])){
+                ?>
+               <center><span> <div class="alert alert-danger" role="alert">
+                   <?php echo $_SESSION['status'];
+                unset($_SESSION['status']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            elseif(isset($_SESSION['success'])){
+                ?>
+                <center><span><div class="alert alert-success" role="alert">
+                   <?php echo $_SESSION['success'];
+                unset($_SESSION['success']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            ?>
+                                        <form  method="post" enctype="multipart/form-data" action="test.php" autocomplete="off">
+                            
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Team ID</label>
                                         <div class="input-group">

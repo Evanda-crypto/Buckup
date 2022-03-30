@@ -197,6 +197,7 @@ $layout=$row['AptLayout'];
                                             <h3 class="text-center">Panel Ap Report</h3>
                                         </div>
                                         <hr>
+                                        
                                         <form  method="post" enctype="multipart/form-data" autocomplete="off" action="pic.php">
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Client ID</label>

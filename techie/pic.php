@@ -1,9 +1,6 @@
 <?php
 include("../config/config.php");
-include("session.php");
-
-
-
+session_start();
 if(isset($_POST["submit"])){
     $Team_ID=$_POST['teamid'];
     $MacAddress = $_POST['macaddress'];
@@ -23,8 +20,8 @@ if(isset($_POST["submit"])){
                     $stmt->execute();
                     $stmt_result= $stmt->get_result();
                     if($stmt_result->num_rows>0){
-                      echo "<script>alert('The Macaddress Already Exists');</script>";
-                      echo '<script>window.location.href="mytask.php";</script>';
+                        $_SESSION["status"] = "Mac already Exists";
+                        header("Location: mytask.php");
                     }
                     else{
                     $sql="update papdailysales set ClientID=$ClientID,Floor='$Floor',AptLayout='$layout',PapStatus='$status' where ClientID=$ClientID";
@@ -32,11 +29,11 @@ if(isset($_POST["submit"])){
                     $insert = $connection->query("INSERT into papinstalled (Team_ID,ClientID,MacAddress,SerialNumber,DateInstalled,Region,Note,Floor,AptLayout) VALUES ('$Team_ID','$ClientID','$MacAddress','$SerialNumber','$DateInstalled','$Region','$Note','$Floor','$layout')"); 
 
                     if($insert && $result){
-                        echo '<script>alert("Submitted!")</script>';
-                        echo '<script>window.location.href="mytask.php";</script>';
+                        $_SESSION["success"] = "Submitted";
+                        header("Location: mytask.php");
                     }else{
-                        echo '<script>alert("Error submitting the image")</script>';
-                        echo '<script>window.location.href="mytask.php";</script>';
+                        $_SESSION["status"] = "Error occurred!";
+                        header("Location: mytask.php");
                     }} 
                
        

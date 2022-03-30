@@ -59,11 +59,11 @@ if (isset($_POST["submit"])) {
         );
 
         if ($insert && $result && $upd) {
-            echo '<script>alert("Submitted!")</script>';
-            echo '<script>window.location.href="mytask.php";</script>';
+            $_SESSION["success"] = "Moved to restituted";
+            header("Location: mytask.php");
         } else {
-            echo "<script>alert('UnSuccessfull.');</script>";
-            echo '<script>window.location.href="mytask.php";</script>';
+            $_SESSION["status"] = "Error";
+            header("Location: mytask.php");
         }
     }
 }

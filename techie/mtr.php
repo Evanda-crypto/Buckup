@@ -2,7 +2,7 @@
 include("../config/config.php");
 include("session.php");
 
-$targetDir = "/var/www/html/konn/images/mtrpics/";
+$targetDir = "../images/mtrpics/";
 $fileName = basename($_FILES["image"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
