@@ -1036,7 +1036,7 @@ if (!$connection) {
     function last14days() {
         //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 1900;
+    ctx.height = 570;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
