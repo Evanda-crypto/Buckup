@@ -255,7 +255,7 @@ include("../config/config.php");
                         </div></a>
                     </div>
 
-                    <div class="col-lg-3 col-md-6"><a href="installed.php" >
+                    <div class="col-lg-3 col-md-6"><a href="not-turnedon.php" >
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -279,7 +279,7 @@ include("../config/config.php");
                         </div></a>
                     </div>
 
-                    <div class="col-lg-3 col-md-6"><a href="installed-today.php">
+                    <div class="col-lg-3 col-md-6"><a href="installed.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
