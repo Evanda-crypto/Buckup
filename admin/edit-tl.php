@@ -213,7 +213,7 @@ else
                                                 <input id="cc-pament" name="email"  type="email"  value="<?php echo $email; ?>" class="form-control" aria-required="true" aria-invalid="false" placeholder="Email">
                                             </div>
                                             <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="Department" tabindex="1">
+                                            <select data-placeholder="Choose  Department..." class="standardSelect form-control" name="Department" tabindex="1">
                                             <option value="<?php echo $dpt?>"><?php echo $dpt?></option>
                                             <option value="SalesTL">SalesTL</option>
                                             <option value="TechieTL">TechieTL</option>

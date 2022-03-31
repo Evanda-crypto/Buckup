@@ -22,10 +22,19 @@
                 <?php
             if(isset($_SESSION['status'])){
                 ?>
-                <div class="alert alert-danger" role="alert">
+               <center><span> <div class="alert alert-danger" role="alert">
                    <?php echo $_SESSION['status'];
                 unset($_SESSION['status']);?>
-                 </div>
+                 </div></span></center>
+                <?php
+                
+            }
+            elseif(isset($_SESSION['success'])){
+                ?>
+                <center><span><div class="alert alert-success" role="alert">
+                   <?php echo $_SESSION['success'];
+                unset($_SESSION['success']);?>
+                 </div></span></center>
                 <?php
                 
             }

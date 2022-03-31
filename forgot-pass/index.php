@@ -1,45 +1,5 @@
 <?php
-include "../config/config.php";
-if (isset($_POST["submit"])) {
-    session_start();
-    $EMAIL = trim($_POST["Username"]);
-
-    if (!$connection) {
-        echo "<script>alert('There is no connection at this time.Please try again later.');</script>";
-        echo '<script>window.location.href="index.php";</script>';
-    } else {
-        $stmt = $connection->prepare("select * from employees where EMAIL= ?");
-        $stmt->bind_param("s", $EMAIL);
-        $stmt->execute();
-        $stmt_result = $stmt->get_result();
-        if ($stmt_result->num_rows > 0) {
-            $data = $stmt_result->fetch_assoc();
-            $_SESSION["start"] = time();
-            $_SESSION["uname"] = $EMAIL;
-            $_SESSION["id"] = $data["ID"];
-            header("Location: reset-pass.php");
-        }else{
-            $query = $connection->prepare(
-                "SELECT * from token_teams Where Team_ID= ?"
-            );
-            $query->bind_param("s", $EMAIL);
-            $query->execute();
-            $query_result = $query->get_result();
-            if ($query_result->num_rows > 0) {
-                $row = $stmt_result->fetch_assoc();
-                $_SESSION["start"] = time();
-                $_SESSION["uname"] = $EMAIL;
-                $_SESSION["id"] = $row["ID"];
-                header("Location: reset-pass.php");
-            }
-            else{
-                echo "<script>alert('Username does not exist.');</script>";
-        echo '<script>window.location.href="index.php";</script>';
-            }
-        }
-
-    }
-}
+session_start();
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -75,11 +35,22 @@ if (isset($_POST["submit"])) {
                 <div class="login-logo">
                 
                 <div class="login-form">
-                    <form method="POST">
+                    <form method="POST" action="find.php">
                     <img src="../images/logo1.png" alt="logo icon" style="height:20%; width: 40%; "><br></br>
+                    <?php
+            if(isset($_SESSION['status'])){
+                ?>
+                <div class="alert alert-danger" role="alert">
+                   <?php echo $_SESSION['status'];
+                unset($_SESSION['status']);?>
+                 </div>
+                <?php
+                
+            }
+            ?>
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" name="Username" placeholder="Enter your Username">
+                            <input type="text" class="form-control" name="Username" placeholder="Enter your Username" required>
                         </div>
                         <button type="submit" name="submit" class="btn btn-primary btn-flat m-b-15" style="background-color:#FF0000;">Submit</button><br></br>
                         <div class="register-link m-t-15 text-center">

@@ -206,7 +206,7 @@ if ($result) {
                                                 </div>
                                             </div>
                                             <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="Region" tabindex="1">
+                                            <select data-placeholder="Choose Region..." class="standardSelect form-control" name="Region" tabindex="1">
                                             <option value="<?php echo $reg?>" ><?php echo $reg?></option>
                                            <option value="G44">G44</option>
                                            <option value="ZMM">ZMM</option>

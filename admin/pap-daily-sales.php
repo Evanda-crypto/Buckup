@@ -149,6 +149,26 @@ include("../config/config.php");
                            <center> <strong class="card-title">Signed Pap</strong></center>
                         </div>
                         <div class="card-body">
+                        <?php
+            if(isset($_SESSION['status'])){
+                ?>
+               <center><span> <div class="alert alert-danger" role="alert">
+                   <?php echo $_SESSION['status'];
+                unset($_SESSION['status']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            elseif(isset($_SESSION['success'])){
+                ?>
+                <center><span><div class="alert alert-success" role="alert">
+                   <?php echo $_SESSION['success'];
+                unset($_SESSION['success']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            ?>
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>

@@ -68,11 +68,11 @@ PhoneAlt='$PhoneAlt',Email='$email' where ClientID=$id";
 
 $result=mysqli_query($connection,$sql);
 if ($result && $query) {
-    echo "<script>alert('Update Successfull.');</script>";
-    echo '<script>window.location.href="all-paps.php";</script>';
+    $_SESSION["success"] = "Records Updated";
+    header("Location: pap-daily-sales.php");
 } else {
-    echo "<script>alert('Not updated Please try again');</script>";
-    echo '<script>window.location.href="edit-records.php";</script>';
+    $_SESSION["status"] = "Not updated";
+    header("Location: edit-records.php");
 }
 }
 ?>
@@ -247,7 +247,7 @@ if ($result && $query) {
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Floor</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="floor" tabindex="1">
+                                            <select data-placeholder="Choose Floor..." class="standardSelect form-control" name="floor" tabindex="1">
                                             <option value="<?php echo $Floor?>"><?php echo $Floors?></option>
                                             <option value="-1">-1</option> 
                                             <option value="0">0</option>  
@@ -269,7 +269,7 @@ if ($result && $query) {
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">APT Layout</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="aptlayout" tabindex="1">
+                                            <select data-placeholder="Choose a Floor..." class="standardSelect form-control" name="aptlayout" tabindex="1">
                                             <option value="<?php echo $AptLayout?>"><?php echo $AptLayout?></option>
                                             <option value="Single">Single</option>
                                             <option value="Double">Double</option>
@@ -332,7 +332,7 @@ if ($result && $query) {
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Gender</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="gender" tabindex="1" required>
+                                            <select data-placeholder="Choose Gender..." class="standardSelect form-control" name="gender" tabindex="1" required>
                                             <option value="<?php echo $ClientGender?>"><?php echo $ClientGender?></option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -344,7 +344,7 @@ if ($result && $query) {
                                                 <label for="cc-number" class="control-label mb-1">Age</label>
                                                 <div class="form-group has-success">
                                             <select  class="standardSelect form-control" name="age" tabindex="1" required>
-                                            <option value="<?php echo $ClientAge?>"><?php echo $ClientAge?></option>
+                                            <option value="<?php echo $ClientAge?>" data-placeholder="Choose Age range..."><?php echo $ClientAge?></option>
                                             <option value="Below 17">Below 17</option>  
                                             <option value="18-24">18-24</option>  
                                             <option value="25-34">25-34</option>  

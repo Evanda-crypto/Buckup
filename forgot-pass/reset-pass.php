@@ -9,8 +9,8 @@ if (isset($_POST["submit"])) {
     $hashpass= password_hash($pass, PASSWORD_DEFAULT);
 
     if (!$connection) {
-        echo "<script>alert('There is no connection at this time.Please try again later.');</script>";
-        echo '<script>window.location.href="index.php";</script>';
+        $_SESSION["status"] = "There is no connection at this time.Please try again later.";
+        header("Location: reset-pass.php");
     } else {
         $stmt = $connection->prepare("select * from employees where EMAIL= ?");
         $stmt->bind_param("s", $EMAIL);
@@ -20,12 +20,13 @@ if (isset($_POST["submit"])) {
             $sql="UPDATE employees set PASSWORD='$hashpass' WHERE EMAIL='$EMAIL'";
             $result=mysqli_query($connection,$sql);
             if($result){
-                echo "<script>alert('Password Reset was successfully.');</script>";
-                echo '<script>window.location.href="../index.php";</script>';
+                $_SESSION["success"] = "Password Reset was successfully.";
+                header("Location: ../index.php");
+                
             }
             else{
-                echo "<script>alert('There was an error please contact admin for more information.');</script>";
-                echo '<script>window.location.href="index.php";</script>';
+                $_SESSION["status"] = "There was an error please contact admin for more information.";
+                header("Location: reset-pass.php");
             }
         }
         else{
@@ -39,12 +40,12 @@ if (isset($_POST["submit"])) {
                 $sql="UPDATE token_teams set PASSWORD='$hashpass' WHERE Team_ID='$EMAIL'";
             $result=mysqli_query($connection,$sql);
             if($result){
-                echo "<script>alert('Password Reset was successfully.');</script>";
-                echo '<script>window.location.href="../index.php";</script>';
+                $_SESSION["success"] = "Password Reset was successfully.";
+                header("Location: ../index.php");
             }
             else{
-                echo "<script>alert('There was an error please contact admin for more information.');</script>";
-                echo '<script>window.location.href="index.php";</script>';
+                $_SESSION["status"] = "There was an error please contact admin for more information.";
+                header("Location: reset-pass.php");
             }
             }
         }

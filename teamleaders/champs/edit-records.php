@@ -68,11 +68,11 @@ PhoneAlt='$PhoneAlt',Email='$email' where ClientID=$id";
 
 $result=mysqli_query($connection,$sql);
 if ($result && $query) {
-    echo "<script>alert('Update Successfull.');</script>";
-    echo '<script>window.location.href="all-paps.php";</script>';
+    $_SESSION["success"] = "Records Updated";
+    header("Location: all-paps.php");
 } else {
-    echo "<script>alert('Not updated Please try again');</script>";
-    echo '<script>window.location.href="edit-records.php";</script>';
+    $_SESSION["status"] = "Not updated";
+    header("Location: edit-records.php");
 }
 }
 ?>
@@ -264,7 +264,7 @@ if ($result && $query) {
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Floor</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="floor" tabindex="1">
+                                            <select data-placeholder="Choose Floor..." class="standardSelect form-control" name="floor" tabindex="1">
                                             <option value="<?php echo $Floor?>"><?php echo $Floors?></option>
                                             <option value="-1">-1</option> 
                                             <option value="0">0</option>  
@@ -286,7 +286,7 @@ if ($result && $query) {
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">APT Layout</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="aptlayout" tabindex="1">
+                                            <select data-placeholder="Choose Layout..." class="standardSelect form-control" name="aptlayout" tabindex="1">
                                             <option value="<?php echo $AptLayout?>"><?php echo $AptLayout?></option>
                                             <option value="Single">Single</option>
                                             <option value="Double">Double</option>
