@@ -1,12 +1,13 @@
+
 <?php
 session_start();
-if (isset($_SESSION["Techie"]) && $_SESSION["Techie"] == true) {
-    if (time() - $_SESSION["start"] > 86400) {
-        header("location: logout.php");
+if (!isset($_SESSION["Techie"]) && $_SESSION["Techie"] == false) {
+    header("location: ../index.php");
+} else {
+    if (time() - $_SESSION["start"] >604800 ) {
+        header("location: ../index.php");
     } else {
         $_SESSION["start"] = time();
-    }
-} else {
-    header("location: ../index.php");
+    }   
 }
 ?>

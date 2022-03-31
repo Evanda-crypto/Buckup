@@ -1,12 +1,13 @@
+
 <?php
 session_start();
-if (isset($_SESSION["teamleader"]) && $_SESSION["teamleader"] == true) {
-    if (time() - $_SESSION["start"] > 86400) {
-        header("location: ../config/logout.php");
+if (!isset($_SESSION["teamleader"]) && $_SESSION["teamleader"] == false) {
+    header("location: ../../index.php");
+} else {
+    if (time() - $_SESSION["start"] >604800 ) {
+        header("location: ../../index.php");
     } else {
         $_SESSION["start"] = time();
-    }
-} else {
-    header("location: ../../index.php");
+    }   
 }
 ?>
