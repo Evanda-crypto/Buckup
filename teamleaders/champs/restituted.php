@@ -186,6 +186,8 @@ include("../../config/config.php");
                 
             }
             ?>
+            <form method="POST" action="delete.php">
+                            <p align="right"> <input class="btn btn-danger" type="submit" name="delete"  value="Delete"></p>
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
@@ -225,13 +227,14 @@ include("../../config/config.php");
                                     <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> back to KOMP database?')"> <i class="zmdi zmdi-refresh-alt"></i>Restore</a></button>
                                     </td>
                                     <td>
-                                    <button class="btn btn-danger" ><a href="movetotrash.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to delete <?php  echo $row['ClientName']; ?> from KOMP database?')"> <i class="fas fa-trash"></i>  Delete</a></button>
+                                    <input type="checkbox" name="check[]" value="<?php echo $row['ClientID']?>">
                                     </td>
                                 </tr>
                         <?php }
  ?>
                                 </tbody>
                             </table>
+ </form>
                         </div>
                     </div>
                 </div>
