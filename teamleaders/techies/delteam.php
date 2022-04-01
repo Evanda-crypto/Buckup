@@ -6,7 +6,7 @@ $id = $_GET['id'];
 $msg = "";
 if (isset($id)) {
 
-    $query = "DELETE FROM  token_teams  WHERE ID= '$id'";
+    $query = "DELETE FROM  Token_teams  WHERE ID= '$id'";
     $result = mysqli_query($connection, $query);
     if ($result) {
         $msg = '<div class="alert alert-success" role="alert">

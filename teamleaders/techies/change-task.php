@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
     }
     else
     {    
-      $stmt= $connection->prepare("select * from token_teams where Team_ID= ? and Region= ?");
+      $stmt= $connection->prepare("select * from Token_teams where Team_ID= ? and Region= ?");
       $stmt->bind_param("ss",$TeamID,$Region);
       $stmt->execute();
       $stmt_result= $stmt->get_result();
@@ -379,8 +379,8 @@ if(isset($_POST['submit'])){
                                         <tbody>
                                         <?php
     
-    $sql="SELECT techietask.TeamID, COUNT(techietask.TeamID) as tasks,token_teams.Techie1,token_teams.Techie2 FROM techietask left join papinstalled on papinstalled.ClientID=techietask.ClientID
-    left join token_teams on techietask.TeamID=token_teams.Team_ID WHERE papinstalled.ClientID is null and techietask.Region='".$_SESSION['Region']."' 
+    $sql="SELECT techietask.TeamID, COUNT(techietask.TeamID) as tasks,Token_teams.Techie1,Token_teams.Techie2 FROM techietask left join papinstalled on papinstalled.ClientID=techietask.ClientID
+    left join Token_teams on techietask.TeamID=Token_teams.Team_ID WHERE papinstalled.ClientID is null and techietask.Region='".$_SESSION['Region']."' 
     GROUP BY techietask.TeamID HAVING COUNT(techietask.TeamID)>1 OR COUNT(techietask.TeamID)=1";
 $result=$connection->query($sql);
 while($row=$result->fetch_array()){

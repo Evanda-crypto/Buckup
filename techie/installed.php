@@ -100,8 +100,8 @@ include("../config/config.php");
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger"><?php
                                 $query =
-                                    "SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='" .
+                                    "SELECT  COUNT(Token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN Token_teams ON Token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND Token_teams.Team_ID='" .
                                     $_SESSION["TeamID"] .
                                     "'";
                                 $data = mysqli_query($connection, $query);
@@ -113,8 +113,8 @@ include("../config/config.php");
                             <div class="dropdown-menu" aria-labelledby="notification">
                                <hr> <p class="red">You have <?php
                                $query =
-                                   "SELECT  COUNT(token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN token_teams ON token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
-                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND token_teams.Team_ID='" .
+                                   "SELECT  COUNT(Token_teams.Team_ID)as MyTask from papdailysales LEFT JOIN techietask on techietask.ClientID=papdailysales.ClientID LEFT JOIN Token_teams ON Token_teams.Team_ID=techietask.TeamID  LEFT JOIN papinstalled ON papinstalled.ClientID=papdailysales.ClientID WHERE 
+                                             techietask.ClientID is not null AND papinstalled.ClientID is null AND Token_teams.Team_ID='" .
                                    $_SESSION["TeamID"] .
                                    "'";
                                $data = mysqli_query($connection, $query);

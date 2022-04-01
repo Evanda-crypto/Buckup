@@ -20,7 +20,8 @@ $Contperson = $_POST['person'];
 		$folder = "../images/mtrpics/".$filename;
 
 		// Get all the submitted data from the form
-		$sql = "INSERT INTO token_meter (Meter_Picture,Techie_team,Meter_Number,Contact_Number,Contact_Person,date_Installed,Status,Region,Comments,Building_name) VALUES ('$filename','$Team_ID','$mtrno','$contact','$Contperson','$DateInstalled','$status','$Region','$Note','$bname' )";
+		$sql = "INSERT INTO token_meter (Meter_Picture,Techie_team,Meter_Number,Contact_Number,Contact_Person,date_Installed,Status,Region,Comments,Building_name) VALUES 
+		('$filename','$Team_ID','$mtrno','$contact','$Contperson','$DateInstalled','$status','$Region','$Note','$bname' )";
 
 		// Execute query
 		mysqli_query($connection, $sql);

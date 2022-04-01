@@ -2,7 +2,7 @@
 include("../config/config.php");
 $id=$_GET['clientid'];
 
-$sql="SELECT  papinstalled.Image,papinstalled.ClientID,papinstalled.Team_ID,token_teams.Techie1,token_teams.Techie2,Upper(papinstalled.MacAddress) as Mac,papinstalled.DateInstalled from papinstalled join token_teams on papinstalled.Team_ID=token_teams.Team_ID where ClientID=$id";
+$sql="SELECT  papinstalled.Image,papinstalled.ClientID,papinstalled.Team_ID,Token_teams.Techie1,Token_teams.Techie2,Upper(papinstalled.MacAddress) as Mac,papinstalled.DateInstalled from papinstalled join Token_teams on papinstalled.Team_ID=Token_teams.Team_ID where ClientID=$id";
 $result=mysqli_query($connection,$sql);
 $data=mysqli_fetch_assoc($result);
 $mac=$data['Mac'];

@@ -31,50 +31,40 @@ include("../config/config.php");
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body style="background-color:#e1e1e1">
-  <!-- Left Panel -->
-
-  <aside id="left-panel" class="left-panel">
+ <!-- Left Panel -->
+ <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="dashboard.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">REPORTS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="residential.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-home"></i>Residential Report</a>
-                    </li> 
-                    <li>
-                        <a href="business.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-bag"></i>Business Report</a>
-                    </li> 
-                    <li class="menu-title">PANEL APS</li><!-- /.menu-title -->
-
-                    <li>
-                        <a href="not-installed.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Not Installed </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>REPORTS</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="residential.php">Residential Report</a></li>
+                            <li><i class="fa fa-table"></i><a href="business.php">Business Report</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="to-restore.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>To Restore </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>PANEL APs</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="not-installed.php">Not Installed</a></li>
+                            <li><i class="fa fa-table"></i><a href="to-restore.php">To Restore</a></li>
+                            <li><i class="fa fa-table"></i><a href="turned-on.php">Turned On</a></li>
+                            <li><i class="fa fa-table"></i><a href="all-paps.php">All Paps</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="turned-on.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>Turned On </a>
-                    </li>
-                    <li>
-                        <a href="all-paps.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-layout-grid3"></i>All Paps</a>
-                    </li>
-                    <li>
-                    <li>
-                    <li class="menu-title">BUILDINGS</li><!-- /.menu-title -->
                     <li>
                         <a href="buildings.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-home"></i>Buildings</a>
-                    </li>     
-                    <li class="menu-title" >TOOLS</li><!-- /.menu-title -->
-                    <li>
-                        <a href="profile.php" style="color:black; font-size: 15px;"> <i class="menu-icon ti-user"></i>Profile </a>
+                    </li>  
+                    <li class="active">
+                        <a href="profile.php"><i class="menu-icon fa fa-user"></i>Profile</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
-    </aside>  
+    </aside>
     <!-- /#left-panel -->
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">

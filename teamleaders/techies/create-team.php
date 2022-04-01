@@ -17,7 +17,7 @@ if(isset($_POST['submit'])){
     }
     else
     {
-      $stmt= $connection->prepare("select * from token_teams where Team_ID= ?");
+      $stmt= $connection->prepare("select * from Token_teams where Team_ID= ?");
       $stmt->bind_param("s",$Team_ID);
       $stmt->execute();
      $stmt_result= $stmt->get_result();
@@ -31,7 +31,7 @@ if(isset($_POST['submit'])){
      }
      else{
          //Insert query
-        $stmt= $connection->prepare("insert into token_teams (Team_ID,Techie1,Techie2,Region,Password)
+        $stmt= $connection->prepare("insert into Token_teams (Team_ID,Techie1,Techie2,Region,Password)
         values(?,?,?,?,?)");
            //values from the fields
         $stmt->bind_param("sssss",$Team_ID,$Techie1,$Techie2,$Region,$hassh);
@@ -353,7 +353,7 @@ if(isset($_POST['submit'])){
                                         <tbody>
 
                                         <?php
-                    $query = "select * from token_teams where Region='".$_SESSION['Region']."' order by Team_ID ASC";
+                    $query = "select * from Token_teams where Region='".$_SESSION['Region']."' order by Team_ID ASC";
                     $result = mysqli_query($connection, $query);
 
                     $num_rows = mysqli_num_rows($result);

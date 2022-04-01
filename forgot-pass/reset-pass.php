@@ -31,13 +31,13 @@ if (isset($_POST["submit"])) {
         }
         else{
             $query = $connection->prepare(
-                "SELECT * from token_teams Where Team_ID= ?"
+                "SELECT * from Token_teams Where Team_ID= ?"
             );
             $query->bind_param("s", $EMAIL);
             $query->execute();
             $query_result = $query->get_result();
             if ($query_result->num_rows > 0) {
-                $sql="UPDATE token_teams set PASSWORD='$hashpass' WHERE Team_ID='$EMAIL'";
+                $sql="UPDATE Token_teams set PASSWORD='$hashpass' WHERE Team_ID='$EMAIL'";
             $result=mysqli_query($connection,$sql);
             if($result){
                 $_SESSION["success"] = "Password Reset was successfully.";

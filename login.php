@@ -84,7 +84,7 @@ if (isset($_POST["submit"])) {
             }
         } else {
             $query = $connection->prepare(
-                "SELECT * from token_teams Where Team_ID= ?"
+                "SELECT * from Token_teams Where Team_ID= ?"
             );
             $query->bind_param("s", $EMAIL);
             $query->execute();

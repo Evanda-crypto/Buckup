@@ -35,7 +35,8 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
                     else{
                     $sql="update papdailysales set ClientID=$ClientID,Floor='$Floor',AptLayout='$layout',PapStatus='$status' where ClientID=$ClientID";
                     $result=mysqli_query($connection,$sql);
-                    $insert = $connection->query("INSERT into papinstalled (Team_ID,ClientID,MacAddress,SerialNumber,DateInstalled,Region,Note,Floor,AptLayout,Image) VALUES ('$Team_ID','$ClientID','$MacAddress','$SerialNumber','$DateInstalled','$Region','$Note','$Floor','$layout','".$fileName."')"); 
+                    $insert = $connection->query("INSERT into papinstalled (Team_ID,ClientID,MacAddress,SerialNumber,DateInstalled,Region,Note,Floor,AptLayout,Image) VALUES 
+                    ('$Team_ID','$ClientID','$MacAddress','$SerialNumber','$DateInstalled','$Region','$Note','$Floor','$layout','".$fileName."')"); 
 
                     if($insert && $result){
                         echo '<script>alert("Submitted!")</script>';
