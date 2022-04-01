@@ -149,7 +149,7 @@ include("../config/config.php");
                                   <tbody>
                                   <?php
     
-    $sql="SELECT * from building WHERE BuildingStatus='6. IAP In Service' order by DateTurnedOn Desc";
+    $sql="SELECT * from building WHERE BuildingStatus='6. IAP In Service' OR BuildingStatus='4. Fully Installed' order by DateTurnedOn Desc";
     $result=$connection->query($sql);
     while($row=$result->fetch_array()){
       ?>
