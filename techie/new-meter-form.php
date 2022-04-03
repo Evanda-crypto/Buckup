@@ -236,11 +236,12 @@ include("session.php");
                                              <option value="G44">G44</option>
                                             <option value="ZMM">ZMM</option>
                                            <option value="G45S">G45S</option>
-                                             <option value="G45N">G45N</option>
-                                            <option value="R&M">R&M</option>
-                                            <option value="LSM">LSM</option>
-                                           <option value="JAR">JAR</option>
+                                             <option value="G45N1">G45N1</option>
+                                             <option value="G45N2">G45N2</option>
+                                            <option value="RM">RM</option>
+                                           <option value="JACARANDA">JACARANDA</option>
                                             <option value="KWT">KWT</option>  
+                                           <option value="LSM">LSM</option>
                                               </select>
                                             </div>
                                             </div>
@@ -251,7 +252,7 @@ include("session.php");
                                             </div>
                                             <div class="form-group">
                                             <label for="cc-number" class="control-label mb-1">Image<span style="color: #FF0000" >*</span></label>
-                                            <input id="cc-number" name="image" type="file" class="form-control cc-number identified visa" required> 
+                                            <input id="cc-number" name="image" type="file" class="form-control cc-number identified visa"> 
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Suggestions/Observations/Comments</label>

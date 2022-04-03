@@ -12,12 +12,12 @@ $Region = $_POST['region'];
 $contact = $_POST['contact'];
 $bname = $_POST['bname'];
 $Note = $_POST['note'];
-$status = "New Meter";
+cd$status = "New Meter";
 $Contperson = $_POST['person'];
 
 	$filename = $_FILES["image"]["name"];
 	$tempname = $_FILES["image"]["tmp_name"];	
-		$folder = "/var/www/html/konn/images/mtrpics".$filename;
+		$folder = "../images/mtrpics/".$filename;
 
 		// Get all the submitted data from the form
 		$sql = "INSERT INTO token_meter (Meter_Picture,Techie_team,Meter_Number,Contact_Number,Contact_Person,date_Installed,Status,Region,Comments,Building_name) VALUES 

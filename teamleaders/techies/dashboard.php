@@ -695,7 +695,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
     
     //doughut chart
     var ctx = document.getElementById( "doughutChart" );
-    ctx.height = 270;
+    ctx.height = 255;
     var myChart = new Chart( ctx, {
         type: 'doughnut',
         data: {
