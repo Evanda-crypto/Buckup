@@ -201,7 +201,7 @@ include("session.php");
                 
             }
             ?>
-                                        <form  method="post" enctype="multipart/form-data" action="mtr.php" autocomplete="off">
+                                        <form  method="post" enctype="multipart/form-data" action="action.php" autocomplete="off">
                             
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Team ID</label>
@@ -220,7 +220,7 @@ include("session.php");
                                         </div>
                                         <div class="form-group">
                                             <label for="cc-number" class="control-label mb-1">Meter No<span style="color: #FF0000" >*</span></label>
-                                            <input id="cc-number"maxlength="11" pattern="[0-9]{11}" name="mtrno" type="number" class="form-control cc-number identified visa"  data-val="true" required placeholder="Meter Number" > 
+                                            <input id="cc-number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==11) return false;"pattern="[0-9]{11}" name="mtrno" type="number" class="form-control cc-number identified visa"  data-val="true" required placeholder="Meter Number" > 
                                             </div>
                                                     <label for="x_card_code" class="control-label mb-1">Building Name<span style="color: #FF0000" >*</span></label>
                                                     <div class="input-group">
