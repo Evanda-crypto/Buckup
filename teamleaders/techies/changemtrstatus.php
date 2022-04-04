@@ -6,7 +6,7 @@ $id = $_GET['id'];
 $msg = "";
 if (isset($id)) {
 
-    $query = "UPDATE token_meter set Status='Pending' WHERE id= '$id'";
+    $query = "UPDATE Token_meter set Status='Pending' WHERE id= '$id'";
     $result = mysqli_query($connection, $query);
     if ($result) {
         $msg = '<div class="alert alert-success" role="alert">

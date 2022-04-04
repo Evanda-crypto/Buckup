@@ -365,7 +365,7 @@ include("../config/config.php");
 
     //bar chart
     var ctx = document.getElementById( "barChart" );
-   ctx.height = 190;
+   ctx.height = 100;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
