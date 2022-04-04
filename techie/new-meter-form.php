@@ -236,8 +236,7 @@ include("session.php");
                                              <option value="G44">G44</option>
                                             <option value="ZMM">ZMM</option>
                                            <option value="G45S">G45S</option>
-                                             <option value="G45N1">G45N1</option>
-                                             <option value="G45N2">G45N2</option>
+                                             <option value="G45N">G45N</option>
                                             <option value="RM">RM</option>
                                            <option value="JACARANDA">JACARANDA</option>
                                             <option value="KWT">KWT</option>  
