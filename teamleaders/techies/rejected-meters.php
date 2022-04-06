@@ -262,12 +262,12 @@ include("../../config/config.php");
     while($row=$result->fetch_array()){
       ?>
       <tr>
-        <td><?php echo $row['Building_name']?></td>
+        <td><?php echo $row['Cluster_name']?></td>
         <td><?php echo $row['Meter_Number']?></td>
         <td><?php echo $row['Techie_team']?></td>
         <td><?php echo $row['Contact_Person']?></td>
         <td><?php echo $row['Contact_number']?></td>
-        <td><?php echo $row['installed']?></td>
+        <td><?php echo $row['date_Installed']?></td>
         <td><?php echo $row['Comments_rejected']?></td>
         <td>
         <button class="btn btn-warning" ><a href="changemtrstatus.php?id=<?php echo $row['id']; ?> " onClick="return confirm('Sure to remove Meter No.  <?php  echo $row['Meter_Number']; ?> from rejected Meters ?')">Change Status</a></button>

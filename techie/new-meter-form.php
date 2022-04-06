@@ -201,8 +201,7 @@ include("session.php");
                 
             }
             ?>
-                                        <form  method="post" enctype="multipart/form-data" action="action.php" autocomplete="off">
-                            
+                                        <form  method="post" enctype="multipart/form-data" action="action.php" autocomplete="off"> 
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Team ID</label>
                                         <div class="input-group">

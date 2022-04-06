@@ -1,14 +1,16 @@
 <?php
 include("session.php");
 include("../../config/config.php");
-$id = $_GET['id'];
+$id = $_GET['clientid'];
 
 $msg = "";
 if (isset($id)) {
 
-    $query = "DELETE FROM  Token_teams  WHERE ID= '$id'";
+    $query = "DELETE FROM  papnotinstalled  WHERE ClientID= '$id'";
     $result = mysqli_query($connection, $query);
-    if ($result) {
+    $sql = "DELETE FROM  papdailysales  WHERE ClientID= '$id'";
+    $del = mysqli_query($connection, $sql);
+    if ($result && $del) {
         $msg = '<div class="alert alert-success" role="alert">
         Deleted Successfully
       </div>';
@@ -42,7 +44,7 @@ if (isset($id)) {
             </div>
 
             <div class="col-md-12 text-center pt-5 ">
-                <a href="create-team.php" class="btn btn-info">Go back</a>
+                <a href="restituted.php" class="btn btn-info">Go back</a>
             </div>
         </div>
     </div>

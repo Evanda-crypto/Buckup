@@ -13,10 +13,10 @@ if (isset($id)) {
     $del = mysqli_query($connection, $sql);
     if ($result && $del) {
         $_SESSION["success"] = "Deleted Successfully";
-                    header("Location: restituted.php");
+        header("Location: restituted.php");
     } else {
         $_SESSION["status"] = "Error occured";
-                    header("Location: restituted.php");
+        header("Location: restituted.php");
     }
 }
 ?>

@@ -256,6 +256,7 @@ include("../../config/config.php");
                      <th>BuildingCode</th>
                      <th>Techies</th>
                     <th>Restore</th>
+                    <th>Delete</th>
                 
                                     </tr>
                                 </thead>
@@ -274,7 +275,10 @@ include("../../config/config.php");
                                     <td><?php echo $row["BuildingCode"]; ?></td>
                                     <td><?php echo $row["techies"]; ?></td>
                                     <td>
-                                    <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> back to KOMP database?')"> <i class="zmdi zmdi-refresh-alt"></i>Restore</a></button>
+                                    <button class="btn btn-warning" ><a href="restore.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to restore <?php  echo $row['ClientName']; ?> back to KOMP database?')">Restore</a></button>
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-danger" ><a href="delete.php?clientid=<?php echo $row['ClientID']; ?> " onClick="return confirm('Sure to delete <?php  echo $row['ClientName']; ?> from KOMP database?')">>Delete</a></button>
                                     </td>
                                 </tr>
                         <?php }
