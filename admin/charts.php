@@ -193,7 +193,7 @@ include("../config/config.php");
     var ctx = document.getElementById( "installation" );
     ctx.height = 160;
     var myChart = new Chart( ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ["<?php echo date("Y-m-d", strtotime("-6 days")); ?>","<?php echo date(
     "Y-m-d",
@@ -267,7 +267,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 ?> ],
                     borderColor: "rgba(0, 194, 146, 0.9)",
                     borderWidth: "0",
-                    backgroundColor: "#0CBEAF"
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Best Region",
@@ -351,7 +351,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 ?>"],
                     borderColor: "rgba(0,0,0,0.09)",
                     borderWidth: "0",
-                    backgroundColor: "#3072F5"
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Least Region",
@@ -435,7 +435,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
 ?>" ],
                     borderColor: "rgba(0,0,0,0.09)",
                     borderWidth: "0",
-                    backgroundColor: "#FE2D38"
+                    backgroundColor: "transparent"
                             }
                         ]
         },
