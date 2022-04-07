@@ -440,13 +440,16 @@ while ($signed = mysqli_fetch_assoc($result)) {
                         ]
         },
         options: {
-            scales: {
-                yAxes: [ {
-                    ticks: {
-                        beginAtZero: true
-                    }
-                                } ]
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
             }
+
         }
     } );
  
@@ -701,13 +704,16 @@ while ($signed = mysqli_fetch_assoc($result)) {
                         ]
         },
         options: {
-            scales: {
-                yAxes: [ {
-                    ticks: {
-                        beginAtZero: true
-                    }
-                                } ]
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
             }
+
         }
     } );
 
@@ -963,13 +969,16 @@ while ($signed = mysqli_fetch_assoc($result)) {
                         ]
         },
         options: {
-            scales: {
-                yAxes: [ {
-                    ticks: {
-                        beginAtZero: true
-                    }
-                                } ]
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
             }
+
         }
     } );
 
@@ -1183,13 +1192,16 @@ while ($signed = mysqli_fetch_assoc($result)) {
                         ]
         },
         options: {
-            scales: {
-                yAxes: [ {
-                    ticks: {
-                        beginAtZero: true
-                    }
-                                } ]
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
             }
+
         }
     } );
 
@@ -1465,13 +1477,16 @@ while ($signed = mysqli_fetch_assoc($result)) {
                         ]
         },
         options: {
-            scales: {
-                yAxes: [ {
-                    ticks: {
-                        beginAtZero: true
-                    }
-                                } ]
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
             }
+
         }
     } );
     </script>
