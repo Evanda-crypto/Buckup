@@ -120,7 +120,7 @@ include("../config/config.php");
                         <div class="card">
                             <div class="card-header">
                             <center><strong class="card-title">Buildings[<?php
-         $query="SELECT COUNT(*) as buildings FROM building WHERE BuildingStatus='6. IAP In Service'";
+         $query="SELECT COUNT(*) as buildings FROM building WHERE BuildingStatus='6. IAP In Service' OR BuildingStatus='4. Fully Installed' OR BuildingStatus='7. PAP In Service'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['buildings'];
@@ -139,7 +139,7 @@ include("../config/config.php");
                                   <tbody>
                                   <?php
     
-    $sql="SELECT * from building WHERE BuildingStatus='6. IAP In Service' OR BuildingStatus='4. Fully Installed' order by DateTurnedOn Desc";
+    $sql="SELECT * from building WHERE BuildingStatus='6. IAP In Service' OR BuildingStatus='4. Fully Installed' OR BuildingStatus='7. PAP In Service' order by DateTurnedOn Desc";
     $result=$connection->query($sql);
     while($row=$result->fetch_array()){
       ?>

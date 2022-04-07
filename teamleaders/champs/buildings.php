@@ -160,7 +160,7 @@ include("../../config/config.php");
                         <div class="card">
                             <div class="card-header">
                             <center><strong class="card-title">Buildings[<?php
-         $query="SELECT COUNT(*) as buildings FROM building WHERE BuildingStatus='6. IAP In Service'";
+         $query="SELECT COUNT(*) as buildings FROM building WHERE BuildingStatus='6. IAP In Service' OR BuildingStatus='4. Fully Installed' OR BuildingStatus='7. PAP In Service'";
           $data=mysqli_query($connection,$query);
           while($row=mysqli_fetch_assoc($data)){
           echo $row['buildings'];
@@ -179,14 +179,14 @@ include("../../config/config.php");
                                   <tbody>
                                   <?php
     
-    $sql="SELECT * from building WHERE BuildingStatus='6. IAP In Service' OR BuildingStatus='4. Fully Installed' order by DateTurnedOn Desc";
+    $sql="SELECT * from building WHERE BuildingStatus='6. IAP In Service' OR BuildingStatus='4. Fully Installed' OR BuildingStatus='7. PAP In Service' order by DateTurnedOn Desc";
     $result=$connection->query($sql);
     while($row=$result->fetch_array()){
       ?>
       <tr>
-        <td><a href="javascript:void(0);" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['BuildingName']?></a></td>
-        <td><a href="javascript:void(0);" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['BuildingCode']?></a></td>
-        <td><a href="javascript:void(0);" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['Region']?></a></td>
+        <td><a data-toggle="modal" data-target="#mediumModal" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['BuildingName']?></a></td>
+        <td><a data-toggle="modal" data-target="#mediumModal" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['BuildingCode']?></a></td>
+        <td><a data-toggle="modal" data-target="#mediumModal" data-href="getbuild.php?id=<?php echo $row['ID']; ?>" class="openPopup"><?php echo $row['Region']?></a></td>
     </tr>
     <?php } ?>
                                 </tbody>
@@ -196,25 +196,26 @@ include("../../config/config.php");
                 </div>
 
 </div><!-- .content -->
-   <!-- Modal -->
-   <div class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog">
-    
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="background-color:#3073f5;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" style="background-color:#3073f5;">
+    <!-- Modal -->
 
-            </div>
-            <div class="modal-footer" style="background-color:#3073f5;">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-      
-    </div>
-</div><!--End of modal-->
+    <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end of modal--><!--End of modal-->
 <div class="clearfix"></div>
 
 </div><!-- /#right-panel -->
