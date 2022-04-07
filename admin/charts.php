@@ -265,8 +265,8 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["installed"];
 }
 ?> ],
-                    borderColor: "rgba(0, 194, 146, 0.9)",
-                    borderWidth: "0",
+                    borderColor: "#EE2C4E",
+                    borderWidth: "2",
                     backgroundColor: "transparent"
                             },
                 {
@@ -349,8 +349,8 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["bestreg"];
 }
 ?>"],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
+                    borderColor: "#FFB91F",
+                    borderWidth: "2",
                     backgroundColor: "transparent"
                             },
                 {
@@ -433,8 +433,8 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["bestreg"];
 }
 ?>" ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
+                    borderColor: "#85CE36",
+                    borderWidth: "2",
                     backgroundColor: "transparent"
                             }
                         ]
@@ -454,7 +454,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
     var ctx = document.getElementById( "turnon" );
     ctx.height = 160;
     var myChart = new Chart( ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: [ "<?php echo date("Y-m-d", strtotime("-6 days")); ?>","<?php echo date(
     "Y-m-d",
@@ -526,9 +526,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["turnedon"];
 }
 ?> ],
-                    borderColor: "rgba(0, 194, 146, 0.9)",
-                    borderWidth: "0",
-                    backgroundColor: "#FFB91F"
+                    borderColor: "#FFB91F",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Best Region",
@@ -610,9 +610,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["bestreg"];
 }
 ?>" ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#0CBEAF"
+                    borderColor: "#0CBEAF",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Least Region",
@@ -694,9 +694,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["bestreg"];
 }
 ?>"],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#FE2D38"
+                    borderColor: "#FE2D38",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             }
                         ]
         },
@@ -716,7 +716,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
     var ctx = document.getElementById( "signing" );
     ctx.height = 160;
     var myChart = new Chart( ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: [ "<?php echo date("Y-m-d", strtotime("-6 days")); ?>","<?php echo date(
     "Y-m-d",
@@ -788,9 +788,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["sales"];
 }
 ?> ],
-                    borderColor: "rgba(0, 194, 146, 0.9)",
-                    borderWidth: "0",
-                    backgroundColor: "#85CE36"
+                    borderColor: "#85CE36",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Best Region",
@@ -872,9 +872,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["bestreg"];
 }
 ?>" ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#FFB91F"
+                    borderColor: "#FFB91F",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Least Region",
@@ -956,9 +956,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["bestreg"];
 }
 ?>"],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#FE2D38"
+                    borderColor: "#FE2D38",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             }
                         ]
         },
@@ -978,7 +978,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
      var ctx = document.getElementById( "restituted" );
     ctx.height = 160;
     var myChart = new Chart( ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: [ "<?php echo date("Y-m-d", strtotime("-6 days")); ?>","<?php echo date(
     "Y-m-d",
@@ -1050,9 +1050,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
           echo $signed["restituted"];
       }
       ?> ],
-                    borderColor: "rgba(0, 194, 146, 0.9)",
-                    borderWidth: "0",
-                    backgroundColor: "#85CE36"
+                    borderColor: "#85CE36",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Highest Region",
@@ -1113,9 +1113,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["highestreg"];
 }
 ?>" ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#FE2D38"
+                    borderColor: "#FE2D38",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Least Region",
@@ -1176,9 +1176,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["minreg"];
 }
 ?>" ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#0cbeaf"
+                    borderColor: "#0cbeaf",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             }
                         ]
         },
@@ -1197,7 +1197,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
     var ctx = document.getElementById( "overall" );
      ctx.height = 90;
     var myChart = new Chart( ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ["<?php echo date("Y-m-d", strtotime("-6 days")); ?>","<?php echo date(
     "Y-m-d",
@@ -1269,9 +1269,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["sales"];
 }
 ?> ],
-                    borderColor: "rgba(0, 194, 146, 0.9)",
-                    borderWidth: "0",
-                    backgroundColor: "#0CBEAF"
+                    borderColor: "#0CBEAF",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Restituted",
@@ -1332,9 +1332,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
           echo $signed["restituted"];
       }
       ?> ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#EE2C4E"
+                    borderColor: "#EE2C4E",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Installed",
@@ -1395,9 +1395,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["installed"];
 }
 ?> ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#3972F5"
+                    borderColor: "#3972F5",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             },
                 {
                     label: "Turned On",
@@ -1458,9 +1458,9 @@ while ($signed = mysqli_fetch_assoc($result)) {
     echo $signed["turnedon"];
 }
 ?> ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "#85CE36"
+                    borderColor: "#85CE36",
+                    borderWidth: "2",
+                    backgroundColor: "transparent"
                             }
                         ]
         },
