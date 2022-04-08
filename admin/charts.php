@@ -3,6 +3,72 @@ include("session.php");
 include("../config/config.php");
 
 ?>
+
+<?php 
+if (!$connection) {
+    # code...
+    echo "Problem in database connection! Contact administrator!" .
+        mysqli_error();
+} else {
+    $sql =
+        "SELECT upper(Region) as reg, COUNT(clientID) as pap FROM papdailysales where DateSigned=CURDATE() GROUP BY Region ORDER BY pap DESC";
+    $result = mysqli_query($connection, $sql);
+    $chart_data = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $Region[] = $row["reg"];
+        $Clients[] = $row["pap"];
+    }
+}
+?>
+<?php 
+if (!$connection) {
+    # code...
+    echo "Problem in database connection! Contact administrator!" .
+        mysqli_error();
+} else {
+    $sql =
+        "SELECT upper(Region) as reg, COUNT(clientID) as pap FROM papinstalled where DateInstalled=CURDATE() GROUP BY Region ORDER BY pap DESC";
+    $result = mysqli_query($connection, $sql);
+    $chart_data = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $Regioninstalled[] = $row["reg"];
+        $installed[] = $row["pap"];
+    }
+}
+?>
+<?php 
+if (!$connection) {
+    # code...
+    echo "Problem in database connection! Contact administrator!" .
+        mysqli_error();
+} else {
+    $sql =
+        "SELECT upper(Region) as reg, COUNT(clientID) as pap FROM turnedonpap where DateTurnedOn=CURDATE() GROUP BY Region ORDER BY pap DESC";
+    $result = mysqli_query($connection, $sql);
+    $chart_data = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $Regionturnon[] = $row["reg"];
+        $turnon[] = $row["pap"];
+    }
+}
+?>
+?>
+<?php 
+if (!$connection) {
+    # code...
+    echo "Problem in database connection! Contact administrator!" .
+        mysqli_error();
+} else {
+    $sql =
+        "SELECT upper(Region) as reg, COUNT(clientID) as pap FROM papnotinstalled where Date(RestitutedDate)=CURDATE() GROUP BY Region ORDER BY pap DESC";
+    $result = mysqli_query($connection, $sql);
+    $chart_data = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $Regionrestituted[] = $row["reg"];
+        $restituted[] = $row["pap"];
+    }
+}
+?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -132,9 +198,7 @@ include("../config/config.php");
                             </div>
                         </div>
                     </div><!-- /# column -->
-
-                 
-
+                   
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
@@ -169,6 +233,39 @@ include("../config/config.php");
                                 </div>
                             </div>
                      </div><!-- /# column -->
+                     <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Daily Signing Per Region</h4>
+                                <canvas id="signing/region"></canvas>
+                            </div>
+                        </div>
+                   </div>
+                    <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="mb-3">Daily Installation Per Region </h4>
+                                    <canvas id="installation/region"></canvas>
+                                </div>
+                            </div>
+                     </div><!-- /# column -->
+                     <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Daily Turnon Per Region</h4>
+                                <canvas id="turnon/region"></canvas>
+                            </div>
+                        </div>
+                   </div>
+                    <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="mb-3">Daily Restitued Per Region </h4>
+                                    <canvas id="restituted/region"></canvas>
+                                </div>
+                            </div>
+                     </div><!-- /# column -->
+                     
                 </div>
 
             </div><!-- .animated -->
@@ -1489,10 +1586,163 @@ while ($signed = mysqli_fetch_assoc($result)) {
 
         }
     } );
+
+
+     
     </script>
+    <script>
+
+    var ctx = document.getElementById( "signing/region" );
+    //ctx.height = 300;
+    var myChart = new Chart( ctx, {
+        type: 'pie',
+        data: {
+            datasets: [ {
+                data: <?php echo json_encode($Clients)?>,
+                backgroundColor: [
+                    "#ee2c4e",
+                                    "#ffb91f",
+                                    "#0cbeaf",
+                                    "#3072f5",
+                                    "#000000",
+                                    "#85ce36",
+                                    "#800080"
+                                ],
+                hoverBackgroundColor: [
+                    "#ee2c4e",
+                                    "#ffb91f",
+                                    "#0cbeaf",
+                                    "#3072f5",
+                                    "#000000",
+                                    "#85ce36",
+                                    "#800080"
+                                ]
+
+                            } ],
+            labels: <?php echo json_encode($Region)?>
+                        
+        },
+        options: {
+            responsive: true
+        }
+    } );
+    </script>
+    <script>
+
+var ctx = document.getElementById( "installation/region" );
+//ctx.height = 300;
+var myChart = new Chart( ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [ {
+            data: <?php echo json_encode($installed)?>,
+            backgroundColor: [
+                "#3072f5",
+                "#85ce36",
+                "#ee2c4e",
+                                "#ffb91f",
+                                "#0cbeaf",
+                                "#000000",
+                                "#800080"
+                            ],
+            hoverBackgroundColor: [
+                "#3072f5",
+                "#85ce36",
+                "#ee2c4e",
+                                "#ffb91f",
+                                "#0cbeaf",
+                                "#000000",
+                                "#800080"
+                            ]
+
+                        } ],
+        labels: <?php echo json_encode($Regioninstalled)?>
+                    
+    },
+    options: {
+        responsive: true
+    }
+} );
+</script>
+<script>
+
+var ctx = document.getElementById( "turnon/region" );
+//ctx.height = 300;
+var myChart = new Chart( ctx, {
+    type: 'pie',
+    data: {
+        datasets: [ {
+            data: <?php echo json_encode($turnon)?>,
+            backgroundColor: [
+                "#800080",
+                "#ee2c4e",
+                                "#ffb91f",
+                                "#3072f5",
+                                "#0cbeaf",
+                                "#000000",
+                                "#85ce36"
+                            ],
+            hoverBackgroundColor: [
+                "#800080",
+                "#ee2c4e",
+                                "#ffb91f",
+                                "#3072f5",
+                                "#0cbeaf",
+                                "#000000",
+                                "#85ce36"
+                                
+                            ]
+
+                        } ],
+        labels: <?php echo json_encode($Regionturnon)?>
+                    
+    },
+    options: {
+        responsive: true
+    }
+} );
+</script>
+<script>
+
+var ctx = document.getElementById( "restituted/region" );
+//ctx.height = 300;
+var myChart = new Chart( ctx, {
+    type: 'pie',
+    data: {
+        datasets: [ {
+            data: <?php echo json_encode($restituted)?>,
+            backgroundColor: [
+                "#ffb91f",
+                "#ee2c4e",       
+                                "#3072f5",
+                                "#000000",
+                                "#85ce36",
+                                "#0cbeaf",
+                                "#800080"
+                            ],
+            hoverBackgroundColor: [
+                "#ffb91f",
+                "#ee2c4e", 
+                                "#3072f5",
+                                "#000000",
+                                "#85ce36",
+                                "#0cbeaf",
+                                "#800080"
+                            ]
+
+                        } ],
+        labels: <?php echo json_encode($Regionrestituted)?>
+                    
+    },
+    options: {
+        responsive: true
+    }
+} );
+</script>
     <!--Flot Chart-->
     <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
+    
 </body>
 
 </html>

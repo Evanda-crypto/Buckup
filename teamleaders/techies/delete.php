@@ -6,9 +6,9 @@ $id = $_GET['clientid'];
 $msg = "";
 if (isset($id)) {
 
-    $query = "DELETE FROM  papnotinstalled  WHERE ClientID= '$id'";
+    $query = "DELETE FROM  papnotinstalled  WHERE ClientID=$id";
     $result = mysqli_query($connection, $query);
-    $sql = "DELETE FROM  papdailysales  WHERE ClientID= '$id'";
+    $sql = "DELETE FROM  papdailysales  WHERE ClientID=$id";
     $del = mysqli_query($connection, $sql);
     if ($result && $del) {
         $msg = '<div class="alert alert-success" role="alert">
