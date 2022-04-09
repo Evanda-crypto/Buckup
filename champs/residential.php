@@ -160,13 +160,13 @@ include("session.php");
                                                 <div class="col-6">
                                                     <label for="x_card_code" class="control-label mb-1">Building Name<span style="color: #FF0000" >*</span></label>
                                                     <div class="input-group">
-                                                        <input id="bname" name="Buildingname" type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
+                                                        <input id="bname" name="Buildingname" readonly type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-payment" class="control-label mb-1">Region<span style="color: #FF0000" >*</span></label>
-                                                <input id="region" name="Region"  type="text" class="form-control" required>
+                                                <input id="region" name="Region" placeholder="Region" readonly  type="text" class="form-control" required>
                                             </div>
 
                                             <div class="form-group">

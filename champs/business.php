@@ -159,19 +159,19 @@ include("session.php");
                                                 <div class="col-6">
                                                     <label for="x_card_code" class="control-label mb-1">Building Name<span style="color: #FF0000" >*</span></label>
                                                     <div class="input-group">
-                                                        <input id="bname" name="Buildingname" type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
+                                                        <input id="bname" name="Buildingname" type="text" class="form-control cc-cvc" readonly  placeholder="Building Name" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-payment" class="control-label mb-1">Region<span style="color: #FF0000" >*</span></label>
-                                                <input id="region" name="Region" placeholder="Region" type="text" class="form-control" required>
+                                                <input id="region" name="Region" placeholder="Region" type="text" class="form-control" readonly required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Floor<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="floor" tabindex="1" required>
+                                            <select data-placeholder="Choose a Floor..." class="standardSelect form-control" name="floor" tabindex="1" required>
                                             <option value="" disabled selected>'0' is ground; '-' is Basement</option>
                                             <option value="-1">-1</option> 
                                             <option value="0">0</option>  
@@ -197,7 +197,7 @@ include("session.php");
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Layout<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="bizlayout" tabindex="1" required>
+                                            <select data-placeholder="Choose a Layout..." class="standardSelect form-control" name="bizlayout" tabindex="1" required>
                                             <option disabled selected> Select Layout</option>
                                             <option value="Single S(<20sqm)">Single S(<20sqm)</option>  
                                             <option value="Single M(20-60sqm)">Single M(20-60sqm)</option>  
@@ -257,7 +257,7 @@ include("session.php");
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Gender<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="gender" tabindex="1" required>
+                                            <select data-placeholder="Choose a Gender..." class="standardSelect form-control" name="gender" tabindex="1" required>
                                             <option disabled selected> Select Gender</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -282,7 +282,7 @@ include("session.php");
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Role<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="role" tabindex="1" required>
+                                            <select data-placeholder="Choose a Role..." class="standardSelect form-control" name="role" tabindex="1" required>
                                             <option value="" disabled selected>Role</option>
                                             <option value="Owner">Owner</option>  
                                             <option value="Manager">Manager</option>  
@@ -302,7 +302,7 @@ include("session.php");
                                                 <label for="cc-number" class="control-label mb-1">Category<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
                                             
-                                                <select data-placeholder="Choose a Country..." class="standardSelect" tabindex="1" name="bizcat" required>
+                                                <select data-placeholder="Choose a Category..." class="standardSelect" tabindex="1" name="bizcat" required>
                                                 <optgroup label="F-Food">
                             <option  value="F-Food (Grocery (FG))">Grocery (FG)</option>  
                               <option value="F-Food (Butchery (FU))">Butchery (FU)</option>
