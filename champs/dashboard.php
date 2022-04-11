@@ -318,16 +318,59 @@ if (!$connection) {
               </div>
              </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card-body">
                                     <canvas id="barChart"></canvas>   
-                                    </div>
-                                </div>
-                            </div> <!-- /.row -->
-                            <div class="card-body"></div>
-                        </div>
+                                    <div class="row m-0 row-group text-center border-top border-light-3">
+		   <div class="col-12 col-lg-4">
+		     <div class="p-3">
+		       <h5 class="mb-0"><?php
+          $sql =
+              "SELECT ((SELECT COUNT(DateSigned) FROM papdailysales where DateSigned=CURDATE() AND papdailysales.Region='".$_SESSION['Region']."')+(SELECT COUNT(DateSigned) FROM papdailysales where DateSigned=CURDATE() AND papdailysales.Region='".$_SESSION['Region1']."')) AS sales";
+          $result = mysqli_query($connection, $sql);
+          $chart_data = "";
+          while ($signed = mysqli_fetch_assoc($result)) {
+              echo $signed["sales"];
+          }
+      ?> </h5>
+			   <small class="mb-0">My Region Today<span> <i class="fa fa-arrow-"></i></span></small>
+		     </div>
+		   </div>
+		   <div class="col-12 col-lg-4">
+		     <div class="p-3">
+		       <h5 class="mb-0"> <?php
+         $query = "SELECT ChampName,Count(*) as bestchamp from papdailysales where DateSigned =CURDATE() group by ChampName order by bestchamp DESC limit 1";
+         $result = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($result)) {
+             echo $row["ChampName"] . "<br></br>";
+         }
+         ?>   </h5>
+			   <small class="mb-0"><span>Best Champ Today<i class="fa fa-arrow-"></i></span></small>
+		     </div>
+		   </div>
+		   <div class="col-12 col-lg-4">
+		     <div class="p-3">
+		     <b><h5 class="mb-0"> <?php
+         $query =
+             "SELECT COUNT(*) as myreg from papdailysales where DateSigned=CURDATE() and  ChampName='" .
+             $_SESSION["FName"] .
+             " " .
+             $_SESSION["LName"] .
+             "'";
+         $result = mysqli_query($connection, $query);
+         while ($row = mysqli_fetch_assoc($result)) {
+             echo $row["myreg"] . "<br></br>";
+         }
+         ?>  </h5></b>
+			   <small class="mb-0"> My signing Today<span> <i class="fa fa-arrow-"></i></span></small>
+		     </div>
+		   </div>
+		 </div>
+		 
+		</div>
+                            
+                       
+                        
                     </div><!-- /# column -->
+                    
                     <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-body">
@@ -484,7 +527,7 @@ if (!$connection) {
 
   //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 190;
+    ctx.height = 200;;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
@@ -755,7 +798,7 @@ if (!$connection) {
     function Last7days(){
         //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 190;
+    ctx.height = 500;;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
@@ -1028,7 +1071,7 @@ if (!$connection) {
     function last14days() {
         //bar chart
     var ctx = document.getElementById( "barChart" );
-    ctx.height = 570;
+    ctx.height = 500;;
     var myChart = new Chart( ctx, {
         type: 'bar',
         data: {
