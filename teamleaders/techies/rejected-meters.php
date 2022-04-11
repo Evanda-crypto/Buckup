@@ -250,7 +250,7 @@ include("../../config/config.php");
                      <th>Team ID</th>
                     <th>Contact Person</th>
                      <th>Contact_Number</th>
-                     <th>Date Installed</th>
+                     <th>Termination Date</th>
                      <th>Reason</th>
                      <th>More</th>
                                          </tr>

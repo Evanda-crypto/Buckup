@@ -250,7 +250,6 @@ include("../../config/config.php");
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
-                                    <th>Client ID</th>
                     <th>Client Name</th>
                    <th>Contact</th>
                   <th>Building Name</th>
@@ -269,7 +268,6 @@ $result=$connection->query($sql);
 while($row=$result->fetch_array()){
   ?>
   <tr>
-    <td><?php echo $row['ClientID']?></td>
     <td><?php echo $row['ClientName']?></td>
     <td><?php echo $row['ClientContact']?></td>
    <td><?php echo $row['BuildingName']?></td>

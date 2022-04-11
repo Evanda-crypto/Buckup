@@ -246,7 +246,6 @@ include("../../config/config.php");
                                     <thead>
                                         <tr>
                                         <th>Team ID</th>
-                    <th>ClientID</th>
                      <th>Building Name</th>
                      <th>Building Code</th>
                      <th>Door No</th>
@@ -272,7 +271,6 @@ include("../../config/config.php");
       
       echo ' <tr>
       <th scope="row">'.$tid.'</th>
-      <td>'.$id.'</td>
       <td>'.$bname.'</td>
       <td>'.$bcode.'</td>
       <td>'.$apt.'</td>

@@ -222,8 +222,6 @@ include("../../config/config.php");
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
-                                    <th class="th-sm">ClientID
-      </th>
       <th class="th-sm">Client Name
       </th>
       <th class="th-sm">Contact
@@ -252,7 +250,6 @@ include("../../config/config.php");
                                 
                         ?>
                                 <tr>
-                                    <td><?php echo$row['ClientID']; ?></td>
                                     <td><?php echo $row['ClientName']; ?></td>
                                     <td><?php echo $row['ClientContact']; ?></td>
                                     <td><?php echo $row['BuildingName']; ?></td>

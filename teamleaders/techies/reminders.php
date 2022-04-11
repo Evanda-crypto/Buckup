@@ -245,7 +245,6 @@ include("../../config/config.php");
                                 <table class="table table-striped" id="example">
                                     <thead>
                                         <tr>
-                                        <th>ClientID</th>
                      <th>Building Name</th>
                      <th>Building Code</th>
                     <th>Champ Name</th>
@@ -270,7 +269,6 @@ include("../../config/config.php");
       $bcode=$row['BuildingCode'];
       
       echo ' <tr>
-      <th scope="row">'.$id.'</th>
       <td>'.$bname.'</td>
       <td>'.$bcode.'</td>
      <td>'.$champ.'</td>

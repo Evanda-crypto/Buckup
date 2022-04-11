@@ -190,7 +190,6 @@ include("../../config/config.php");
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
-                    <th>ClientID</th>
                      <th>Building Name</th>
                      <th>Building Code</th>
                      <th>Region</th>
@@ -212,7 +211,6 @@ include("../../config/config.php");
                             
                         ?>
                                 <tr>
-                                    <td><?php echo $row['ClientID']; ?></td>
                                     <td><?php echo $row['BuildingName']; ?></td>
                                     <td><?php echo $row['BuildingCode']; ?></td>
                                     <td><?php echo $row['Region']; ?></td>

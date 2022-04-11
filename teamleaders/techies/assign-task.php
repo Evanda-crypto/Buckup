@@ -245,7 +245,6 @@ include("../../config/config.php");
                                 <table class="table table-striped" id="example">
                                     <thead>
                                         <tr>
-                                        <th>ClientID</th>
                      <th>Building Name</th>
                      <th>Building Code</th>
                      <th>Door No</th>
@@ -274,7 +273,6 @@ include("../../config/config.php");
       $apt=$row['Apt'];
       
       echo ' <tr>
-      <th scope="row">'.$id.'</th>
       <td>'.$bname.'</td>
       <td>'.$bcode.'</td>
       <td>'.$apt.'</td>

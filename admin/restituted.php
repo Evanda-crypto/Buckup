@@ -153,7 +153,6 @@ include("../config/config.php");
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
-                                    <th>No</th>
                      <th>Client Name</th>
                      <th>Contact</th>
                      <th>Building Name</th>
@@ -172,7 +171,6 @@ include("../config/config.php");
  $result = mysqli_query($connection, $query);
  while ($row = mysqli_fetch_assoc($result)) { ?>
                                 <tr>
-                                    <td><?php echo $row["ClientID"]; ?></td>
                                     <td><?php echo $row["ClientName"]; ?></td>
                                     <td><?php echo $row["Contact"]; ?></td>
                                     <td><?php echo $row["BuildingName"]; ?></td>
