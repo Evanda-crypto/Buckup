@@ -22,11 +22,16 @@ $BuildingName = $_POST['bname'];
 $BuildingCode = $_POST['bcode'];
 $MAC = $_POST['mac'];
 
+$query="update papdailysales set ClientID=$id,Region='$region',ClientName='$ClientName',ClientContact='$ClientContact'
+,BuildingName='$BuildingName',BuildingCode='$BuildingCode' where ClientID=$id";
+
+$updt=mysqli_query($connection,$query);
+
 $sql="update turnedonpap set ClientID=$id,Region='$region',ClientName='$ClientName',ClientContact='$ClientContact'
 ,BuildingName='$BuildingName',BuildingCode='$BuildingCode',MacAddress='$MAC' where ClientID=$id";
 
 $result=mysqli_query($connection,$sql);
-if ($result) {
+if ($result && $updt) {
     echo "<script>alert('Update Successfull');</script>";
     echo '<script>window.location.href="turnedon.php";</script>';
 } else {
@@ -273,7 +278,7 @@ if ($result) {
                                         <tbody>
                                         <?php
 $sql =
-    "SELECT turnedonpap.ClientID,turnedonpap.BuildingName,upper(turnedonpap.BuildingCode) as bcode,upper(turnedonpap.Region) as reg,turnedonpap.ChampName,turnedonpap.ClientName,turnedonpap.ClientContact,Upper(turnedonpap.MacAddress) as Mac,turnedonpap.PapStatus,turnedonpap.DateTurnedOn from papdailysales LEFT JOIN turnedonpap ON turnedonpap.ClientID=papdailysales.ClientID WHERE DateTurnedOn=CURDATE()";
+    "SELECT turnedonpap.ClientID,papdailysales.BuildingName,upper(papdailysales.BuildingCode) as bcode,upper(papdailysales.Region) as reg,turnedonpap.ChampName,turnedonpap.ClientName,papdailysales.ClientContact,Upper(turnedonpap.MacAddress) as Mac,turnedonpap.PapStatus,turnedonpap.DateTurnedOn from papdailysales LEFT JOIN turnedonpap ON turnedonpap.ClientID=papdailysales.ClientID WHERE DateTurnedOn=CURDATE()";
 $result = $connection->query($sql);
 while ($row = $result->fetch_array()) { ?>
   <tr>

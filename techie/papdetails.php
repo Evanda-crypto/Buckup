@@ -217,7 +217,7 @@ $layout=$row['AptLayout'];
                                         <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Floor</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="floor" tabindex="1">
+                                            <select data-placeholder="Choose a Floor..." class="standardSelect form-control" name="floor" tabindex="1">
                                             <option value="<?php echo $floor?>"><?php echo $floor?></option>
                                             <option value="-1">-1</option> 
                                             <option value="0">0</option>  
@@ -235,7 +235,7 @@ $layout=$row['AptLayout'];
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">APT Layout</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="layout" tabindex="1">
+                                            <select data-placeholder="Choose a Layout..." class="standardSelect form-control" name="layout" tabindex="1">
                                             <option value="<?php echo $layout?>"><?php echo $layout?></option>
                                             <option value="Single">Single</option>
                                             <option value="Double">Double</option>

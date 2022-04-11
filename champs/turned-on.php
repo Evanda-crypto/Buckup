@@ -156,7 +156,7 @@ include("../config/config.php");
                                   </thead>
                                   <tbody>
                                   <?php
-                        $query  = "SELECT turnedonpap.ClientID,turnedonpap.ChampName,turnedonpap.ClientContact,turnedonpap.BuildingName,turnedonpap.BuildingCode,turnedonpap.Region,turnedonpap.DateTurnedOn,papdailysales.Floor,papdailysales.ClientName,papdailysales.DateSigned FROM turnedonpap JOIN papdailysales ON papdailysales.ClientID=turnedonpap.ClientID WHERE turnedonpap.ClientID IS NOT null and turnedonpap.ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
+                        $query  = "SELECT turnedonpap.ClientID,turnedonpap.ChampName,papdailysales.ClientContact,papdailysales.BuildingName,papdailysales.BuildingCode,papdailysales.Region,turnedonpap.DateTurnedOn,papdailysales.Floor,papdailysales.ClientName,papdailysales.DateSigned FROM turnedonpap JOIN papdailysales ON papdailysales.ClientID=turnedonpap.ClientID WHERE turnedonpap.ClientID IS NOT null and turnedonpap.ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
                         $result  = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
