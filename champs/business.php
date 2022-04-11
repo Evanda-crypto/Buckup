@@ -138,6 +138,26 @@ include("session.php");
                                         </div>
                                         <hr>
                                         <form  method="post" enctype="multipart/form-data" action="bizzdetails.php">
+                                        <?php
+            if(isset($_SESSION['status'])){
+                ?>
+               <center><span> <div class="alert alert-danger" role="alert">
+                   <?php echo $_SESSION['status'];
+                unset($_SESSION['status']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            elseif(isset($_SESSION['success'])){
+                ?>
+                <center><span><div class="alert alert-success" role="alert">
+                   <?php echo $_SESSION['success'];
+                unset($_SESSION['success']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            ?>
                                         <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1">DateSigned<span style="color: #FF0000" >*</span></label>
                                                 <input id="datesigned" name="DateSigned" type="date" class="form-control cc-name valid" data-val="true" value="<?php date('Y-m-d');?>" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
@@ -159,13 +179,13 @@ include("session.php");
                                                 <div class="col-6">
                                                     <label for="x_card_code" class="control-label mb-1">Building Name<span style="color: #FF0000" >*</span></label>
                                                     <div class="input-group">
-                                                        <input id="bname" name="Buildingname" type="text" class="form-control cc-cvc" readonly  placeholder="Building Name" required>
+                                                        <input id="bname" name="Buildingname" type="text" class="form-control cc-cvc"  placeholder="Building Name" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-payment" class="control-label mb-1">Region<span style="color: #FF0000" >*</span></label>
-                                                <input id="region" name="Region" placeholder="Region" type="text" class="form-control" readonly required>
+                                                <input id="region" name="Region" placeholder="Region" type="text" class="form-control" required>
                                             </div>
 
                                             <div class="form-group">
@@ -377,10 +397,10 @@ include("session.php");
                                             <label for="cc-number" class="control-label mb-1">Description<span style="color: #FF0000" >*</span></label>
                                             <input id="cc-number" name="bizdec" type="text" class="form-control cc-number identified visa" maxlength="40" data-val="true" required placeholder="Description"> 
                                             </div>
-                                            <div class="form-group">
+                                           <!-- <div class="form-group">
                                             <label for="cc-number" class="control-label mb-1">Image<span style="color: #FF0000" >*</span></label>
                                             <input id="cc-number" name="image" type="file" class="form-control cc-number identified visa" required> 
-                                            </div>
+                                            </div>-->
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Suggestions/Observations/Comments</label>
                                                 <input id="cc-number" name="Note" type="text" class="form-control cc-number identified visa" maxlength="40"  required placeholder="Suggestions/Observations/Comments">

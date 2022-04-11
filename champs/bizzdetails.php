@@ -3,12 +3,7 @@ include("../config/config.php");
 include("session.php");
 
 
-$targetDir = "/var/www/html/konn/images/bizzimages/";
-$fileName = basename($_FILES["image"]["name"]);
-$targetFilePath = $targetDir . $fileName;
-$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-
-if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
+if(isset($_POST["submit"])){
     $DateSigned = trim($_POST["DateSigned"]);
     $ChampName = $_POST["ChampName"];
     $BuildingName = trim($_POST["Buildingname"]);
@@ -35,38 +30,38 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
     $package = trim($_POST["package"]);
     $Status = "Signed";
 
-    $allowTypes = array('jpg','png','jpeg','gif','pdf');
-        if(in_array($fileType, $allowTypes)){
-                // Upload file to server
-                if(move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)){
-                    // Insert image file name into database
                     $stmt= $connection->prepare("select * from papdailysales where ClientContact= ?");
                     $stmt->bind_param("s",$ClientContact);
                     $stmt->execute();
                     $stmt_result= $stmt->get_result();
                     if($stmt_result->num_rows>0){
-                      echo "<script>alert('Client already Exists');</script>";
-                      echo '<script>window.location.href="business.php";</script>';
+                        $_SESSION["status"] = "Client already exists";
+                        header("Location: business.php");
                     }
                     else{
+                        $stmt = $connection->prepare(
+                            "select * from building  where BuildingCode= ?"
+                        );
+                        $stmt->bind_param("s", $BuildingCode);
+                        $stmt->execute();
+                        $stmt_result = $stmt->get_result();
+                        if ($stmt_result->num_rows < 1){
+                            $_SESSION["status"] = "The BuildingCode entered does not exist";
+                            header("Location: business.php");
+                        } else {
                         $insert = $connection->query("INSERT into papdailysales (DateSigned,ChampName,BuildingName,BuildingCode,Region,Venue,BizLayout,Floor,ClientName,ClientAvailability,ClientContact,
-        ClientWhatsApp,ClientGender,ClientAge,Birthday,BizName,BizCat,BizDec,Note,FamilyName,PhoneAlt,Email,Role,CurrentPackage,Image,PapStatus) VALUES ('$DateSigned','$ChampName','$BuildingName','$BuildingCode','$Region','$Venue','$Bizlayout','$Floor','$ClientName','$ClientAvailability','$ClientContact',
-      '$ClientWhatsApp','$ClientGender','$ClientAge','$Birthday','$BizName','$BizCat','$BizDec','$Note','$FamilyName','$PhoneAlt','$Email','$Role','$package','".$fileName."','$Status')");
+        ClientWhatsApp,ClientGender,ClientAge,Birthday,BizName,BizCat,BizDec,Note,FamilyName,PhoneAlt,Email,Role,CurrentPackage,PapStatus) VALUES ('$DateSigned','$ChampName','$BuildingName','$BuildingCode','$Region','$Venue','$Bizlayout','$Floor','$ClientName','$ClientAvailability','$ClientContact',
+      '$ClientWhatsApp','$ClientGender','$ClientAge','$Birthday','$BizName','$BizCat','$BizDec','$Note','$FamilyName','$PhoneAlt','$Email','$Role','$package','$Status')");
                     if($insert){
-                        echo '<script>alert("Submitted!")</script>';
-                        echo '<script>window.location.href="business.php";</script>';
+                        $_SESSION["success"] = "Submitted";
+                        header("Location: business.php");
                     }else{
-                        echo '<script>alert("Error submitting the image")</script>';
-                        echo '<script>window.location.href="business.php";</script>';
-                    }} 
-                }else{
-                    echo '<script>alert("No path found")</script>';
-                        echo '<script>window.location.href="business.php";</script>';
-                }
-        }else{
-            echo '<script>alert("File type error")</script>';
-                        echo '<script>window.location.href="business.php";</script>';
-        }
+                        $_SESSION["status"] = "Error.Please try again";
+                    header("Location: business.php");
+                    }
+                } 
+            }
+
 
 }
 ?>

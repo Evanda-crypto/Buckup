@@ -139,6 +139,26 @@ include("session.php");
                                         </div>
                                         <hr>
                                         <form  method="post" action="submit.php">
+                                        <?php
+            if(isset($_SESSION['status'])){
+                ?>
+               <center><span> <div class="alert alert-danger" role="alert">
+                   <?php echo $_SESSION['status'];
+                unset($_SESSION['status']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            elseif(isset($_SESSION['success'])){
+                ?>
+                <center><span><div class="alert alert-success" role="alert">
+                   <?php echo $_SESSION['success'];
+                unset($_SESSION['success']);?>
+                 </div></span></center>
+                <?php
+                
+            }
+            ?>
                                         <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1">DateSigned<span style="color: #FF0000" >*</span></label>
                                                 <input id="datesigned" name="DateSigned" type="date" class="form-control cc-name valid" data-val="true" value="<?php date('Y-m-d');?>" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-invalid="false" aria-describedby="cc-name" required >
@@ -168,7 +188,6 @@ include("session.php");
                                                 <label for="cc-payment" class="control-label mb-1">Region<span style="color: #FF0000" >*</span></label>
                                                 <input id="region" name="Region" placeholder="Region"  type="text" class="form-control" required>
                                             </div>
-
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Floor<span style="color: #FF0000" >*</span></label>
                                                 <div class="form-group has-success">
