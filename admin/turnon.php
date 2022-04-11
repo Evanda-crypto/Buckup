@@ -242,7 +242,7 @@ values(?,?,?,?,?,?,?,?,?,?,?)");
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Date Turned On</label>
-                                                <input id="turnon" name="date" type="date" class="form-control " value="" data-val="true"
+                                                <input id="turnon" name="date" type="date" class="form-control " value="<?php echo date("Y-m-d"); ?>" data-val="true" required
                                                     data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number"
                                                     autocomplete="cc-number">
                                                 <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>

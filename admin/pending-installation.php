@@ -144,7 +144,7 @@ include("../config/config.php");
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                           <center> <strong class="card-title">Pending Installatiom</strong></center>
+                           <center> <strong class="card-title">Pending Installation</strong></center>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="example">
