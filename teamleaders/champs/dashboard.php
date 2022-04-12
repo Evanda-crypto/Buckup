@@ -384,9 +384,9 @@ if (!$connection) {
                                 $num++;
                         ?>
                                 <tr>
-                                    <th><?php echo $num; ?></th>
-                                    <th><?php echo $row['ChampName']; ?></th>
-                                    <th><?php echo $row['signed']; ?></th>
+                                    <td><?php echo $num; ?></td>
+                                    <td><?php echo $row['ChampName']; ?></td>
+                                    <td><?php echo $row['signed']; ?></td>
                                 </tr>
                         <?php
 
