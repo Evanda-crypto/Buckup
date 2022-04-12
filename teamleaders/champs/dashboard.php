@@ -48,6 +48,26 @@ if (!$connection) {
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+
    <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;
@@ -343,99 +363,40 @@ if (!$connection) {
                     <div class="col-lg-12">
                     <div class="card">
                     <div class="card-body">
-                                    
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Signed</th>
-                                                    <th>Assigned</th>
-                                                    <th>Restituted</th>
-                                                    <th>Installed</th>
-                                                    <th>Turned On</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                <td class="serial"><?php if (!$connection) {
-          echo "Problem in database connection! Contact administrator!" .
-              mysqli_error();
-      } else {
-          $sql =
-              "SELECT COUNT(papdailysales.ClientID) as signed FROM papdailysales left join papnotinstalled on papnotinstalled.ClientID=papdailysales.ClientID where papnotinstalled.ClientID is null and papdailysales.Region='".$_SESSION['Region']."'";
-          $result = mysqli_query($connection, $sql);
-          $chart_data = "";
-          while ($signed = mysqli_fetch_assoc($result)) {
-              echo $signed["signed"];
-          }
-      } ?></td>
-                                                <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        "SELECT COUNT(techietask.ClientID) as assigned FROM  techietask LEFT JOIN papinstalled ON papinstalled.ClientID=techietask.ClientID left join papdailysales on papdailysales.ClientID=techietask.ClientID WHERE papinstalled.ClientID is null and papdailysales.Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($notinstalled = mysqli_fetch_assoc($result)) {
-        echo $notinstalled["assigned"];
-    }
-} ?></td>
-                                                <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        "SELECT COUNT(ClientID) restituted FROM papnotinstalled  WHERE Reason<>'Already Installed' and Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($torestore = mysqli_fetch_assoc($result)) {
-        echo $torestore["restituted"];
-    }
-} ?></td>
-                                                    </td>
-                                         
-                                                    <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        " SELECT COUNT(papinstalled.ClientID) as installed FROM papinstalled LEFT JOIN turnedonpap ON turnedonpap.ClientID=papinstalled.ClientID LEFT JOIN papdailysales ON papdailysales.ClientID=papinstalled.ClientID WHERE turnedonpap.ClientID is null and papdailysales.Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($installed = mysqli_fetch_assoc($result)) {
-        echo $installed["installed"];
-    }
-} ?></td>
-                                                    <td class="serial"><?php if (!$connection) {
-    echo "Problem in database connection! Contact administrator!" .
-        mysqli_error();
-} else {
-    $sql =
-        " SELECT COUNT(turnedonpap.ClientID) as turnedon FROM turnedonpap where Region='" .
-        $_SESSION["Region"] .
-        "'";
-    $result = mysqli_query($connection, $sql);
-    $chart_data = "";
-    while ($turnedon = mysqli_fetch_assoc($result)) {
-        echo $turnedon["turnedon"];
-    }
-} ?></td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
-                                
-                                </div>
-    </div>
-    </div></div>
-            </div>
-            <!-- .animated -->
+                    <table class="table table-striped" id="example">
+                                <thead>
+                                    <tr>
+                                    <th>No</th>
+                    <th>Champ Name</th>
+                    <th>Pap Signed Today</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                      $query  = "SELECT ChampName,COUNT(ChampName) as signed from papdailysales WHERE DateSigned=CURRENT_DATE() and Region='".$_SESSION['Region']."' GROUP BY ChampName order by signed DESC";
+                        $result  = mysqli_query($connection, $query);
+
+                        $num_rows  = mysqli_num_rows($result);
+
+                        $num = 0;
+                        if ($num_rows > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $num++;
+                        ?>
+                                <tr>
+                                    <th><?php echo $num; ?></th>
+                                    <th><?php echo $row['ChampName']; ?></th>
+                                    <th><?php echo $row['signed']; ?></th>
+                                </tr>
+                        <?php
+
+                            }
+                        }
+                        ?>
+                                </tbody>
+                            </table>
+                    </div></div></div></div>
+                </div><!-- .animated -->
         </div>
         <!-- /.content -->
         <div class="clearfix"></div>
@@ -469,7 +430,24 @@ if (!$connection) {
     <script src="../../assets/js/init/fullcalendar-init.js"></script>
 
     <!--Local Stuff-->
-
+    <script type="text/javascript">
+$( document ).ready(function() {
+$('#example').DataTable({
+		 "processing": true,
+		 "dom": 'lBfrtip',
+		 "buttons": [
+            {
+                extend: 'collection',
+                text: 'Export',
+                buttons: [
+                    'excel',
+                    'csv'
+                ]
+            }
+        ]
+        });
+});
+</script>
 <script>
   //bar chart
   var ctx = document.getElementById( "barChart" );
