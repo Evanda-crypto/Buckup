@@ -48,6 +48,25 @@ if (!$connection) {
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
    <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;
@@ -418,9 +437,45 @@ if (!$connection) {
                 <!--  /Traffic -->
                 <div class="clearfix"></div>
 
-                    <div class="row">
-               </div>
-            </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                    <div class="card">
+                    <div class="card-body">
+                    <table class="table table-striped" id="example">
+                                <thead>
+                                    <tr>
+                                    <th>No</th>
+                    <th>Team ID</th>
+                    <th>Techies</th>
+                    <th>Installed Today</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                      $query  = "SELECT papinstalled.Team_ID,COUNT(papinstalled.Team_ID) as installed,Token_teams.Team_ID,CONCAT(Token_teams.Techie1,'/',Token_teams.Techie2) as techies from papinstalled left join Token_teams on Token_teams.Team_ID=papinstalled.Team_ID WHERE papinstalled.DateInstalled=CURRENT_DATE() and papinstalled.Region='".$_SESSION['Region']."' GROUP BY papinstalled.Team_ID order by installed DESC";
+                        $result  = mysqli_query($connection, $query);
+
+                        $num_rows  = mysqli_num_rows($result);
+
+                        $num = 0;
+                        if ($num_rows > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $num++;
+                        ?>
+                                <tr>
+                                    <td><?php echo $num; ?></td>
+                                    <td><?php echo $row['Team_ID']; ?></td>
+                                    <td><?php echo $row['techies']; ?></td>
+                                    <td><?php echo $row['installed']; ?></td>
+                                </tr>
+                        <?php
+
+                            }
+                        }
+                        ?>
+                                </tbody>
+                            </table>
+                    </div></div></div></div>
             <!-- .animated -->
         </div>
         <!-- /.content -->
@@ -455,7 +510,24 @@ if (!$connection) {
     <script src="../../assets/js/init/fullcalendar-init.js"></script>
 
     <!--Local Stuff-->
-
+    <script type="text/javascript">
+$( document ).ready(function() {
+$('#example').DataTable({
+		 "processing": true,
+		 "dom": 'lBfrtip',
+		 "buttons": [
+            {
+                extend: 'collection',
+                text: 'Export',
+                buttons: [
+                    'excel',
+                    'csv'
+                ]
+            }
+        ]
+        });
+});
+</script>
 <script>
   //bar chart
   var ctx = document.getElementById( "barChart" );

@@ -228,7 +228,7 @@ if (!$connection) {
             <div class="animated fadeIn">
                  <!-- Widgets  -->
                  <div class="row">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6"><a href="all-paps.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -251,10 +251,10 @@ if (!$connection) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6"><a href="not-installed.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -271,12 +271,12 @@ if (!$connection) {
                                              echo $row['pending']."<br><br>";
                                               }
                                               ?></span></div>
-                                            <div class="stat-heading">Pending Istallation[<?php echo $_SESSION['Region']?>]</div>
+                                            <div class="stat-heading">Not Installed[<?php echo $_SESSION['Region']?>]</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
 
                     <div class="col-lg-3 col-md-6">
@@ -305,7 +305,7 @@ if (!$connection) {
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6"><a href="turned-on.php">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -326,7 +326,7 @@ if (!$connection) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
                 </div>
                 <!-- /Widgets -->
