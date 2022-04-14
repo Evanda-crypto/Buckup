@@ -10,6 +10,8 @@ $Department = $_POST['Department'];
 $Password = $_POST['password'];
 $Region = $_POST['Region'];
 $Region1 = $_POST['Region1'];
+$Role = $_POST['Role'];
+$user = $_POST['user'];
 
 $hashpass= password_hash($Password, PASSWORD_DEFAULT);
 
@@ -19,10 +21,10 @@ if($connection->connect_error){
 }
 else
 {
-    $stmt= $connection->prepare("INSERT INTO employees (FIRST_NAME,LAST_NAME,EMAIL,DEPARTMENT,PASSWORD,REGION,ADDREGION)
-    values(?,?,?,?,?,?,?)");
+    $stmt= $connection->prepare("INSERT INTO Users (FirstName,LastName,Email,Department,Password,Region,Region1,Role,User)
+    values(?,?,?,?,?,?,?,?,?)");
        //values from the fields
-    $stmt->bind_param("sssssss",$FirstName,$LastName,$Email,$Department,$hashpass,$Region,$Region1);
+    $stmt->bind_param("sssssssss",$FirstName,$LastName,$Email,$Department,$hashpass,$Region,$Region1,$Role,$user);
     $stmt->execute();
     echo "<script>alert('Successfull.');</script>";
     echo '<script>window.location.href="new-user.php";</script>';
@@ -168,14 +170,12 @@ else
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Department</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="Department" tabindex="1">
+                                            <select data-placeholder="Choose a region..." class="standardSelect form-control" name="Department" tabindex="1">
                                             <option disabled selected> Select Deprtment</option>
                                                 <option value="Executive">Executive</option>
                                                   <option value="HR">HR</option>
                                                <option value="Nats">Nats</option>
                                               <option value="Maton">Maton</option>
-                                              <option value="SalesTL">SalesTL</option>
-                                               <option value="TechieTL">TechieTL</option>
                                               <option value="Sales">Sales</option>
                                               <option value="Techie">Techie</option>
                                               </select>
@@ -184,7 +184,7 @@ else
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">Region</label>
                                                 <div class="form-group has-success">
-                                            <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="Region" tabindex="1">
+                                            <select data-placeholder="Choose a region..." class="standardSelect form-control" name="Region" tabindex="1">
                                             <option disabled selected>Select Region</option>
                                               <option value="G44">G44</option>
                                              <option value="ZMM">ZMM</option>
@@ -198,7 +198,7 @@ else
                                             </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="cc-number" class="control-label mb-1">Additional Region</label>
+                                                <label for="cc-number" class="control-label mb-1">Region 1</label>
                                                 <div class="form-group has-success">
                                             <select data-placeholder="Choose a Country..." class="standardSelect form-control" name="Region1" tabindex="1">
                                             <option disabled selected>Select Region</option>
@@ -210,6 +210,31 @@ else
                                             <option value="LSM">LSM</option>
                                            <option value="JCR">JCR</option>
                                             <option value="KWT">KWT</option> 
+                                              </select>
+                                            </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-number" class="control-label mb-1">Role</label>
+                                                <div class="form-group has-success">
+                                            <select data-placeholder="Choose a Role..." class="standardSelect form-control" name="Role" tabindex="1">
+                                            <option disabled selected> Select Role</option>
+                                            <option value="1">Overall</option>
+                                              <option value="0">NotTL</option>
+                                              </select>
+                                            </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cc-number" class="control-label mb-1">User</label>
+                                                <div class="form-group has-success">
+                                            <select data-placeholder="Choose a user..." class="standardSelect form-control" name="user" tabindex="1" required>
+                                            <option disabled selected> Select User</option>
+                                                <option value="1">Executive(user 1)</option>
+                                                  <option value="2">Nats(user 2)</option>
+                                               <option value="3">Maton(user 3)</option>
+                                              <option value="4">SalesTL(user 4)</option>
+                                              <option value="5">Techie TL(user 5)</option>
+                                               <option value="6">Sales(user 6)</option>
+                                              <option value="7">Overall (user 7)</option>
                                               </select>
                                             </div>
                                             </div>
@@ -252,19 +277,19 @@ else
                                         <tbody>
                                         <?php
     
-    $sql="select * from employees order by ID ASC";
+    $sql="select * from Users order by ID ASC";
     $result=$connection->query($sql);
     while($row=$result->fetch_array()){
       ?>
       <tr>
-        <td><?php echo $row['FIRST_NAME']?></td>
-        <td><?php echo $row['LAST_NAME']?></td>
-        <td><?php echo $row['EMAIL']?></td>
-        <td><?php echo $row['DEPARTMENT']?></td>
+        <td><?php echo $row['FirstName']?></td>
+        <td><?php echo $row['LastName']?></td>
+        <td><?php echo $row['Email']?></td>
+        <td><?php echo $row['Department']?></td>
        <td>
        <button class="btn btn-warning"><a href="edit-user.php?userid=<?php echo $row['ID']; ?>">Edit</i></a></button>
     </td><td>
-        <button class="btn btn-danger"><a href="del-user.php?userid=<?php echo $row['ID']; ?> " onClick="return confirm('Sure to delete <?php  echo $row['FIRST_NAME']; ?> <?php  echo $row['LAST_NAME']; ?> from Users?')">Delete</a></button>
+        <button class="btn btn-danger"><a href="del-user.php?userid=<?php echo $row['ID']; ?> " onClick="return confirm('Sure to delete <?php  echo $row['FirstName']; ?> <?php  echo $row['LastName']; ?> from Users?')">Delete</a></button>
         </td>
     </tr>
     <?php } ?>

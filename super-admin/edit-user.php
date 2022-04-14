@@ -3,15 +3,15 @@ include("session.php");
 include("../config/config.php");
 $id=$_GET['userid'];
 
-$sql="select * from employees where ID=$id";
+$sql="select * from Users where ID=$id";
 $result=mysqli_query($connection,$sql);
 $row=mysqli_fetch_assoc($result);
-$fname=$row['FIRST_NAME'];
-$lname=$row['LAST_NAME'];
-$email=$row['EMAIL'];
-$dpt=$row['DEPARTMENT'];
-$reg=$row['REGION'];
-$reg1=$row['ADDREGION'];
+$fname=$row['FirstName'];
+$lname=$row['LastName'];
+$email=$row['Email'];
+$dpt=$row['Department'];
+$reg=$row['Region'];
+$reg1=$row['Region1'];
 
 if(isset($_POST['submit'])){
 $FirstName = $_POST['FName'];
@@ -27,7 +27,7 @@ if($connection->connect_error){
 }
 else
 {
-  $sql="update employees set ID=$id,FIRST_NAME='$FirstName',LAST_NAME='$LastName',EMAIL='$Email',DEPARTMENT='$Department',REGION='$Region',ADDREGION='$Region1' where ID=$id";
+  $sql="update Users set ID=$id,FirstName='$FirstName',LastName='$LastName',Email='$Email',Department='$Department',Region='$Region',Region1='$Region1' where ID=$id";
   
   $result=mysqli_query($connection,$sql);
   if ($result) {
@@ -252,15 +252,15 @@ else
                                         <tbody>
                                         <?php
     
-    $sql="select * from employees order by ID ASC";
+    $sql="select * from users order by ID ASC";
     $result=$connection->query($sql);
     while($row=$result->fetch_array()){
       ?>
       <tr>
-        <td><?php echo $row['FIRST_NAME']?></td>
-        <td><?php echo $row['LAST_NAME']?></td>
-        <td><?php echo $row['EMAIL']?></td>
-        <td><?php echo $row['DEPARTMENT']?></td>
+        <td><?php echo $row['FirstName']?></td>
+        <td><?php echo $row['LastName']?></td>
+        <td><?php echo $row['Email']?></td>
+        <td><?php echo $row['Department']?></td>
 
     </tr>
     <?php } ?>
