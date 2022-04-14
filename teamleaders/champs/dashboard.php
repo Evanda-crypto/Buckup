@@ -222,6 +222,7 @@ if (!$connection) {
             </div>
         </header>
         <!-- /#header -->
+        
         <!-- Content -->
         <div class="content">
             <!-- Animated -->

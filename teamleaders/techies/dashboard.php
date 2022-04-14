@@ -452,7 +452,8 @@ if (!$connection) {
                                 </thead>
                                 <tbody>
                                 <?php
-                      $query  = "SELECT papinstalled.Team_ID,COUNT(papinstalled.Team_ID) as installed,Token_teams.Team_ID,CONCAT(Token_teams.Techie1,'/',Token_teams.Techie2) as techies from papinstalled left join Token_teams on Token_teams.Team_ID=papinstalled.Team_ID WHERE papinstalled.DateInstalled=CURRENT_DATE() and papinstalled.Region='".$_SESSION['Region']."' GROUP BY papinstalled.Team_ID order by installed DESC";
+                      $query  = "SELECT papinstalled.Team_ID,COUNT(papinstalled.Team_ID) as installed,Token_teams.Team_ID,CONCAT(Token_teams.Techie1,'/',Token_teams.Techie2) as techies from 
+                      papinstalled left join Token_teams on Token_teams.Team_ID=papinstalled.Team_ID WHERE papinstalled.DateInstalled=CURRENT_DATE() and papinstalled.Region='".$_SESSION['Region']."' GROUP BY papinstalled.Team_ID order by installed DESC";
                         $result  = mysqli_query($connection, $query);
 
                         $num_rows  = mysqli_num_rows($result);
