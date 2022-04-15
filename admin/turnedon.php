@@ -1,7 +1,6 @@
 <?php
-include("session.php");
-include("../config/config.php");
-
+include "session.php";
+include "../config/config.php";
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -127,8 +126,8 @@ include("../config/config.php");
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="name float-left"><?php echo $_SESSION[
-                 "FName"
-             ]; ?> <?php echo $_SESSION["LName"]; ?></span>
+                            "FName"
+                        ]; ?> <?php echo $_SESSION["LName"]; ?></span>
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -177,29 +176,30 @@ include("../config/config.php");
                                 </thead>
                                 <tbody>
                                 <?php
-    
-    $sql="SELECT turnedonpap.ClientID,papdailysales.BuildingName,upper(papdailysales.BuildingCode) as bcode,upper(papdailysales.Region) as reg,turnedonpap.ChampName,papdailysales.ClientName,papdailysales.ClientContact,Upper(turnedonpap.MacAddress) as Mac,turnedonpap.PapStatus,turnedonpap.DateTurnedOn, CASE WHEN LENGTH(papdailysales.BuildingCode)>11 THEN CONCAT(papdailysales.BuildingCode,'-',(row_number() over(partition by papdailysales.BuildingCode)),'P')
+                                $sql = "SELECT turnedonpap.ClientID,papdailysales.BuildingName,upper(papdailysales.BuildingCode) as bcode,upper(papdailysales.Region) as reg,turnedonpap.ChampName,papdailysales.ClientName,papdailysales.ClientContact,Upper(turnedonpap.MacAddress) as Mac,turnedonpap.PapStatus,turnedonpap.DateTurnedOn, CASE WHEN LENGTH(papdailysales.BuildingCode)>11 THEN CONCAT(papdailysales.BuildingCode,'-',(row_number() over(partition by papdailysales.BuildingCode)),'P')
     WHEN (row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)) <=9 THEN CONCAT(upper(papdailysales.BuildingCode),'-',papdailysales.Floor,'0',(row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)),'P')
     WHEN (row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)) >9 THEN CONCAT(upper(papdailysales.BuildingCode),'-',papdailysales.Floor,(row_number() over(partition by papdailysales.BuildingCode,papdailysales.Floor)),'P')
     end as papcode from papdailysales LEFT JOIN turnedonpap ON turnedonpap.ClientID=papdailysales.ClientID where turnedonpap.ClientID is not null";
-$result=$connection->query($sql);
-while($row=$result->fetch_array()){
-  ?>
+                                $result = $connection->query($sql);
+                                while ($row = $result->fetch_array()) { ?>
   <tr>
-    <td><?php echo $row['papcode']?></td>
-    <td><?php echo $row['BuildingName']?></td>
-    <td><?php echo $row['bcode']?></td>
-    <td><?php echo $row['reg']?></td>
-    <td><?php echo $row['ChampName']?></td>
-    <td><?php echo $row['ClientName']?></td>
-    <td><?php echo $row['ClientContact']?></td>
-    <td><?php echo $row['Mac']?></td>
-    <td><?php echo $row['DateTurnedOn']?></td>
+    <td><?php echo $row["papcode"]; ?></td>
+    <td><?php echo $row["BuildingName"]; ?></td>
+    <td><?php echo $row["bcode"]; ?></td>
+    <td><?php echo $row["reg"]; ?></td>
+    <td><?php echo $row["ChampName"]; ?></td>
+    <td><?php echo $row["ClientName"]; ?></td>
+    <td><?php echo $row["ClientContact"]; ?></td>
+    <td><?php echo $row["Mac"]; ?></td>
+    <td><?php echo $row["DateTurnedOn"]; ?></td>
     <td>
-    <button class="btn btn-warning" ><a href="edit-turnedon.php?clientid=<?php echo $row['ClientID']; ?>" class="text-bold">Edit</a></button>
+    <button class="btn btn-warning" ><a href="edit-turnedon.php?clientid=<?php echo $row[
+        "ClientID"
+    ]; ?>" class="text-bold">Edit</a></button>
     </td>
 </tr>
-<?php } ?>
+<?php }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
