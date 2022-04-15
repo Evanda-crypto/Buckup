@@ -222,7 +222,6 @@ if (!$connection) {
             </div>
         </header>
         <!-- /#header -->
-        
         <!-- Content -->
         <div class="content">
             <!-- Animated -->
@@ -719,7 +718,7 @@ while ($signed = mysqli_fetch_assoc($result)) {
                         mysqli_error();
                 } else {
                     $sql =
-                        "SELECT COUNT(ClientID) restituted FROM papnotinstalled  WHERE Region='" .
+                        "SELECT COUNT(ClientID) restituted FROM papnotinstalled  WHERE Reason<>'Already Installed' and Region='" .
                         $_SESSION["Region"] .
                         "'";
                     $result = mysqli_query($connection, $sql);

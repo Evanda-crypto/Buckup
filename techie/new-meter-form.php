@@ -28,15 +28,6 @@ include("session.php");
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/lib/chosen/chosen.min.css">
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-    <link href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" rel="stylesheet"/>
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
 </head>
 <body style="background-color:#e1e1e1">
     <!-- Left Panel -->
@@ -201,7 +192,7 @@ include("session.php");
                 
             }
             ?>
-                                        <form  method="post" enctype="multipart/form-data" action="action.php" autocomplete="off"> 
+                                        <form enctype="multipart/form-data" id="myForm" autocomplete="off"> 
                                         <div class="form-group">
                                         <label for="x_card_code" class="control-label mb-1">Team ID</label>
                                         <div class="input-group">
@@ -314,4 +305,26 @@ maxdate= year +"-" + month + "-" + todate;
  document.getElementById("termination").setAttribute("max",maxdate);
  </script>
 </body>
+<script>
+
+const myForm = document.getElementById('myForm');
+
+myForm.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const formData= new FormData(this);
+
+    fetch('login.php',{
+        method : 'post',
+        body: formData
+    }).then(function(response){
+        return response.text();
+    }).then(function (text){
+        console.log(text);
+    }).catch(function (error){
+        console.log(error);
+    })
+});
+
+</script>
 </html>
