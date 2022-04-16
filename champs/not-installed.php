@@ -154,7 +154,8 @@ include("../config/config.php");
                                   </thead>
                                   <tbody>
                                   <?php
-                        $query  = "SELECT papdailysales.ClientName,papdailysales.ClientContact,papdailysales.ClientID,papdailysales.Region,papdailysales.BuildingName,papdailysales.DateSigned,papdailysales.ClientAvailability from papdailysales left join papinstalled on papinstalled.ClientID=papdailysales.ClientID left join techietask on techietask.ClientID=papdailysales.ClientID left join reminders on papdailysales.ClientID=reminders.ClientID where reminders.ClientID is null and techietask.ClientID is null and papinstalled.ClientID is null and papdailysales.ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
+                        $query  = "SELECT papdailysales.ClientName,papdailysales.ClientContact,papdailysales.ClientID,papdailysales.Region,papdailysales.BuildingName,papdailysales.DateSigned,papdailysales.ClientAvailability from papdailysales left join papinstalled on papinstalled.ClientID=papdailysales.ClientID left join techietask on 
+                        techietask.ClientID=papdailysales.ClientID left join reminders on papdailysales.ClientID=reminders.ClientID where reminders.ClientID is null and techietask.ClientID is null and papinstalled.ClientID is null and papdailysales.ChampName='".$_SESSION['FName']." ".$_SESSION['LName']."'";
                         $result  = mysqli_query($connection, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                         ?>
